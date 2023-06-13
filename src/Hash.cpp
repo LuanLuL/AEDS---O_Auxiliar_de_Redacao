@@ -1,22 +1,27 @@
 #include "Hash.hpp"
-Hash::Hash() {}
 
-void Hash::setPalavra(Palavra *p)
-{
+/******************************************************************* CONSTRUTORES AND DESTRUTORES*/
+Hash::Hash() {
+   this->p = new Palavra();
+}
+
+Hash::~Hash(){}
+
+/*************************************************************************** GETTERS AND SETTERS */
+void Hash::setPalavra(Palavra *p){
     this->p = p;
 }
-Palavra *Hash::getPalavra()
-{
+
+Palavra *Hash::getPalavra(){
     return this->p;
 }
-int sentenca = 1;
-vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
-{
+
+/*************************************************************************************** METODOS */
+vector<Palavra *> Hash::retorna_vetor(char *separa_linha){
     vector<string> palavras, sentencas_separadas;
     vector<Palavra *> vetorpassado;
     string a;
     char *palavra, *palavra2;
-    // short int sentenca = 1;
     palavra = strtok(separa_linha, ",;- :_");
     while (palavra != nullptr)
     {
@@ -58,8 +63,8 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     }
     return vetorpassado;
 }
-void Hash::learquivo(ifstream &arq)
-{
+
+void Hash::learquivo(ifstream &arq){
     string linha;
     short int paragrafos = 1, contadorlinhas = 0;
     vector<Palavra *> vet;
@@ -106,3 +111,4 @@ void Hash::learquivo(ifstream &arq)
     cout << "Senteças:" << sentenca << endl;
     arq.close();
 }
+

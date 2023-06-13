@@ -4,6 +4,7 @@
 #include<sstream>
 #include"palavra.hpp"
 #include "Hash.hpp"
+
 using namespace std;
 
 int main(){
