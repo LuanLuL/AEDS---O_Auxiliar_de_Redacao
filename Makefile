@@ -1,11 +1,16 @@
-CXX		    := -g++
-CXXFLAGS	:= -Wall -Wextra -pthread -fdiagnostics-color=always
-BUILD		:= ./bin
-OBJ_DIR		:= $(BUILD)/obj
-APP_DIR		:= $(BUILD)
-TARGET		:= a.out
-SRC		    := $(wildcard src/**/*.cpp) $(wildcard src/*.cpp)
-OBJECTS		:= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+CXX      := -g++
+CXXFLAGS := -Wall -Wextra -Werror
+LDFLAGS  := -lstdc++
+BUILD    := ./build
+OBJ_DIR  := $(BUILD)/objects
+APP_DIR  := $(BUILD)/
+DATA_SET := ./dataset
+TARGET   := app
+INCLUDE  := -Iinclude/
+SRC      :=  $(wildcard src/*.cpp)
+
+OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+
 
 all: build $(APP_DIR)/$(TARGET)
 

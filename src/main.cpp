@@ -10,4 +10,5 @@ int main(){
     Hash h;
     ifstream arq;
     h.learquivo(arq);
+    return 0;
 }

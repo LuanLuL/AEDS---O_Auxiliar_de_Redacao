@@ -1,0 +1,5 @@
+Este é um exemplo de texto. Ele contém várias sentenças! Cada sentença termina com um caractere de pontuação. Você pode separar as sentenças usando o ponto de exclamação!, o ponto final (.) ou o ponto de interrogação (?). É importante lembrar de incluir um espaço após cada ponto de pontuação para garantir uma formatação adequada.
+
+As sentenças podem variar em comprimento e conteúdo. Algumas sentenças podem ser curtas, enquanto outras podem ser longas e complexas. O uso adequado dos caracteres de pontuação ajuda a transmitir a intenção e a estrutura das frases.
+
+Ao processar esse texto, você pode separar as sentenças com base nos caracteres de pontuação. Cada sentença pode ser tratada como uma unidade independente para análise, tradução ou qualquer outro propósito desejado.
