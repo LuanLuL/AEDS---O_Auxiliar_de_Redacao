@@ -69,7 +69,7 @@ void Hash::learquivo(ifstream &arq)
     while (getline(arq, linha))
     {
         // map.insert({linha,p});
-        if (linha.length() == 1)
+        if (linha.empty())
         {
             paragrafos++;
             //cout<<endl;
