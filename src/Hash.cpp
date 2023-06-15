@@ -58,7 +58,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
 void Hash::learquivo(ifstream &arq)
 {
     string linha, paragrafo;
-    short int paragrafos = 1, contadorlinhas = 0,contadorcomeço=0;
+    short int paragrafos = 1, contadorlinhas = 0,contadorcomeco=0;
     vector<Palavra *> vet;
     Palavra *p;
     unordered_map<string, Palavra *> map;
@@ -70,7 +70,7 @@ void Hash::learquivo(ifstream &arq)
             cout<<"AAA1"<<endl;
             // cout<<paragrafo<<endl;
             char *separa_linha = new char[paragrafo.length() + 1];
-            contadorcomeço=0;
+            contadorcomeco=0;
             paragrafos++;
             strcpy(separa_linha, paragrafo.c_str());
             vet = retorna_vetor(separa_linha);
@@ -107,7 +107,7 @@ void Hash::learquivo(ifstream &arq)
             cout<<"AAA2"<<endl;
             paragrafo = paragrafo + " " + linha;
         }
-        contadorcomeço++;
+        contadorcomeco++;
         contadorlinhas++;
         cout<<"AAAB"<<endl;
     }
@@ -116,7 +116,7 @@ void Hash::learquivo(ifstream &arq)
     {
         // cout<<paragrafo<<endl;
         char *separa_linha = new char[paragrafo.length() + 1];
-        contadorcomeço=0;
+        contadorcomeco=0;
         strcpy(separa_linha, paragrafo.c_str());
         vet = retorna_vetor(separa_linha);
         paragrafo = "";
