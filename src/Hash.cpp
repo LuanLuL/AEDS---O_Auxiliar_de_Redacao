@@ -9,8 +9,8 @@ Hash::Hash()
 /*************************************************************************** GETTERS AND SETTERS */
 void Hash::setPalavra(Palavra *p)
 {
-    this->p =p;
-} 
+    this->p = p;
+}
 
 Palavra *Hash::getPalavra()
 {
@@ -25,12 +25,7 @@ Para *Hash::getPara()
 {
     return this->para;
 }
-
 /*************************************************************************************** METODOS */
-
-/// @brief O QUE ESSA FUNÇÃO FAZ?
-/// @param separa_linha POR QUÊ ESSE PARÂMETRO É PASSADO?
-/// @return O QUE ESSA FUNÇÃO RETORNA?
 vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
 {
     int sentenca=1;
@@ -60,7 +55,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
             Palavra *p = new Palavra();
             setPalavra(p);
             vector<int> vec = getPalavra()->getnumsentenca();
-            vec.push_back(sentenca);
+            vec.push_back(i+1);
             getPalavra()->setnumsentenca(vec);
             getPalavra()->setpalavra(palavra2);
             vetorpassado.push_back(getPalavra());
@@ -71,27 +66,38 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     return vetorpassado;
 }
 
-/// @brief O QUE ESSA FUNÇÃO FAZ?
-/// @param arq POR QUÊ ESSE PARÂMETRO É PASSADO?
 void Hash::learquivo(ifstream &arq)
 {
-    string linha, paragrafo;
-    short int paragrafos = 1, contadorlinhas = 0,contadorcomeco=0;
+    string linha, paragrafo="";
+    short int paragrafos = 0, contadorlinhas = 0,contadorcomeco=0;
     vector<Palavra *> vet;
     Palavra *p;
-    this->para=new Para();
-    setPara(para);
     cout<<getPara()->getnumfim()<<endl;
     unordered_map<string, Palavra *> map;
-    arq.open("dataset/entrada.txt");
+    arq.open("dataset/entrada2.txt");
     while (getline(arq, linha))
     {
-        if (linha.empty())
+        if(linha.empty()==false)
         {
+            paragrafo = paragrafo + " " + linha;
+        }
+        else
+        {
+            this->para=new Para();
+            setPara(para);
+            paragrafos++;
+            if(paragrafos==1){
+                getPara()->setnumfim(contadorlinhas);
+                getPara()->setnuminicio((contadorlinhas-contadorcomeco)+1);
+            }
+            else{
+                getPara()->setnumfim(contadorlinhas);
+                getPara()->setnuminicio((contadorlinhas-contadorcomeco)+2);
+            }
+            cout<<"Fim: "<<getPara()->getnumfim()<<"inicio: "<<getPara()->getnuminicio()<<endl;
             // cout<<paragrafo<<endl;
             char *separa_linha = new char[paragrafo.length() + 1];
             contadorcomeco=0;
-            paragrafos++;
             strcpy(separa_linha, paragrafo.c_str());
             vet = retorna_vetor(separa_linha);
             paragrafo = "";
@@ -100,6 +106,7 @@ void Hash::learquivo(ifstream &arq)
                 if (map.find(i->getpalavra()) != map.end())
                 {
                     // cout<<"\nAAA\n"<<endl;
+                    //cout<<i->getnumsentenca()[0]<<endl;
                     vector<int> vecparagrafos = map[i->getpalavra()]->getparagrafo();
                     vecparagrafos.push_back(paragrafos);
                     map[i->getpalavra()]->setparagrafo(vecparagrafos);
@@ -122,16 +129,24 @@ void Hash::learquivo(ifstream &arq)
                 }
             }
         }
-        else
-        {
-            paragrafo = paragrafo + " " + linha;
-        }
         contadorcomeco++;
         contadorlinhas++;
     }
-    paragrafos++;
     if (paragrafo != "")
     {
+        // cout<<paragrafo<<endl;
+        this->para=new Para();
+        setPara(para);
+        paragrafos++;
+        if(paragrafos==1){
+            getPara()->setnumfim(contadorlinhas);
+            getPara()->setnuminicio((contadorlinhas-contadorcomeco)+1);
+        }
+        else{
+            getPara()->setnumfim(contadorlinhas);
+            getPara()->setnuminicio((contadorlinhas-contadorcomeco)+2);
+        }
+        cout<<"Fim: "<<getPara()->getnumfim()<<"inicio: "<<getPara()->getnuminicio()<<endl;
         // cout<<paragrafo<<endl;
         char *separa_linha = new char[paragrafo.length() + 1];
         contadorcomeco=0;
@@ -143,6 +158,8 @@ void Hash::learquivo(ifstream &arq)
             if (map.find(i->getpalavra()) != map.end())
             {
                 // cout<<"\nAAA\n"<<endl;
+                //cout<<i->getnumsentenca()[0]<<endl;
+                //map[i->getpalavra()]->setcontador(map[i->getpalavra()]->getcontador()+1);
                 vector<int> vecparagrafos = map[i->getpalavra()]->getparagrafo();
                 vecparagrafos.push_back(paragrafos);
                 map[i->getpalavra()]->setparagrafo(vecparagrafos);
@@ -155,7 +172,7 @@ void Hash::learquivo(ifstream &arq)
                 // cout<<" "<<i->getpalavra();
                 p = new Palavra();
                 setPalavra(p);
-                getPalavra()->setcontador(contadorlinhas);
+                //getPalavra()->setcontador(1);
                 getPalavra()->setpalavra(i->getpalavra());
                 vector<int> vecparagrafos = getPalavra()->getparagrafo();
                 vecparagrafos.push_back(paragrafos);
@@ -167,15 +184,14 @@ void Hash::learquivo(ifstream &arq)
         }
     }
 
-    // for (const auto &par : map)
-    // {
-    //     cout << "CHAVE:" << par.first <<endl;
-    //     for(const auto& j:par.second->getnumsentenca()){
-    //         cout<< "Valor: " << j<<" "<< endl;
-    //     }
-    // }
-    cout << "Paragrafos:" << paragrafos - 1 << endl;
+    for (const auto &par : map)
+    {
+        cout << "CHAVE:" << par.first <<endl;
+        for(int j=0;j<int(par.second->getnumsentenca().size());j++){
+            cout<< "Sentença: " << par.second->getnumsentenca()[j]<<" Paragrafo: "<< par.second->getparagrafo()[j]<<" Tamanho:"<<par.second->getparagrafo().size()<< endl;
+        }
+    }
+    cout << "Paragrafos:" << paragrafos << endl;
     cout << "Linhas:" << contadorlinhas << endl;
-    //cout << "Senteças:" << sentenca << endl;
     arq.close();
 }
