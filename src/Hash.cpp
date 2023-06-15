@@ -5,8 +5,6 @@ Hash::Hash()
     this->p = new Palavra();
 }
 
-Hash::~Hash() {}
-
 /*************************************************************************** GETTERS AND SETTERS */
 void Hash::setPalavra(Palavra *p)
 {
@@ -16,15 +14,6 @@ void Hash::setPalavra(Palavra *p)
 Palavra *Hash::getPalavra()
 {
     return this->p;
-}
-void Hash::setParagrafo(Paragrafo *para)
-{
-    this->para = para;
-}
-
-Paragrafo *Hash::getParagrafo()
-{
-    return this->para;
 }
 /*************************************************************************************** METODOS */
 vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
@@ -72,20 +61,15 @@ void Hash::learquivo(ifstream &arq)
     short int paragrafos = 1, contadorlinhas = 0,contadorcomeço=0;
     vector<Palavra *> vet;
     Palavra *p;
-    Paragrafo *para;
     unordered_map<string, Palavra *> map;
-    unordered_map<int, Paragrafo *> map_paragrafo;
     arq.open("dataset/entrada.txt");
     while (getline(arq, linha))
     {
         if (linha.empty())
         {
+            cout<<"AAA1"<<endl;
             // cout<<paragrafo<<endl;
             char *separa_linha = new char[paragrafo.length() + 1];
-            para=new Paragrafo();
-            setParagrafo(para);
-            getParagrafo()->setnumFim(contadorlinhas);
-            getParagrafo()->setnumInicio((contadorlinhas-contadorcomeço)+2);
             contadorcomeço=0;
             paragrafos++;
             strcpy(separa_linha, paragrafo.c_str());
@@ -120,10 +104,12 @@ void Hash::learquivo(ifstream &arq)
         }
         else
         {
+            cout<<"AAA2"<<endl;
             paragrafo = paragrafo + " " + linha;
         }
         contadorcomeço++;
         contadorlinhas++;
+        cout<<"AAAB"<<endl;
     }
     paragrafos++;
     if (paragrafo != "")
