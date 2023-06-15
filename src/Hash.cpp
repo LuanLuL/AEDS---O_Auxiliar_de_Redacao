@@ -10,7 +10,7 @@ Hash::Hash()
 void Hash::setPalavra(Palavra *p)
 {
     this->p = p;
-}
+} 
 
 Palavra *Hash::getPalavra()
 {
