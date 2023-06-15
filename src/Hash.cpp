@@ -1,131 +1,177 @@
 #include "Hash.hpp"
-
 /******************************************************************* CONSTRUTORES AND DESTRUTORES*/
-Hash::Hash() {
-   this->p = new Palavra();
+Hash::Hash()
+{
+    this->p = new Palavra();
 }
 
-Hash::~Hash(){}
+Hash::~Hash() {}
 
 /*************************************************************************** GETTERS AND SETTERS */
-void Hash::setPalavra(Palavra *p){
+void Hash::setPalavra(Palavra *p)
+{
     this->p = p;
 }
 
-Palavra *Hash::getPalavra(){
+Palavra *Hash::getPalavra()
+{
     return this->p;
 }
+void Hash::setParagrafo(Paragrafo *para)
+{
+    this->para = para;
+}
+
+Paragrafo *Hash::getParagrafo()
+{
+    return this->para;
+}
 /*************************************************************************************** METODOS */
-vector<Palavra *> Hash::retorna_vetor(char *separa_linha){
+vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
+{
     vector<string> palavras, sentencas_separadas;
     vector<Palavra *> vetorpassado;
     string a;
     char *palavra, *palavra2;
-    palavra = strtok(separa_linha, ",;- :_");
+    palavra = strtok(separa_linha, ".!?");
     while (palavra != nullptr)
     {
+        a = palavra;
+        cout << a  <<endl<<endl;
+        if (a.length() != 1)
+        {
+            sentenca++;
+        }
         palavras.push_back(palavra);
-        palavra = strtok(nullptr, ",;- :_");
+        palavra = strtok(nullptr, ".!?");
     }
     for (int i = 0; i < int(palavras.size()); i++)
     {
         palavra = new char[palavras[i].length() + 1];
         strcpy(palavra, palavras[i].c_str());
-        if (palavras[i].find('.') != string::npos || palavras[i].find('?') != string::npos || palavras[i].find('!') != string::npos)
-        {
-            palavra2 = strtok(palavra, "?!.");
-            while (palavra2 != nullptr)
-            {
-                a=palavra2;
-                if(a.length()!=1){
-                    sentenca++;
-                }
-                Palavra *p = new Palavra();
-                setPalavra(p);
-                vector<int> vec=getPalavra()->getsentenca();
-                vec.push_back(sentenca);
-                getPalavra()->setsentenca(vec);
-                getPalavra()->setpalavra(palavra2);
-                vetorpassado.push_back(getPalavra());
-                sentencas_separadas.push_back(palavra2);
-                palavra2 = strtok(nullptr, "?!.");
-            }
-        }
-        else
+        palavra2 = strtok(palavra, ",;- :_");
+        while (palavra2 != nullptr)
         {
             Palavra *p = new Palavra();
-            palavra2 = palavra;
             setPalavra(p);
-            vector<int> vec=getPalavra()->getsentenca();
+            vector<int> vec = getPalavra()->getsentenca();
             vec.push_back(sentenca);
             getPalavra()->setsentenca(vec);
             getPalavra()->setpalavra(palavra2);
             vetorpassado.push_back(getPalavra());
             sentencas_separadas.push_back(palavra2);
+            palavra2 = strtok(nullptr, ",;- :_");
         }
     }
     return vetorpassado;
 }
 
-void Hash::learquivo(ifstream &arq){
-    string linha;
-    short int paragrafos = 1, contadorlinhas = 0;
+void Hash::learquivo(ifstream &arq)
+{
+    string linha, paragrafo;
+    short int paragrafos = 1, contadorlinhas = 0,contadorcomeço=0;
     vector<Palavra *> vet;
     Palavra *p;
+    Paragrafo *para;
     unordered_map<string, Palavra *> map;
+    unordered_map<int, Paragrafo *> map_paragrafo;
     arq.open("dataset/entrada.txt");
     while (getline(arq, linha))
     {
-        // map.insert({linha,p});
         if (linha.empty())
         {
+            // cout<<paragrafo<<endl;
+            char *separa_linha = new char[paragrafo.length() + 1];
+            para=new Paragrafo();
+            setParagrafo(para);
+            getParagrafo()->setnumFim(contadorlinhas);
+            getParagrafo()->setnumInicio((contadorlinhas-contadorcomeço)+2);
+            contadorcomeço=0;
             paragrafos++;
-            //cout<<endl;
-        }
-        else
-        {
-            // cout<<linha.length()<<endl;
-            char *separa_linha = new char[linha.length() + 1];
-            strcpy(separa_linha, linha.c_str());
+            strcpy(separa_linha, paragrafo.c_str());
             vet = retorna_vetor(separa_linha);
+            paragrafo = "";
             for (const auto &i : vet)
             {
-                if(map.find(i->getpalavra())!=map.end()){
-                    //cout<<"\nAAA\n"<<endl;
-                    vector<int> vecparagrafos=map[i->getpalavra()]->getparagrafo();
+                if (map.find(i->getpalavra()) != map.end())
+                {
+                    // cout<<"\nAAA\n"<<endl;
+                    vector<int> vecparagrafos = map[i->getpalavra()]->getparagrafo();
                     vecparagrafos.push_back(paragrafos);
                     map[i->getpalavra()]->setparagrafo(vecparagrafos);
-                    vector<int> vecsentenca=map[i->getpalavra()]->getsentenca();
+                    vector<int> vecsentenca = map[i->getpalavra()]->getsentenca();
                     vecsentenca.push_back(i->getsentenca()[0]);
                     map[i->getpalavra()]->setsentenca(vecsentenca);
                 }
-                else{
-                //cout<<" "<<i->getpalavra();
+                else
+                {
                     p = new Palavra();
                     setPalavra(p);
                     getPalavra()->setcontador(contadorlinhas);
                     getPalavra()->setpalavra(i->getpalavra());
-                    vector<int> vecparagrafos=getPalavra()->getparagrafo();
+                    vector<int> vecparagrafos = getPalavra()->getparagrafo();
                     vecparagrafos.push_back(paragrafos);
                     getPalavra()->setparagrafo(vecparagrafos);
-                    vector<int> vecsentenca=i->getsentenca();
+                    vector<int> vecsentenca = i->getsentenca();
                     getPalavra()->setsentenca(vecsentenca);
                     map.insert({i->getpalavra(), getPalavra()});
                 }
-
-                // cout<<vet[i];
             }
-            // cout<<endl;
         }
+        else
+        {
+            paragrafo = paragrafo + " " + linha;
+        }
+        contadorcomeço++;
         contadorlinhas++;
     }
-    for (const auto &par : map)
+    paragrafos++;
+    if (paragrafo != "")
     {
-        cout << "CHAVE:" << par.first << "\t\tValor: " << par.second->getsentenca().size() << endl;
+        // cout<<paragrafo<<endl;
+        char *separa_linha = new char[paragrafo.length() + 1];
+        contadorcomeço=0;
+        strcpy(separa_linha, paragrafo.c_str());
+        vet = retorna_vetor(separa_linha);
+        paragrafo = "";
+        for (const auto &i : vet)
+        {
+            if (map.find(i->getpalavra()) != map.end())
+            {
+                // cout<<"\nAAA\n"<<endl;
+                vector<int> vecparagrafos = map[i->getpalavra()]->getparagrafo();
+                vecparagrafos.push_back(paragrafos);
+                map[i->getpalavra()]->setparagrafo(vecparagrafos);
+                vector<int> vecsentenca = map[i->getpalavra()]->getsentenca();
+                vecsentenca.push_back(i->getsentenca()[0]);
+                map[i->getpalavra()]->setsentenca(vecsentenca);
+            }
+            else
+            {
+                // cout<<" "<<i->getpalavra();
+                p = new Palavra();
+                setPalavra(p);
+                getPalavra()->setcontador(contadorlinhas);
+                getPalavra()->setpalavra(i->getpalavra());
+                vector<int> vecparagrafos = getPalavra()->getparagrafo();
+                vecparagrafos.push_back(paragrafos);
+                getPalavra()->setparagrafo(vecparagrafos);
+                vector<int> vecsentenca = i->getsentenca();
+                getPalavra()->setsentenca(vecsentenca);
+                map.insert({i->getpalavra(), getPalavra()});
+            }
+        }
     }
-    cout << "Paragrafos:" << paragrafos << endl;
+
+    // for (const auto &par : map)
+    // {
+    //     cout << "CHAVE:" << par.first <<endl;
+    //     for(const auto& j:par.second->getsentenca()){
+    //         cout<< "Valor: " << j<<" "<< endl;
+    //     }
+    // }
+    cout << "Paragrafos:" << paragrafos - 1 << endl;
     cout << "Linhas:" << contadorlinhas << endl;
     cout << "Senteças:" << sentenca << endl;
     arq.close();
 }
-
