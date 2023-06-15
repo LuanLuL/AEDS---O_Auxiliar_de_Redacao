@@ -13,15 +13,23 @@ private:
     vector<int> paragrafo, numsentenca;
     string palavra;
 public:
+    //Construtor:
     Palavra();
+
+    //Gets e Sets:
     void setcontador(short int contador);
     short int getcontador() const;
+
     void setparagrafo(vector<int> paragrafo);
     vector<int> getparagrafo() const;
+
     void setnumsentenca(vector<int> numsentenca);
     vector<int> getnumsentenca() const;
+
     void setpalavra(string palavra);
     string getpalavra() const;
+
+    //Métodos:
     void learquivo(ifstream arq);
 };
 #endif

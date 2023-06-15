@@ -25,7 +25,12 @@ Para *Hash::getPara()
 {
     return this->para;
 }
+
 /*************************************************************************************** METODOS */
+
+/// @brief O QUE ESSA FUNÇÃO FAZ?
+/// @param separa_linha POR QUÊ ESSE PARÂMETRO É PASSADO?
+/// @return O QUE ESSA FUNÇÃO RETORNA?
 vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
 {
     int sentenca=1;
@@ -66,6 +71,8 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     return vetorpassado;
 }
 
+/// @brief O QUE ESSA FUNÇÃO FAZ?
+/// @param arq POR QUÊ ESSE PARÂMETRO É PASSADO?
 void Hash::learquivo(ifstream &arq)
 {
     string linha, paragrafo;
