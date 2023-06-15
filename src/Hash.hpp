@@ -23,6 +23,8 @@ class Hash{
         //Métodos:
         void learquivo(ifstream &arq);
         vector<Palavra*> retorna_vetor(char *separa_linha);
+
+        void stopwords(string);
 };
 
 #endif

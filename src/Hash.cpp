@@ -195,3 +195,25 @@ void Hash::learquivo(ifstream &arq)
     cout << "Linhas:" << contadorlinhas << endl;
     arq.close();
 }
+
+void Hash::stopwords(string palavra){
+
+    ifstream arq("dataset/stopwords.txt");
+    string aux;
+    if(arq.is_open()){
+
+        while(a){
+            
+        }
+
+        arq.close();
+    }else{
+        cout << "Não foi possível abrir o arquivo." << endl;
+    
+    }
+
+    int tam = palavras.size();
+     for (int i = 0; i < tam; i++) {
+        cout << "Palavra " << i + 1 << ": " << palavras[i] << endl;
+    }
+}

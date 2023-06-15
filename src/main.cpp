@@ -10,6 +10,7 @@ using namespace std;
 int main(){
     Hash h;
     ifstream arq;
-    h.learquivo(arq);
+    string palavra = "no coco ajcu da roça teta";
+    h.stopwords(palavra);
     return 0;
 }
