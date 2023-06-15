@@ -2,16 +2,19 @@
 #define HASH_HPP
 
 #include"palavra.hpp"
+#include "Para.hpp"
 
-int sentenca = 1;
 
 class Hash{
     private:
-        Palavra *p=new Palavra();
+        Palavra *p;
+        Para *para;
     public:
         Hash();
         void setPalavra(Palavra *p);
         Palavra* getPalavra();
+        void setPara(Para *p);
+        Para* getPara();
         void learquivo(ifstream &arq);
         vector<Palavra*> retorna_vetor(char *separa_linha);
 };

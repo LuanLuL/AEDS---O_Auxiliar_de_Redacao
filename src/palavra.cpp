@@ -14,11 +14,11 @@ void Palavra::setparagrafo(vector<int> paragrafo){
 vector<int> Palavra::getparagrafo() const{
     return this->paragrafo;
 }
-void Palavra::setsentenca(vector<int> sentenca){
-    this->sentenca=sentenca;
+void Palavra::setnumsentenca(vector<int> numsentenca){
+    this->numsentenca=numsentenca;
 }
-vector<int> Palavra::getsentenca() const{
-    return this->sentenca;
+vector<int> Palavra::getnumsentenca() const{
+    return this->numsentenca;
 }
 void Palavra::setpalavra(string palavra){
     this->palavra=palavra;

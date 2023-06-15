@@ -10,7 +10,7 @@ class Palavra
 {
 private:
     short int contador;
-    vector<int> paragrafo, sentenca;
+    vector<int> paragrafo, numsentenca;
     string palavra;
 public:
     Palavra();
@@ -18,8 +18,8 @@ public:
     short int getcontador() const;
     void setparagrafo(vector<int> paragrafo);
     vector<int> getparagrafo() const;
-    void setsentenca(vector<int> sentenca);
-    vector<int> getsentenca() const;
+    void setnumsentenca(vector<int> numsentenca);
+    vector<int> getnumsentenca() const;
     void setpalavra(string palavra);
     string getpalavra() const;
     void learquivo(ifstream arq);
