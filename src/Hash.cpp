@@ -222,7 +222,7 @@ void ShowWords(vector <string> map)
     {
         counter++;
         cout<<word<<" ";
-        if(counter%5==0)
+        if(counter%22==0)
             cout<<endl;
     }
 }
