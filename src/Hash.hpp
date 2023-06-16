@@ -30,8 +30,10 @@ class Hash{
         void learquivo(ifstream &arq);
         vector<Palavra*> retorna_vetor(char *separa_linha);
 
+        
+
         void stopwords(string);
-        void ShowWords();
+        void AlphaOrder();
 };
 
 #endif

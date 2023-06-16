@@ -82,6 +82,8 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     return vetorpassado;
 }
 
+/// @brief Função responsável por ler o arquivo e armazenar todas as palavras no vector map
+/// @param arq ponteiro do tipo ifstream
 void Hash::learquivo(ifstream &arq)
 {
     string linha, paragrafo="";
@@ -210,34 +212,36 @@ void Hash::learquivo(ifstream &arq)
     cout << "Paragrafos:" << paragrafos << endl;
     cout << "Linhas:" << contadorlinhas << endl;
     arq.close();
-
-    for (const auto &par : this->map)
-    {
-        //cout << "CHAVE:" << par.first <<endl;
-        vectorordenado.push_back(par.first);
-    }
-
-    std::sort(vectorordenado.begin(), vectorordenado.end());
-
-    // Imprime as strings ordenadas
-    for (const std::string& str : vectorordenado) {
-        std::cout << str << endl;
-    }
-
 }
 
-void Hash::ShowWords()
+void ShowWords(vector <string> map)
 {
-    for(const auto &word : this->map)
+    int counter = 0;
+    for(const auto &word : map)
     {
-        cout<<word.first<<endl;
+        counter++;
+        cout<<word<<" ";
+        if(counter%22==0)
+            cout<<endl;
     }
 }
 
-// AlphaOrder()
-// {
-//     if()
-// }
+void Hash::AlphaOrder()
+{
+        vector <string> vectorordenado;
+
+        //Inserindo palavras no vetor:
+        for (const auto &par : this->map)
+        {
+            vectorordenado.push_back(par.first);
+        }
+
+        //Ordenando palavras:
+        std::sort(vectorordenado.begin(), vectorordenado.end());
+
+        //Mostrando palavras:
+        ShowWords(vectorordenado);
+}
 
 /*void Hash::stopwords(string palavra){
 

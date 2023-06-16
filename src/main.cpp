@@ -9,7 +9,7 @@ int main(){
     ifstream arq;
     string palavra = "no coco ajcu da roça teta";
     h.learquivo(arq);
-    h.ShowWords();
+    h.AlphaOrder();
     //h.stopwords(palavra);
     return 0;
 }
