@@ -8,7 +8,8 @@
 class Hash{
     private:
         Palavra *p;
-        Para *para;
+        Para *para;    
+        unordered_map<string, Palavra *> map;
     public:
         //Construtor:
         Hash();
@@ -20,11 +21,16 @@ class Hash{
         void setPara(Para *p);
         Para* getPara();
 
+        
+        void setMap(unordered_map<string, Palavra *> map);
+        unordered_map<string, Palavra *> getMap();
+
         //Métodos:
         void learquivo(ifstream &arq);
         vector<Palavra*> retorna_vetor(char *separa_linha);
 
         void stopwords(string);
+        void ShowWords();
 };
 
 #endif
