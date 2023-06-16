@@ -215,6 +215,8 @@ void Hash::learquivo(ifstream &arq)
 
 }
 
+/// @brief Essa função mostra todos os valores contidos em um vector
+/// @param map vector com elementos do tipo string
 void ShowWords(vector <string> map)
 {
     int counter = 0;
@@ -227,6 +229,7 @@ void ShowWords(vector <string> map)
     }
 }
 
+/// @brief Essa função cria um vector com todas as palavras de map estando ordenadas com todas as suas letras sem acento minúsculas
 void Hash::AlphaOrder()
 {
         vector <string> vectorordenado;
