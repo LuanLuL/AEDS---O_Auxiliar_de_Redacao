@@ -212,6 +212,7 @@ void Hash::learquivo(ifstream &arq)
     cout << "Paragrafos:" << paragrafos << endl;
     cout << "Linhas:" << contadorlinhas << endl;
     arq.close();
+
 }
 
 void ShowWords(vector <string> map)
@@ -221,7 +222,7 @@ void ShowWords(vector <string> map)
     {
         counter++;
         cout<<word<<" ";
-        if(counter%22==0)
+        if(counter%5==0)
             cout<<endl;
     }
 }
@@ -234,6 +235,13 @@ void Hash::AlphaOrder()
         for (const auto &par : this->map)
         {
             vectorordenado.push_back(par.first);
+        }
+
+        //Convertendo letras maiúsculas para minúsculas:
+        for (string &par : vectorordenado)
+        {
+            std::transform(par.begin(), par.end(), par.begin(),
+            [](unsigned char c) { return std::tolower(c); });
         }
 
         //Ordenando palavras:
