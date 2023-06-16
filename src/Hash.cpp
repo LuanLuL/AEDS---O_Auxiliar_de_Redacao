@@ -71,10 +71,11 @@ void Hash::learquivo(ifstream &arq)
     string linha, paragrafo="";
     short int paragrafos = 0, contadorlinhas = 0,contadorcomeco=0;
     vector<Palavra *> vet;
+    vector <string> vectorordenado;
     Palavra *p;
     cout<<getPara()->getnumfim()<<endl;
     unordered_map<string, Palavra *> map;
-    arq.open("dataset/entrada2.txt");
+    arq.open("dataset/DomCasmurro.txt");
     while (getline(arq, linha))
     {
         if(linha.empty()==false)
@@ -194,9 +195,23 @@ void Hash::learquivo(ifstream &arq)
     cout << "Paragrafos:" << paragrafos << endl;
     cout << "Linhas:" << contadorlinhas << endl;
     arq.close();
+
+    for (const auto &par : map)
+    {
+        //cout << "CHAVE:" << par.first <<endl;
+        vectorordenado.push_back(par.first);
+    }
+
+    std::sort(vectorordenado.begin(), vectorordenado.end());
+
+    // Imprime as strings ordenadas
+    for (const std::string& str : vectorordenado) {
+        std::cout << str << endl;
+    }
+
 }
 
-void Hash::stopwords(string palavra){
+/*void Hash::stopwords(string palavra){
 
     ifstream arq("dataset/stopwords.txt");
     string aux;
@@ -216,4 +231,4 @@ void Hash::stopwords(string palavra){
      for (int i = 0; i < tam; i++) {
         cout << "Palavra " << i + 1 << ": " << palavras[i] << endl;
     }
-}
+}*/
