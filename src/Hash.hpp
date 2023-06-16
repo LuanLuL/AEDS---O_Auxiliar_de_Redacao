@@ -7,9 +7,11 @@
 
 class Hash{
     private:
+        //Atributos:
         Palavra *p;
         Para *para;    
         unordered_map<string, Palavra *> map;
+
     public:
         //Construtor:
         Hash();
@@ -20,7 +22,6 @@ class Hash{
 
         void setPara(Para *p);
         Para* getPara();
-
         
         void setMap(unordered_map<string, Palavra *> map);
         unordered_map<string, Palavra *> getMap();
