@@ -5,6 +5,10 @@
 #include<string.h>
 #include<fstream>
 #include<vector>
+#include <algorithm>
+#include<string>
+#include<sstream>
+
 using namespace std;
 class Palavra
 {
