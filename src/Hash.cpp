@@ -224,9 +224,39 @@ void ShowWords(vector <string> map)
     {
         counter++;
         cout<<word<<" ";
-        if(counter%22==0)
+        if(counter%20==0)
             cout<<endl;
     }
+}
+
+unsigned char accentRemover(unsigned char c)
+{
+    static std::locale mirror;
+
+    char newChar;
+    
+    if(std::isalpha(c, mirror))
+    {
+
+        if(c == 'À' || c == 'Á' || c == 'Ã' || c == 'Â')
+            c = 'a';
+
+        else if(c == 'É' || c == 'Ê')
+            c = 'e';
+        
+        else if(c == 'Í')
+            c = 'i';
+        
+        else if(c == 'Ó' || c == 'Ô' || c == 'Õ')
+            c = 'o';
+        
+        else if(c == 'Ú' || c == 'Ü')
+            c = 'u';
+
+        c = std::tolower(c, mirror);
+    }
+
+    else return c;
 }
 
 /// @brief Essa função cria um vector com todas as palavras de map estando ordenadas com todas as suas letras sem acento minúsculas
