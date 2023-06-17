@@ -75,7 +75,6 @@ string Hash::UpperToLowerAccent(string bigAccentString)
                 }
                 else if (int(bigAccentString[i + 1]) == -119)
                 {
-                    cout << bigAccentString << endl;
                     bigAccentString.replace(i, 2, "é");
                 }
             }
@@ -136,7 +135,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     {
         palavra = new char[palavras[i].length() + 1];
         strcpy(palavra, palavras[i].c_str());
-        palavra2 = strtok(palavra, ",;-\"° :_");
+        palavra2 = strtok(palavra, ",;\"°() :_");
         while (palavra2 != nullptr)
         {
             // A=-127,-128,-126,125´`^~//E=-118 e-119^´//I=-115´//O=-107 a -109~^´//U=-100 e-102´ e bagulho
@@ -151,7 +150,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
             getPalavra()->setpalavra(palavra2);
             vetorpassado.push_back(getPalavra());
             sentencas_separadas.push_back(palavra2);
-            palavra2 = strtok(nullptr, ",;-\"° :_");
+            palavra2 = strtok(nullptr, ",;\"°() :_");
         }
     }
     return vetorpassado;
@@ -201,11 +200,14 @@ void Hash::learquivo(ifstream &arq)
                     // Caso essa palavra for diferente de um ponteiro nulo entro no if
                 if (this->map.find(i->getpalavra()) != this->map.end())
                 {
+<<<<<<< HEAD
                     // cout<<"\nAAA\n"<<endl;
                     // cout<<i->getnumsentenca()[0]<<endl;
 
                     //vecparagrafos é em quais paragrafos a palavra aparece:
                         //vecparagrafos tem índice correspondente à vez que a palavra apareceu:
+=======
+>>>>>>> da465a44839524a4d386456b4607626410c5176d
                     vector<int> vecparagrafos = this->map[i->getpalavra()]->getparagrafo();
                     
                     //Adiciona o número de ocorrência da palavra à vecparagrafos:
@@ -240,7 +242,6 @@ void Hash::learquivo(ifstream &arq)
 
     if (paragrafo != "")
     {
-        // cout<<paragrafo<<endl;
         this->para = new Para();
         setPara(para);
         paragrafos++;
@@ -290,34 +291,33 @@ void Hash::learquivo(ifstream &arq)
             }
         }
     }
-
-    // for (const auto &par : this->map)
-    // {
-    // cout  << par.first<<" ";
-    // for(int j=0;j<int(par.second->getnumsentenca().size());j++){
-    //     cout<< "Sentença: " << par.second->getnumsentenca()[j]<<" Paragrafo: "<< par.second->getparagrafo()[j]<<" Tamanho:"<<par.second->getparagrafo().size()<< endl;
-    // }
-    // }
-    // cout << "Paragrafos:" << paragrafos << endl;
-    // cout << "Linhas:" << contadorlinhas << endl;
     arq.close();
+    for (const auto& par:map){
+        cout<<"Chave: "<<par.first<<endl;
+        for(int i=0;i<int(par.second->getparagrafo().size());i++){
+            cout<< "Sentença: "<< par.second->getnumsentenca()[i]<<"  "<<"Paragrafo: "<<par.second->getparagrafo()[i]<<endl;
+        }
+    }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> da465a44839524a4d386456b4607626410c5176d
 /// @brief Essa função mostra todos os valores contidos em um vector
 /// @param map vector com elementos do tipo string
-void ShowWords(vector<string> map)
-{
-    int counter = 0;
-    for (const auto &word : map)
-    {
-        counter++;
-        cout << word << " ";
-        if (counter % 20 == 0)
-            cout << endl;
-    }
-    cout<<endl;
-}
+// void ShowWords(vector<string> map)
+// {
+//     int counter = 0;
+//     for (const auto &word : map)
+//     {
+//         counter++;
+//         cout << word << " ";
+//         if (counter % 20 == 0)
+//             cout << endl;
+//     }
+//     cout<<endl;
+// }
 
 // unsigned char accentRemover(unsigned char c)
 // {
@@ -372,7 +372,7 @@ void Hash::AlphaOrder()
     std::sort(vectorordenado.begin(), vectorordenado.end());
 
     // Mostrando palavras:
-    ShowWords(vectorordenado);
+    //ShowWords(vectorordenado);
 }
 
 void Hash::FirstOcurrencyWord(string word)
