@@ -75,7 +75,6 @@ string Hash::UpperToLowerAccent(string bigAccentString)
                 }
                 else if (int(bigAccentString[i + 1]) == -119)
                 {
-                    cout << bigAccentString << endl;
                     bigAccentString.replace(i, 2, "é");
                 }
             }
@@ -136,7 +135,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     {
         palavra = new char[palavras[i].length() + 1];
         strcpy(palavra, palavras[i].c_str());
-        palavra2 = strtok(palavra, ",;-\"° :_");
+        palavra2 = strtok(palavra, ",;-\"°() :_");
         while (palavra2 != nullptr)
         {
             // A=-127,-128,-126,125´`^~//E=-118 e-119^´//I=-115´//O=-107 a -109~^´//U=-100 e-102´ e bagulho
@@ -151,7 +150,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
             getPalavra()->setpalavra(palavra2);
             vetorpassado.push_back(getPalavra());
             sentencas_separadas.push_back(palavra2);
-            palavra2 = strtok(nullptr, ",;-\"° :_");
+            palavra2 = strtok(nullptr, ",;-\"°() :_");
         }
     }
     return vetorpassado;
@@ -288,6 +287,7 @@ void Hash::learquivo(ifstream &arq)
     // }
     // cout << "Paragrafos:" << paragrafos << endl;
     // cout << "Linhas:" << contadorlinhas << endl;
+    cout<<map.size()<<endl;
     arq.close();
 }
 
