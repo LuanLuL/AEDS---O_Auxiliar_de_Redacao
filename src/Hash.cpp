@@ -197,17 +197,27 @@ void Hash::learquivo(ifstream &arq)
             paragrafo = "";
             for (const auto &i : vet)
             {
+                //Se map já possui a palavra lida ele retorna a palavra, se não ele retorna ponteiro null:
+                    // Caso essa palavra for diferente de um ponteiro nulo entro no if
                 if (this->map.find(i->getpalavra()) != this->map.end())
                 {
                     // cout<<"\nAAA\n"<<endl;
                     // cout<<i->getnumsentenca()[0]<<endl;
+
+                    //vecparagrafos é em quais paragrafos a palavra aparece:
+                        //vecparagrafos tem índice correspondente à vez que a palavra apareceu:
                     vector<int> vecparagrafos = this->map[i->getpalavra()]->getparagrafo();
+                    
+                    //Adiciona o número de ocorrência da palavra à vecparagrafos:
                     vecparagrafos.push_back(paragrafos);
+
+                    //Alterando o vecparagrafos dentro do nosso map para ser utilizado em métodos da classe Hash no futuro:
                     this->map[i->getpalavra()]->setparagrafo(vecparagrafos);
                     vector<int> vecsentenca = this->map[i->getpalavra()]->getnumsentenca();
                     vecsentenca.push_back(i->getnumsentenca()[0]);
                     this->map[i->getpalavra()]->setnumsentenca(vecsentenca);
                 }
+                    //Caso não ele só acrescenta a palavra na Hash:
                 else
                 {
                     p = new Palavra();
@@ -220,12 +230,14 @@ void Hash::learquivo(ifstream &arq)
                     vector<int> vecsentenca = i->getnumsentenca();
                     getPalavra()->setnumsentenca(vecsentenca);
                     this->map.insert({i->getpalavra(), getPalavra()});
+                    this->map[i->getpalavra()]->setfirstOcurrencyLine(contadorlinhas);
                 }
             }
         }
         contadorcomeco++;
         contadorlinhas++;
     }
+
     if (paragrafo != "")
     {
         // cout<<paragrafo<<endl;
@@ -290,6 +302,7 @@ void Hash::learquivo(ifstream &arq)
     // cout << "Linhas:" << contadorlinhas << endl;
     arq.close();
 }
+
 
 /// @brief Essa função mostra todos os valores contidos em um vector
 /// @param map vector com elementos do tipo string
@@ -360,6 +373,17 @@ void Hash::AlphaOrder()
 
     // Mostrando palavras:
     ShowWords(vectorordenado);
+}
+
+void Hash::FirstOcurrencyWord(string word)
+{
+    for(const auto &par : this->map)
+    {
+        if(par.second->getpalavra() == word)
+        {
+            cout<<"\n\n\t\t$#$#$#$#$#$"<<par.second->getfirstOcurrencyLine()<<"$#$#$#$#$#$\n\n\t\t";
+        }
+    }
 }
 
 /*void Hash::stopwords(string palavra){

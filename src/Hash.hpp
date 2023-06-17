@@ -31,7 +31,7 @@ class Hash{
         string UpperToLowerAccent(string bigAccentString);
         vector<Palavra*> retorna_vetor(char *separa_linha);
 
-        
+        void FirstOcurrencyWord(string word);
 
         void stopwords(string);
         void AlphaOrder();
