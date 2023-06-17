@@ -39,76 +39,79 @@ unordered_map<string, Palavra *> Hash::getMap()
 }
 /*************************************************************************************** METODOS */
 
-string Hash::M_ac_to_m_ac(string subs)
+/// @brief Função que converte caracteres Maiúsculos acentuados em Minúsculos acentudados dentro de uma string 
+/// @param bigAccentString string que precisa de ter seus caracteres maiúsculos acentuados convertidos para minúsculos acentuados 
+/// @return uma string que contém apenas caracteres minúsculos acentuados
+string Hash::UpperToLowerAccent(string bigAccentString)
 {
-    for (int i = 0; i < int(subs.length()); i++)
+    for (int i = 0; i < int(bigAccentString.length()); i++)
     {
-        if (int(subs[i]) == -61)
+        if (int(bigAccentString[i]) == -61)
         {
-            if (int(subs[i + 1]) == -128 || int(subs[i + 1]) <= -125)
+            if (int(bigAccentString[i + 1]) == -128 || int(bigAccentString[i + 1]) <= -125)
             { // A
-                if (int(subs[i + 1]) == -128)
+                if (int(bigAccentString[i + 1]) == -128)
                 {
-                    subs.replace(i, 2, "à");
+                    bigAccentString.replace(i, 2, "à");
                 }
-                else if (int(subs[i + 1]) == -127)
+                else if (int(bigAccentString[i + 1]) == -127)
                 {
-                    subs.replace(i, 2, "á");
+                    bigAccentString.replace(i, 2, "á");
                 }
-                else if (int(subs[i + 1]) == -126)
+                else if (int(bigAccentString[i + 1]) == -126)
                 {
-                    subs.replace(i, 2, "â");
+                    bigAccentString.replace(i, 2, "â");
                 }
-                else if (int(subs[i + 1]) == -125)
+                else if (int(bigAccentString[i + 1]) == -125)
                 {
-                    subs.replace(i, 2, "ã");
+                    bigAccentString.replace(i, 2, "ã");
                 }
             }
-            else if (int(subs[i + 1]) == -118 || int(subs[i + 1]) == -119)
+            else if (int(bigAccentString[i + 1]) == -118 || int(bigAccentString[i + 1]) == -119)
             { // E
-                if (int(subs[i + 1]) == -118)
+                if (int(bigAccentString[i + 1]) == -118)
                 {
-                    subs.replace(i, 2, "ê");
+                    bigAccentString.replace(i, 2, "ê");
                 }
-                else if (int(subs[i + 1]) == -119)
+                else if (int(bigAccentString[i + 1]) == -119)
                 {
-                    cout << subs << endl;
-                    subs.replace(i, 2, "é");
+                    cout << bigAccentString << endl;
+                    bigAccentString.replace(i, 2, "é");
                 }
             }
-            else if (int(subs[i + 1]) == -115)
+            else if (int(bigAccentString[i + 1]) == -115)
             { // I
-                subs.replace(i, 2, "í");
+                bigAccentString.replace(i, 2, "í");
             }
-            else if (int(subs[i + 1]) <= -107 && int(subs[i + 1]) >= -109)
+            else if (int(bigAccentString[i + 1]) <= -107 && int(bigAccentString[i + 1]) >= -109)
             { // O
-                if (int(subs[i + 1]) == -107)
+                if (int(bigAccentString[i + 1]) == -107)
                 {
-                    subs.replace(i, 2, "õ");
+                    bigAccentString.replace(i, 2, "õ");
                 }
-                else if (int(subs[i + 1]) == -108)
+                else if (int(bigAccentString[i + 1]) == -108)
                 {
-                    subs.replace(i, 2, "ô");
+                    bigAccentString.replace(i, 2, "ô");
                 }
-                else if (int(subs[i + 1]) == -109)
+                else if (int(bigAccentString[i + 1]) == -109)
                 {
-                    subs.replace(i, 2, "ó");
+                    bigAccentString.replace(i, 2, "ó");
                 }
             }
-            else if (int(subs[i + 1]) == -100 || int(subs[i + 1]) == -102)
+            else if (int(bigAccentString[i + 1]) == -100 || int(bigAccentString[i + 1]) == -102)
             {//U
-                if (int(subs[i + 1]) == -100)
+                if (int(bigAccentString[i + 1]) == -100)
                 {
-                    subs.replace(i, 2, "ü");
+                    bigAccentString.replace(i, 2, "ü");
                 }
-                else if (int(subs[i + 1]) == -102)
+                else if (int(bigAccentString[i + 1]) == -102)
                 {
-                    subs.replace(i, 2, "ú");
+                    bigAccentString.replace(i, 2, "ú");
                 }
             }
         }
     }
-    return subs;
+    return bigAccentString;
 }
 
 vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
@@ -138,7 +141,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
         {
             // A=-127,-128,-126,125´`^~//E=-118 e-119^´//I=-115´//O=-107 a -109~^´//U=-100 e-102´ e bagulho
             string subs = palavra2;
-            subs = M_ac_to_m_ac(subs);
+            subs = UpperToLowerAccent(subs);
             strcpy(palavra2, subs.c_str());
             Palavra *p = new Palavra();
             setPalavra(p);

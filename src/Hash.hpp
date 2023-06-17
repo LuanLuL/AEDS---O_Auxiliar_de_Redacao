@@ -28,7 +28,7 @@ class Hash{
 
         //Métodos:
         void learquivo(ifstream &arq);
-        string M_ac_to_m_ac(string subs);
+        string UpperToLowerAccent(string bigAccentString);
         vector<Palavra*> retorna_vetor(char *separa_linha);
 
         
