@@ -99,11 +99,11 @@ string Hash::M_ac_to_m_ac(string subs)
             {//U
                 if (int(subs[i + 1]) == -100)
                 {
-                    subs.replace(i, 2, "ú");
+                    subs.replace(i, 2, "ü");
                 }
                 else if (int(subs[i + 1]) == -102)
                 {
-                    subs.replace(i, 2, "ü");
+                    subs.replace(i, 2, "ú");
                 }
             }
         }
@@ -300,6 +300,7 @@ void ShowWords(vector<string> map)
         if (counter % 20 == 0)
             cout << endl;
     }
+    cout<<endl;
 }
 
 // unsigned char accentRemover(unsigned char c)
