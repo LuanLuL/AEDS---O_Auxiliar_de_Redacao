@@ -1,6 +1,7 @@
 #include"palavra.hpp"
 Palavra::Palavra(){
     this->contador=0;
+    this->alreadyReaded = false;
 }
 void Palavra::setcontador(short int contador){
     this->contador=contador;
@@ -32,4 +33,11 @@ void Palavra::setfirstOcurrencyLine(unsigned short int firstOcurrencyLine){
 }
 unsigned short int Palavra::getfirstOcurrencyLine() const{
     return this->firstOcurrencyLine;
+}
+
+void Palavra::setalreadyReaded(bool alreadyReaded){
+    this->alreadyReaded=alreadyReaded;
+}
+bool Palavra::getalreadyReaded() const{
+    return this->alreadyReaded;
 }

@@ -230,6 +230,11 @@ void Hash::learquivo(ifstream &arq)
                     getPalavra()->setnumsentenca(vecsentenca);
                     this->map.insert({i->getpalavra(), getPalavra()});
                     this->map[i->getpalavra()]->setfirstOcurrencyLine(contadorlinhas);
+                    // if((this->map[i->getpalavra()]->getalreadyReaded()))
+                    // {
+                        
+                    //     this->map[i->getpalavra()]->setalreadyReaded(true);
+                    // }
                 }
             }
         }

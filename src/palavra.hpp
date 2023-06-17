@@ -18,6 +18,7 @@ private:
     vector<int> paragrafo, numsentenca;
     string palavra;
     unsigned short int firstOcurrencyLine;
+    bool alreadyReaded;
 public:
     //Construtor:
     Palavra();
@@ -37,6 +38,9 @@ public:
     
     void setfirstOcurrencyLine(unsigned short int firstOcurrencyLine);
     unsigned short int getfirstOcurrencyLine() const;
+
+    void setalreadyReaded(bool alreadyReaded);
+    bool getalreadyReaded() const;
 
     //Métodos:
     void learquivo(ifstream arq);
