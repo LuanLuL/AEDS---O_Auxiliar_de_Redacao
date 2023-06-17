@@ -28,6 +28,7 @@ class Hash{
 
         //Métodos:
         void learquivo(ifstream &arq);
+        string M_ac_to_m_ac(string subs);
         vector<Palavra*> retorna_vetor(char *separa_linha);
 
         

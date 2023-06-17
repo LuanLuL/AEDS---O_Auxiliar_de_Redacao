@@ -39,7 +39,7 @@ unordered_map<string, Palavra *> Hash::getMap()
 }
 /*************************************************************************************** METODOS */
 
-string M_ac_to_m_ac(string subs)
+string Hash::M_ac_to_m_ac(string subs)
 {
     for (int i = 0; i < int(subs.length()); i++)
     {
