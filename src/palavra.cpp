@@ -26,3 +26,10 @@ void Palavra::setpalavra(string palavra){
 string Palavra::getpalavra() const{
     return this->palavra;
 }
+
+void Palavra::setfirstOcurrencyLine(unsigned short int firstOcurrencyLine){
+    this->firstOcurrencyLine=firstOcurrencyLine;
+}
+unsigned short int Palavra::getfirstOcurrencyLine() const{
+    return this->firstOcurrencyLine;
+}

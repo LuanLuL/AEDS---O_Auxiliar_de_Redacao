@@ -17,6 +17,7 @@ private:
     short int contador;
     vector<int> paragrafo, numsentenca;
     string palavra;
+    unsigned short int firstOcurrencyLine;
 public:
     //Construtor:
     Palavra();
@@ -33,6 +34,9 @@ public:
 
     void setpalavra(string palavra);
     string getpalavra() const;
+    
+    void setfirstOcurrencyLine(unsigned short int firstOcurrencyLine);
+    unsigned short int getfirstOcurrencyLine() const;
 
     //Métodos:
     void learquivo(ifstream arq);
