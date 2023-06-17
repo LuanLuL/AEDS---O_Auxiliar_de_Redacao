@@ -200,14 +200,11 @@ void Hash::learquivo(ifstream &arq)
                     // Caso essa palavra for diferente de um ponteiro nulo entro no if
                 if (this->map.find(i->getpalavra()) != this->map.end())
                 {
-<<<<<<< HEAD
                     // cout<<"\nAAA\n"<<endl;
                     // cout<<i->getnumsentenca()[0]<<endl;
 
                     //vecparagrafos é em quais paragrafos a palavra aparece:
                         //vecparagrafos tem índice correspondente à vez que a palavra apareceu:
-=======
->>>>>>> da465a44839524a4d386456b4607626410c5176d
                     vector<int> vecparagrafos = this->map[i->getpalavra()]->getparagrafo();
                     
                     //Adiciona o número de ocorrência da palavra à vecparagrafos:
@@ -299,11 +296,7 @@ void Hash::learquivo(ifstream &arq)
         }
     }
 }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> da465a44839524a4d386456b4607626410c5176d
 /// @brief Essa função mostra todos os valores contidos em um vector
 /// @param map vector com elementos do tipo string
 // void ShowWords(vector<string> map)
