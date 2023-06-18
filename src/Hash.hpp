@@ -4,6 +4,14 @@
 #include"palavra.hpp"
 #include "Para.hpp"
 
+typedef struct word
+{
+    string palavra;
+    string letra;
+} word;
+
+
+
 
 class Hash{
     private:
