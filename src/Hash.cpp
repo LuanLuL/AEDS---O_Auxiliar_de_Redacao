@@ -369,7 +369,8 @@ void Hash::AlphaOrder()
     // Ordenando palavras:
     std::sort(vectorordenado.begin(), vectorordenado.end());
 
-    for (const std::string& str : vectorordenado) {
+    for (const std::string& str : vectorordenado) 
+    {
         std::cout << str << std::endl;
     }
 
