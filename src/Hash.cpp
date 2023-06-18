@@ -351,6 +351,7 @@ void Hash::learquivo(ifstream &arq)
 void Hash::AlphaOrder()
 {
     vector<string> vectorordenado;
+    vector <word> auxiliar;
 
     // Inserindo palavras no vetor:
     for (const auto &par : this->map)
@@ -366,12 +367,68 @@ void Hash::AlphaOrder()
                        { return std::tolower(c); });
     }
 
-    // Ordenando palavras:
-    std::sort(vectorordenado.begin(), vectorordenado.end());
 
-    for (const std::string& str : vectorordenado) 
+    // Tratando os acentos
+    for(long unsigned int i=0; i<vectorordenado.size(); i++)
     {
-        std::cout << str << std::endl;
+        auxiliar[i].palavra=vectorordenado[i];
+        if(auxiliar[i].palavra[0]=="à")
+        {
+            auxiliar[i].letra="à";
+            auxiliar[i].palavra[0]=="a";
+        }
+        else if(auxiliar[i].palavra[0]=="á")
+        {
+            auxiliar[i].letra="á";
+            auxiliar[i].palavra[0]=="a";
+        }
+        else if(auxiliar[i].palavra[0]=="é")
+        {
+            auxiliar[i].letra="é";
+            auxiliar[i].palavra[0]=="e";
+        }
+        else if(auxiliar[i].palavra[0]=="ê")
+        {
+            auxiliar[i].letra="ê";
+            auxiliar[i].palavra[0]=="e";
+        }
+        else if(auxiliar[i].palavra[0]=="í")
+        {
+            auxiliar[i].letra="í";
+            auxiliar[i].palavra[0]=="i";
+        }
+        else if(auxiliar[i].palavra[0]=="ó")
+        {
+            auxiliar[i].letra="ó";
+            auxiliar[i].palavra[0]=="o";
+        }
+        else if(auxiliar[i].palavra[0]=="ô")
+        {
+            auxiliar[i].letra="ô";
+            auxiliar[i].palavra[0]=="o";
+        }
+        else if(auxiliar[i].palavra[0]=="ú")
+        {
+            auxiliar[i].letra="ú";
+            auxiliar[i].palavra[0]=="u";
+        }
+    }
+
+    // Ordenando palavras:
+    std::sort(auxiliar.begin(), auxiliar.end());
+    string aux;
+
+    // colocando os acentos de volta
+    for(long unsigned int i=0; i<vectorordenado.size(); i++)
+    {
+        aux=auxiliar[i].letra;
+        auxiliar[i].palavra[0]=aux[0];
+    }
+
+    // imprimindo o vetor ordenado alfabeticamnete
+    for (long unsigned int i=0; i<vectorordenado.size(); i++)
+    {
+        cout << auxiliar[i].palavra << "\n";
     }
 
     // Mostrando palavras:
