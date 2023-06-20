@@ -46,14 +46,14 @@ string Palavra::getpalavra() const
     return this->palavra;
 }
 
-void Palavra::setfirstOcurrencyLine(unsigned short int firstOcurrencyLine)
+void Palavra::setlinhaocorrencia(vector<int> linhaocorrencia)
 {
-    this->firstOcurrencyLine=firstOcurrencyLine;
+    this->linhaocorrencia=linhaocorrencia;
 }
 
-unsigned short int Palavra::getfirstOcurrencyLine() const
+vector<int> Palavra::getlinhaocorrencia() const
 {
-    return this->firstOcurrencyLine;
+    return this->linhaocorrencia;
 }
 
 void Palavra::setalreadyReaded(bool alreadyReaded)

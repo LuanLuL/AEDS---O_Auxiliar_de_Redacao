@@ -1,6 +1,7 @@
 #ifndef PARA_HPP
 #define PARA_HPP
-
+#include<string>
+#include<vector>
 using namespace std;
 
 class Para

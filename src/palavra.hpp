@@ -20,8 +20,8 @@ class Palavra
         short int contador;
         vector<int> paragrafo, numsentenca;
         string palavra;
-        unsigned short int firstOcurrencyLine;
-        bool alreadyReaded;
+        vector<int> linhaocorrencia;
+        bool alreadyReaded, stopword;
     public:
 
         //Construtor:
@@ -40,8 +40,8 @@ class Palavra
         void setpalavra(string palavra);
         string getpalavra() const;
         
-        void setfirstOcurrencyLine(unsigned short int firstOcurrencyLine);
-        unsigned short int getfirstOcurrencyLine() const;
+        void setlinhaocorrencia(vector<int> linhaocorrencia);
+        vector<int> getlinhaocorrencia() const;
 
         void setalreadyReaded(bool alreadyReaded);
         bool getalreadyReaded() const;
