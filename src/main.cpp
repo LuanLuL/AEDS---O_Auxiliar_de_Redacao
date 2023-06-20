@@ -1,5 +1,4 @@
-
-#include"palavra.hpp"
+#include "palavra.hpp"
 #include "Hash.hpp"
 
 using namespace std;

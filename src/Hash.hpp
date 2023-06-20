@@ -1,19 +1,11 @@
 #ifndef HASH_HPP
 #define HASH_HPP
 
-#include"palavra.hpp"
+#include "palavra.hpp"
 #include "Para.hpp"
 
-typedef struct word
+class Hash
 {
-    string palavra;
-    string letra;
-} word;
-
-
-
-
-class Hash{
     private:
         //Atributos:
         Palavra *p;

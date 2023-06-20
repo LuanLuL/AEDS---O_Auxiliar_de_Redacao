@@ -1,48 +1,52 @@
 #ifndef PALAVRA_HPP
 #define PALAVRA_HPP
-#include<iostream>
-#include<unordered_map>
-#include<string.h>
-#include<fstream>
-#include<vector>
+
+#include <iostream>
+#include <unordered_map>
+#include <string.h>
+#include <fstream>
+#include <vector>
 #include <algorithm>
-#include<string>
-#include<sstream>
+#include <string>
+#include <sstream>
 #include <cstdio>
 
 using namespace std;
+
 class Palavra
 {
-private:
-    short int contador;
-    vector<int> paragrafo, numsentenca;
-    string palavra;
-    unsigned short int firstOcurrencyLine;
-    bool alreadyReaded;
-public:
-    //Construtor:
-    Palavra();
+    private:
 
-    //Gets e Sets:
-    void setcontador(short int contador);
-    short int getcontador() const;
+        short int contador;
+        vector<int> paragrafo, numsentenca;
+        string palavra;
+        unsigned short int firstOcurrencyLine;
+        bool alreadyReaded;
+    public:
 
-    void setparagrafo(vector<int> paragrafo);
-    vector<int> getparagrafo() const;
+        //Construtor:
+        Palavra();
 
-    void setnumsentenca(vector<int> numsentenca);
-    vector<int> getnumsentenca() const;
+        //Gets e Sets:
+        void setcontador(short int contador);
+        short int getcontador() const;
 
-    void setpalavra(string palavra);
-    string getpalavra() const;
-    
-    void setfirstOcurrencyLine(unsigned short int firstOcurrencyLine);
-    unsigned short int getfirstOcurrencyLine() const;
+        void setparagrafo(vector<int> paragrafo);
+        vector<int> getparagrafo() const;
 
-    void setalreadyReaded(bool alreadyReaded);
-    bool getalreadyReaded() const;
+        void setnumsentenca(vector<int> numsentenca);
+        vector<int> getnumsentenca() const;
 
-    //Métodos:
-    void learquivo(ifstream arq);
+        void setpalavra(string palavra);
+        string getpalavra() const;
+        
+        void setfirstOcurrencyLine(unsigned short int firstOcurrencyLine);
+        unsigned short int getfirstOcurrencyLine() const;
+
+        void setalreadyReaded(bool alreadyReaded);
+        bool getalreadyReaded() const;
+
+        //Métodos:
+        void learquivo(ifstream arq);
 };
 #endif

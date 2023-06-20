@@ -1,43 +1,67 @@
 #include"palavra.hpp"
-Palavra::Palavra(){
+
+Palavra::Palavra()
+{
     this->contador=0;
     this->alreadyReaded = false;
 }
-void Palavra::setcontador(short int contador){
+
+void Palavra::setcontador(short int contador)
+{
     this->contador=contador;
 }
-short int Palavra::getcontador() const{
+
+short int Palavra::getcontador() const
+{
     return this->contador;
 }
-void Palavra::setparagrafo(vector<int> paragrafo){
+
+void Palavra::setparagrafo(vector<int> paragrafo)
+{
     this->paragrafo=paragrafo;
 }
-vector<int> Palavra::getparagrafo() const{
+
+vector<int> Palavra::getparagrafo() const
+{
     return this->paragrafo;
 }
-void Palavra::setnumsentenca(vector<int> numsentenca){
+
+void Palavra::setnumsentenca(vector<int> numsentenca)
+{
     this->numsentenca=numsentenca;
 }
-vector<int> Palavra::getnumsentenca() const{
+
+vector<int> Palavra::getnumsentenca() const
+{
     return this->numsentenca;
 }
-void Palavra::setpalavra(string palavra){
+
+void Palavra::setpalavra(string palavra)
+{
     this->palavra=palavra;
 }
-string Palavra::getpalavra() const{
+
+string Palavra::getpalavra() const
+{
     return this->palavra;
 }
 
-void Palavra::setfirstOcurrencyLine(unsigned short int firstOcurrencyLine){
+void Palavra::setfirstOcurrencyLine(unsigned short int firstOcurrencyLine)
+{
     this->firstOcurrencyLine=firstOcurrencyLine;
 }
-unsigned short int Palavra::getfirstOcurrencyLine() const{
+
+unsigned short int Palavra::getfirstOcurrencyLine() const
+{
     return this->firstOcurrencyLine;
 }
 
-void Palavra::setalreadyReaded(bool alreadyReaded){
+void Palavra::setalreadyReaded(bool alreadyReaded)
+{
     this->alreadyReaded=alreadyReaded;
 }
-bool Palavra::getalreadyReaded() const{
+
+bool Palavra::getalreadyReaded() const
+{
     return this->alreadyReaded;
 }

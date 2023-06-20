@@ -1,5 +1,6 @@
 #include "Para.hpp"
-Para::Para(){
+Para::Para()
+{
     this->numinicio=1;
     this->numfim=1;
     this->sentencas={""};
