@@ -20,7 +20,7 @@ class Palavra
         short int contador;
         vector<int> paragrafo, numsentenca;
         string palavra;
-        vector<int> linhaocorrencia;
+        vector<int> linhaocorrencia,posparagrafo,possentenca;
         bool alreadyReaded, stopword;
     public:
 
@@ -33,6 +33,12 @@ class Palavra
 
         void setparagrafo(vector<int> paragrafo);
         vector<int> getparagrafo() const;
+
+        void setposparagrafo(vector<int> posparagrafo);
+        vector<int> getposparagrafo() const;
+
+        void setpossentenca(vector<int> possentenca);
+        vector<int> getpossentenca() const;
 
         void setnumsentenca(vector<int> numsentenca);
         vector<int> getnumsentenca() const;
