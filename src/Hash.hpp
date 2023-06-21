@@ -11,6 +11,7 @@ class Hash
         Palavra *p;
         Para *para;    
         unordered_map<string, Palavra *> map;
+        int linha=0;
 
     public:
         //Construtor:
@@ -35,6 +36,7 @@ class Hash
 
         void stopwords(string);
         void AlphaOrder();
+        void CriaArq(vector<string> vectorordenado);
 };
 
 #endif
