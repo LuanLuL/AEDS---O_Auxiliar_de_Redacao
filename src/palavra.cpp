@@ -26,6 +26,26 @@ vector<int> Palavra::getparagrafo() const
     return this->paragrafo;
 }
 
+void Palavra::setposparagrafo(vector<int> posparagrafo)
+{
+    this->posparagrafo=posparagrafo;
+}
+
+vector<int> Palavra::getposparagrafo() const
+{
+    return this->posparagrafo;
+}
+
+void Palavra::setpossentenca(vector<int> possentenca)
+{
+    this->possentenca=possentenca;
+}
+
+vector<int> Palavra::getpossentenca() const
+{
+    return this->possentenca;
+}
+
 void Palavra::setnumsentenca(vector<int> numsentenca)
 {
     this->numsentenca=numsentenca;
