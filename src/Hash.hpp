@@ -12,6 +12,9 @@ class Hash
         Para *para;    
         unordered_map<string, Palavra *> map;
         int linha=0;
+        int contpalavras = 0, contstopwords = 0;
+        vector<vector<string>> pacote;
+        vector<Para*> vetorParagrafos;
 
     public:
         //Construtor:
@@ -34,9 +37,15 @@ class Hash
 
         void FirstOcurrencyWord(string word);
 
-        void stopwords(string);
         void AlphaOrder();
         void CriaArq(vector<string> vectorordenado);
+
+        bool stopwords (string palavra);
+        void separastopwords();
+
+        void MedeDistancia(vector <string> vectorordenado);
+
+        void imprimirSaidaStop();
 };
 
 #endif

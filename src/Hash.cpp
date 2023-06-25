@@ -7,6 +7,7 @@ Hash::Hash()
     this->para = new Para();
     this->map = map;
     this->linha=0;
+    
 }
 
 /************************* GETTERS AND SETTERS */
@@ -126,7 +127,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
 {
     int sentenca = 1, caracterelinha,posicaoparagrafo=1;
     this->linha++;
-    vector<string> palavras, sentencas_separadas;
+    vector<string> palavras, sentencas_separadas, vecsentencasembarra;
     vector<Palavra *> vetorpassado;
     string a;
     char *palavra, *palavra2;
@@ -148,9 +149,10 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
         palavra = new char[palavras[i].length() + 1];
         strcpy(palavra, palavras[i].c_str());
         palavra2 = strtok(palavra, ",;\"°() :");
+        string sentencasembarra="";
         while (palavra2 != nullptr)
         {
-            // A=-127,-128,-126,125´`^//E=-118 e-119^´//I=-115´//O=-107 a -109^´//U=-100 e-102´ e bagulho
+            // A=-127,-128,-126,125´`^~//E=-118 e-119^´//I=-115´//O=-107 a -109~^´//U=-100 e-102´ e bagulho
             string subs = palavra2, subs2;
             subs = UpperToLowerAccent(subs);
             strcpy(palavra2, subs.c_str());
@@ -181,6 +183,12 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
                     vetorpassado.push_back(getPalavra());
                     sentencas_separadas.push_back(subs);
                     this->linha++;
+                    if(sentencasembarra==""){
+                        sentencasembarra=subs;
+                    }
+                    else{
+                        sentencasembarra=sentencasembarra+" "+subs;
+                    }
                     subs2.replace(0, caracterelinha + 1, "");
                     strcpy(palavra2, subs2.c_str());
                 }
@@ -210,11 +218,21 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
             getPalavra()->setnumsentenca(vec);
             getPalavra()->setlinhaocorrencia(linhadeocorrencia);
             getPalavra()->setpalavra(palavra2);
+            if(sentencasembarra==""){
+                sentencasembarra=subs;
+            }
+            else{
+                sentencasembarra=sentencasembarra+" "+palavra2;
+            }
             vetorpassado.push_back(getPalavra());
             sentencas_separadas.push_back(palavra2);
             palavra2 = strtok(nullptr, ",;\"°() :");
         }
+        vecsentencasembarra.push_back(sentencasembarra);
     }
+      getPara()->setsentenca(vecsentencasembarra);
+      vetorParagrafos.push_back(getPara());
+      
     this->linha++;
     return vetorpassado;
 }
@@ -373,6 +391,9 @@ void Hash::learquivo(ifstream &arq)
         }
     }
     arq.close();
+
+
+    // }
     // for (const auto &par : map)
     // {
     //     cout << "Chave: " << par.first << endl;
@@ -455,4 +476,149 @@ void Hash :: CriaArq(vector<string> vectorordenado)
         }
     }
     file.close();
+}
+
+// identificação stopwords
+
+bool Hash::stopwords(string palavra){
+
+    ifstream arq("dataset/stopwords.txt");  
+    string stopword;
+    
+
+    if(arq.is_open()){
+        if(int(palavra.size()) == 1){
+            for(int i = 0; i < int(pacote[0].size()); i++){
+                if(palavra == pacote[0][i]){
+                    return true;
+                }
+            }
+            return false;
+        }else if(int(palavra.size()) == 2){
+            for(int i = 0; i < int(pacote[1].size()); i++){
+                if(palavra == pacote[1][i]){
+                    return true;
+                }
+            }
+            return false;
+        }else if(int(palavra.size()) == 3){
+            for(int i = 0; i < int(pacote[2].size()); i++){
+                if(palavra == pacote[2][i]){
+                    return true;
+                }
+            }
+            return false;
+        }else if(int(palavra.size()) == 4){
+            for(int i = 0; i < int(pacote[3].size()); i++){
+                if(palavra == pacote[3][i]){
+                    return true;
+                }
+            }
+            return false;
+        }else if(int(palavra.size()) == 14){
+            for(int i = 0; i < int(pacote[4].size()); i++){
+                if(palavra == pacote[4][i]){
+                    return true;
+                }
+            }
+            return false;
+        }else{
+            return false;
+        }
+        arq.close();
+    }else{
+        cout << "Não foi possível abrir o arquivo." << endl;
+        return false;
+    
+    }
+    return false;
+}
+
+void Hash::separastopwords(){
+
+    ifstream arq("dataset/stopwords.txt");  
+    string stopword;
+
+    
+    if(arq.is_open()){
+        
+        while(getline(arq, stopword)){
+            if(stopword.size() == 1){
+                pacote[0].push_back(stopword);
+            }else if(stopword.size() == 2){
+                pacote[1].push_back(stopword);
+            }else if(stopword.size() == 3){
+                pacote[2].push_back(stopword);
+            }else if(stopword.size() == 4){
+                pacote[3].push_back(stopword);
+            }else if(stopword.size() == 14){
+                pacote[4].push_back(stopword);
+            } 
+        }
+        arq.close();
+    }else{
+        cout << "Não foi possível abrir o arquivo." << endl;
+    
+    }
+}
+
+void Hash::imprimirSaidaStop(){
+    pacote.resize(5);
+    separastopwords();
+    for(int a=0; a < int(vetorParagrafos.size()); a++){
+        for(int b=0; b < int(vetorParagrafos[a]->getsentenca().size()); b++){
+            cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
+            cout << vetorParagrafos[a]->getsentenca()[b] << endl;
+
+            string palavra_aux;
+            stringstream sentenca_aux;
+            sentenca_aux << vetorParagrafos[a]->getsentenca()[b];
+            
+            while(sentenca_aux >> palavra_aux){
+                if(stopwords(palavra_aux) == true){
+                    contstopwords++;
+                }
+                contpalavras++;
+            }
+           
+            
+            cout << "paragrafo: " << a+1 << " " << " sentenca: " << b+1 << " Com stop words: " << contpalavras << " Sem stop words: " << (contpalavras - contstopwords) << endl;
+             cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
+            contpalavras = 0;
+            contstopwords = 0;
+        }
+
+    }
+}
+void Hash :: MedeDistancia(vector <string> vectorordenado)
+{
+    int inicio = 0;
+    int fim = 1;
+    int tamanho = 0;
+    int distancia = 0;
+    for (const auto &i : vectorordenado)
+    {
+        tamanho = int(map[i]->getparagrafo().size());
+        inicio = 0;
+        fim = 1;
+
+        while(fim!=tamanho)
+        {
+            if(map[i]->getparagrafo()[inicio]==map[i]->getparagrafo()[fim])
+            {
+                cout << "Palavra igual encontrada!\n";
+                cout << "Palavra: "<< i << "\n";
+                cout << "Parágrafo: " << map[i]->getparagrafo()[inicio] << "\n";
+                cout << "Posições: " << int(map[i]->getposparagrafo()[fim]) << " " << int(map[i]->getposparagrafo()[inicio]) << "\n";
+                distancia = int(map[i]->getposparagrafo()[fim])-int(map[i]->getposparagrafo()[inicio]);
+                cout << "Distância:" << distancia << "\n\n";
+                fim++;
+            }
+            else
+            {
+                inicio=fim;
+                fim++;
+            }
+        }
+    }
 }
