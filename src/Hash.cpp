@@ -120,6 +120,10 @@ string Hash::UpperToLowerAccent(string bigAccentString)
     {
         bigAccentString.replace(1, 2, "");
     }
+    // else if (int(bigAccentString[0]) == 45)
+    // {
+    //     bigAccentString.replace(0, 1, "");
+    // }
     return bigAccentString;
 }
 
@@ -424,6 +428,7 @@ void Hash::AlphaOrder()
     //     cout << vectorordenado[i] << "\n";
     // }
     CriaArq(vectorordenado);
+    MedeDistancia(vectorordenado);
 
     fstream file2;
     string nome = "dataset/Resultados1.data";
@@ -462,7 +467,11 @@ void Hash :: CriaArq(vector<string> vectorordenado)
         << "Aparições no texto:a "<<endl;
     for (const auto& j:vectorordenado)
     {
-        if(j.length()>=1)
+        cout<<j<<endl;
+        bool a;
+        a=stopwords(j);
+        cout<<a<<endl;
+        if(j.length()>1)
         {
             file<<j<<"       ";
             for(int i=0;i<int(map[j]->getparagrafo().size());i++){
@@ -470,9 +479,9 @@ void Hash :: CriaArq(vector<string> vectorordenado)
                  << map[j]->getparagrafo()[i] << "\t\t\t     "
                  << map[j]->getlinhaocorrencia()[i] <<"\t\t\t     "
                  << map[j]->getpossentenca()[i] <<"\t \t\t    "
-                 << map[j]->getposparagrafo()[i]<<"\t\t\t      "
-                 << map[j]->getparagrafo().size()<<endl;
+                 << map[j]->getposparagrafo()[i]<<"\t\t\t      ";
             }
+            file << map[j]->getparagrafo().size()<<endl;
         }
     }
     file.close();
@@ -567,8 +576,8 @@ void Hash::imprimirSaidaStop(){
     separastopwords();
     for(int a=0; a < int(vetorParagrafos.size()); a++){
         for(int b=0; b < int(vetorParagrafos[a]->getsentenca().size()); b++){
-            cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
-            cout << vetorParagrafos[a]->getsentenca()[b] << endl;
+            // cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
+            // cout << vetorParagrafos[a]->getsentenca()[b] << endl;
 
             string palavra_aux;
             stringstream sentenca_aux;
@@ -582,8 +591,8 @@ void Hash::imprimirSaidaStop(){
             }
            
             
-            cout << "paragrafo: " << a+1 << " " << " sentenca: " << b+1 << " Com stop words: " << contpalavras << " Sem stop words: " << (contpalavras - contstopwords) << endl;
-             cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
+            // cout << "paragrafo: " << a+1 << " " << " sentenca: " << b+1 << " Com stop words: " << contpalavras << " Sem stop words: " << (contpalavras - contstopwords) << endl;
+            //  cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
             contpalavras = 0;
             contstopwords = 0;
         }
@@ -606,12 +615,12 @@ void Hash :: MedeDistancia(vector <string> vectorordenado)
         {
             if(map[i]->getparagrafo()[inicio]==map[i]->getparagrafo()[fim])
             {
-                cout << "Palavra igual encontrada!\n";
-                cout << "Palavra: "<< i << "\n";
-                cout << "Parágrafo: " << map[i]->getparagrafo()[inicio] << "\n";
-                cout << "Posições: " << int(map[i]->getposparagrafo()[fim]) << " " << int(map[i]->getposparagrafo()[inicio]) << "\n";
-                distancia = int(map[i]->getposparagrafo()[fim])-int(map[i]->getposparagrafo()[inicio]);
-                cout << "Distância:" << distancia << "\n\n";
+                // cout << "Palavra igual encontrada!\n";
+                // cout << "Palavra: "<< i << "\n";
+                // cout << "Parágrafo: " << map[i]->getparagrafo()[inicio] << "\n";
+                // cout << "Posições: " << int(map[i]->getposparagrafo()[fim]) << " " << int(map[i]->getposparagrafo()[inicio]) << "\n";
+                // distancia = int(map[i]->getposparagrafo()[fim])-int(map[i]->getposparagrafo()[inicio]);
+                // cout << "Distância:" << distancia << "\n\n";
                 fim++;
             }
             else
