@@ -45,7 +45,6 @@ class Hash
 
         void MedeDistancia(vector <string> vectorordenado);
 
-        void imprimirSaidaStop();
 };
 
 #endif
