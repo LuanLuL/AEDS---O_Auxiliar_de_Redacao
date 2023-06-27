@@ -1,3 +1,5 @@
+<!--STOP WORD -  qualquer string que você queira ignorar na sua análise-->
+
 <div align = "center" >
 <img src="./img/Icon.png" height="35%" width="35%">
 </div>
@@ -24,16 +26,59 @@
     - [Estruturas de Dados](#Estruturas-de-Dados)
     - [Algoritmos](#Algoritmos)
 
+ - [Metodologia](#Metodologia)
+    - [Arquivos](#Arquivos)
+        - [Funcionamento](#Funcionamento)
+        - [Leitura do Arquivo](#Leitura-do-Arquivo)
+ 
  - [Objetivos](#Objetivos)
+<br><br>
+
+## Introdução
+Este repositório apresenta um programa que obtem métricas textuais à cerca de uma entradas em forma de texto, livro ou junção de várias sentenças. A implementação foi proposta na disciplina de Algoritmos e Estruturas de Dados. Para isso foi necessário armazenar combinações de caracteres, formando aglomerados de dados que abstraem: parágrafos, sentenças e palavras. Para isso considere as seguintes colocações:
+
+- Nomes de diretórios, ou arquivos serão referênciados da seguinte forma: `Nome.data` ou `Diretório_2`.
+
+- $f$ - Representa uma função.
+
+- $x$ - Representa um número que pertence ao domínio da função $f$.
+
+- $y$ - Representa a imagem para um valor $x$ no domínio de uma função $f$.
+
+- $N$ - Sequência de dados armazenados, ou seja, um vetor.
+
+- $i$ - Representa o uma posição específica de $N$.
+
+- $p$ - Abstrai a ideia de palavra, ou seja, uma relação entre caracteres.
+
+- $s$ - Abstrai a ideia de sentença, ou seja, uma relação entre palavras.
+
+- $P$ - Abstrai a ideia de um parágrafo, ou seja, uma relação entre sentenças.
+
+- $§$ - Abstrai a ideia de um texto, ou seja, um conjunto de parágrafos.
+
+- $A$ - É um conjunto de palavras.
+
+- $B$ - É um conjunto de sentenças.
+
+- $C$ - É um conjunto de parágrafos.
+
+- $V$ - Conjunto de vértices de um grafo.
+
+- $E$ - Conjunto de arestas de um grafo.
+
+- $G$ - Um Grafo $G$ qualquer.
+
+- $e$ - Um vértice $e$ qualquer.
+
+- $v$ - Um Grafo $v$ qualquer.
+
+- $n_{v}$ - Número de vértices em um percurso.
 
 
-<section>   
-
-## Introdução   
-<p>
-        Criado em Maio de 2023, o projeto <strong>Auxilia de Redação</strong> foi desenvolvido em virtude de atender as demandas do curso de Algoritimo e Estrutura de Dados, ministrado pelo professor <a href="https://github.com/mpiress" target="_blank">Michel Pires Da Silva</a> no Centro Federal de Educação Tecnológica de Minas Gerais (<a href="https://www.divinopolis.cefetmg.br/" target="_blank">CEFET-MG</a>). Segundo as diretrizes, o projeto foi redigido por uma equipe composta de seis mebros: <a href="https://github.com/IagoVinicius12" target="_blank">Iago Vinicius Braga Franca</a>, <a href="https://github.com/jAzz-hub" target="_blank">João Gustavo Silva Guimarães</a>, <a href="https://github.com/LuanLuL" target="_blank">Luan Gonçalves Santos</a>, <a href="https://github.com/teuswx" target="_blank">Mateus Herique Pereira</a> e <a href="https://github.com/MatheuAlves" target="_blank">Matheus Henrique Alves</a>, <a href="https://github.com/Guiliard" target="_blank">Rafael Augusto Campos Moreira</a>.
-</p>
-</section>
 
 
-
+## Objetivos
+A problemática proposta pelo trabalho incita os alunos da disciplina a efetuar a análise de um texto contido em um arquivo sem formatação do tipo ASCII. Para realização deste procedimento é considerado que:
+- As sentenças são definidas entre os delimitadores de pontuação à seguir: ".", "?" e "!".
+- Os parágrafos são definidos como um conjunto de sentenças entre duas linhas em branco no arquivo. Na leitura o programa considera que duas linhas em branco são representadas por `\n`.
