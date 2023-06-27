@@ -433,7 +433,18 @@ void Hash::AlphaOrder()
     }
     // Ordenando palavras:
     std::sort(vectorordenado.begin(), vectorordenado.end());
-
+    int cont=0;
+    string palavramaior;
+    for(const auto& i:vectorordenado){
+        if(cont<map[i]->getparagrafo().size()){
+            cont=map[i]->getparagrafo().size();
+            palavramaior=map[i]->getpalavra();
+        }
+    }
+    string seter;
+    for(int i=0;i<map[palavramaior]->getparagrafo().size();i++){
+        seter=seter+" "+to_string(map[palavramaior]->getparagrafo()[i]);
+    }
     // imprimindo o vetor ordenado alfabeticamnete
     // for (long unsigned int i = 0; i < vectorordenado.size(); i++)
     // {
@@ -459,11 +470,11 @@ void Hash::AlphaOrder()
             // if(stopwords(i)==true){
                 for(unsigned long int j=0; j<map[i]->getlinhaocorrencia().size(); j++)
                     file2 << " " << map[i]->getlinhaocorrencia()[j];
-                file2<<setw(100)<<"\t";
+                file2<<setw(30)<<"\t";
                 for(unsigned long int j=0;j<map[i]->getnumsentenca().size();j++){
                     file2 << " " << map[i]->getnumsentenca()[j];
                 }
-                file2<<"\t";
+                file2<<setw(30)<<"\t";
                 for(unsigned long int j=0;j<map[i]->getnumsentenca().size();j++){
                     file2 << " " << map[i]->getparagrafo()[j];
                 }
