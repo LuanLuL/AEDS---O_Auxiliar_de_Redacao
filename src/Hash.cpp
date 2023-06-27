@@ -275,8 +275,13 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     }
     getPara()->setnumsentenca(sentenca-1);
     getPara()->setsentenca(vecsentencasembarra);
-    std::sort(sentencas_separadas.begin(),sentencas_separadas.end());
-    getPara()->setpalavras(sentencas_separadas);
+    getPara()->setvecpalavra(vecaaaa);
+    vector<string> ordenadohash;
+    for(const auto& i: vecaaaa){
+        ordenadohash.push_back(i.first);
+    }
+    std::sort(ordenadohash.begin(),ordenadohash.end());
+    getPara()->setpalavras(ordenadohash);
     vetorParagrafos.push_back(getPara());
       
     this->linha++;
@@ -455,15 +460,6 @@ void Hash::learquivo(ifstream &arq)
     //     }
     // }
 }
-int getWordLengthWithoutAccent(const std::string& word) {
-    int length = 0;
-    for (char c : word) {
-        if (std::isalpha(c)) {
-            length++;
-        }
-    }
-    return length;
-}
 /// @brief Essa função cria um vector com todas as palavras de map estando ordenadas com todas as suas letras sem acento minúsculas
 void Hash::AlphaOrder()
 {
@@ -576,20 +572,35 @@ void Hash::AlphaOrder()
         }
     }
     file2 << "-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-    file2<<setw(90)<<"Palavra:";
-        file2<<setw(90)<<"Paragrafo";
-        file2<<setw(90)<<"sentenca";
-        file2<<setw(90)<<"Linha:";
-        file2<<setw(90)<<"Ocorrencia";
-        file2<<setw(90)<<"Posicoes:\n";
-    for(const auto& i: vetorParagrafos){
-        for(int j=0;j<i->getpalavras().size();j++){
-            file2<<setw(90)<<i->getpalavras()[j];
-            // for(int k=0;k<i->getvecpalavra()[i->getpalavras()[j]]->getparagrafo().size();k++)
-            //     file2<<""<<i->getvecpalavra()[i->getpalavras()[j]]->getparagrafo()[k];
-            //     cout<<i->getpalavras()[j]<<endl;
-            file2<<endl;
+    file2<<setw(30)<<"Palavra:";
+        file2<<setw(30)<<"Paragrafo";
+        file2<<setw(30)<<"sentenca";
+        file2<<setw(30)<<"Linha:";
+        file2<<setw(30)<<"Ocorrencia";
+        file2<<"Posicoes:\n";
+    for(int i=0;i<vetorParagrafos.size();i++){
+        for(int j=0;j<vetorParagrafos[i]->getpalavras().size();j++){
+            if(stopwords(vetorParagrafos[i]->getpalavras()[j])==false){
+                file2<<setw(30)<<vetorParagrafos[i]->getpalavras()[j];
+                file2<<setw(30)<<i+1;
+                for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getnumsentenca().size());k++){
+                    file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getnumsentenca()[k];
+                }
+                file2<<setw(30);
+                for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia().size());k++){
+                    file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia()[k];
+                }
+                file2<<setw(30);
+                file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia().size();
+                file2<<setw(30);
+                for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo().size());k++){
+                    file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[k];
+                }
+                file2<<endl;
+            }
         }
+        file2<<"------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+            file2<<endl;
     }
     file2.close();
 }
