@@ -35,3 +35,12 @@ vector<string> Para::getsentenca()
 {
     return this->sentencas;
 }
+void Para::setnumsentenca(int numsentenca)
+{
+    this->numsentenca=numsentenca;
+}
+
+int Para::getnumsentenca()
+{
+    return this->numsentenca;
+}

@@ -9,6 +9,7 @@ class Para
 {
     private:
         short int numinicio,numfim;
+        int numsentenca;
         vector<string> sentencas;
     public:
         //Construtor:
@@ -23,5 +24,8 @@ class Para
         
         void setsentenca(vector<string> sentenca);
         vector<string> getsentenca();
+
+        void setnumsentenca(int numsentenca);
+        int getnumsentenca();
 };
 #endif
