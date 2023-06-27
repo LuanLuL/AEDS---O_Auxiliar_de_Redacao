@@ -7,6 +7,8 @@ Hash::Hash()
     this->para = new Para();
     this->map = map;
     this->linha=0;
+    pacote.resize(5);
+    separastopwords();
     
 }
 
@@ -417,7 +419,10 @@ void Hash::AlphaOrder()
     // Inserindo palavras no vetor:
     for (const auto &par : this->map)
     {
-        vectorordenado.push_back(par.first);
+        if(stopwords(par.first)== false){
+            vectorordenado.push_back(par.first);
+        }
+       
     }
     // Ordenando palavras:
     std::sort(vectorordenado.begin(), vectorordenado.end());
@@ -572,8 +577,7 @@ void Hash::separastopwords(){
 }
 
 void Hash::imprimirSaidaStop(){
-    pacote.resize(5);
-    separastopwords();
+    
     for(int a=0; a < int(vetorParagrafos.size()); a++){
         for(int b=0; b < int(vetorParagrafos[a]->getsentenca().size()); b++){
             // cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
