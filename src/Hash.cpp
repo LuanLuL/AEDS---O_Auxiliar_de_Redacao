@@ -446,7 +446,7 @@ void Hash::AlphaOrder()
     string nome = "dataset/Resultados1.data";
     file2.open(nome, std::fstream::out);
     file2 << "Palavra "<<setw(30);
-    file2<< "Num vezes:"<<setw(27);
+    file2<< "Num vezes:"<<setw(30);
     file2 << "Linhas:"<<setw(30);
     file2<<"Sentencas:"<<setw(30);
     file2<<"Paragrafos:\n";
@@ -454,12 +454,12 @@ void Hash::AlphaOrder()
     {
         if(i.length()>=1 && stopwords(i)==false)
         {
-            file2 << left << setw(40)<< i;
+            file2 << left <<setw(30)<< i<<"\t";
             file2<<left<<setw(30)<<map[i]->getparagrafo().size();
             // if(stopwords(i)==true){
                 for(unsigned long int j=0; j<map[i]->getlinhaocorrencia().size(); j++)
                     file2 << " " << map[i]->getlinhaocorrencia()[j];
-                file2<<"\t";
+                file2<<setw(100)<<"\t";
                 for(unsigned long int j=0;j<map[i]->getnumsentenca().size();j++){
                     file2 << " " << map[i]->getnumsentenca()[j];
                 }
