@@ -13,7 +13,7 @@ class Para
         short int numinicio,numfim;
         int numsentenca;
         unordered_map<string,Palavra*> vecpalavra;
-        vector<string> sentencas;
+        vector<string> sentencas,palavras;
     public:
         //Construtor:
         Para();
@@ -27,6 +27,9 @@ class Para
         
         void setsentenca(vector<string> sentenca);
         vector<string> getsentenca();
+
+        void setpalavras(vector<string> palavras);
+        vector<string> getpalavras();
 
         void setvecpalavra(unordered_map<string,Palavra*> vecpalavra);
         unordered_map<string,Palavra*> getvecpalavra();

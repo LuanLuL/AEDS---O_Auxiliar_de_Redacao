@@ -223,8 +223,44 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
             getPalavra()->setnumsentenca(vec);
             getPalavra()->setlinhaocorrencia(linhadeocorrencia);
             getPalavra()->setpalavra(palavra2);
-            vecaaaa.insert({getPalavra()->getpalavra(), getPalavra()});
-            getPara()->setvecpalavra(vecaaaa);
+            // vecaaaa.insert({getPalavra()->getpalavra(), getPalavra()});
+            // getPara()->setvecpalavra(vecaaaa);
+            if (vecaaaa.find(getPalavra()->getpalavra()) != vecaaaa.end())
+                {
+                    vector<int> vecparagrafos = vecaaaa[getPalavra()->getpalavra()]->getparagrafo();
+                    vecparagrafos.push_back(0);
+                    //getPalavra()->setparagrafos(getPalavra()->getparagrafos()+" "+to_string(paragrafos));
+                    vecaaaa[getPalavra()->getpalavra()]->setparagrafo(vecparagrafos);
+                    vector<int> vecsentenca = vecaaaa[getPalavra()->getpalavra()]->getnumsentenca();
+                    vecsentenca.push_back(getPalavra()->getnumsentenca()[0]);
+                    vector<int> veclinha = vecaaaa[getPalavra()->getpalavra()]->getlinhaocorrencia();
+                    veclinha.push_back(getPalavra()->getlinhaocorrencia()[0]);
+                    vector<int> vecpossentenca = vecaaaa[getPalavra()->getpalavra()]->getpossentenca();
+                    vecpossentenca.push_back(getPalavra()->getpossentenca()[0]);
+                    vector<int> vecposparagrafo = vecaaaa[getPalavra()->getpalavra()]->getposparagrafo();
+                    vecposparagrafo.push_back(getPalavra()->getposparagrafo()[0]);
+                    vecaaaa[getPalavra()->getpalavra()]->setposparagrafo(vecposparagrafo);
+                    vecaaaa[getPalavra()->getpalavra()]->setpossentenca(vecpossentenca);
+                    vecaaaa[getPalavra()->getpalavra()]->setnumsentenca(vecsentenca);
+                    vecaaaa[getPalavra()->getpalavra()]->setlinhaocorrencia(veclinha);
+                }
+                // Caso não ele só acrescenta a palavra na Hash:
+                else
+                {
+                    getPalavra()->setpalavra(getPalavra()->getpalavra());
+                    vector<int> vecparagrafos = getPalavra()->getparagrafo();
+                    vecparagrafos.push_back(0);
+                    getPalavra()->setparagrafo(vecparagrafos);
+                    vector<int> vecsentenca = getPalavra()->getnumsentenca();
+                    getPalavra()->setnumsentenca(vecsentenca);
+                    vector<int> veclinha = getPalavra()->getlinhaocorrencia();
+                    getPalavra()->setlinhaocorrencia(veclinha);
+                    vector<int> vecpossentenca = getPalavra()->getpossentenca();
+                    getPalavra()->setpossentenca(vecpossentenca);
+                    vector<int> vecposparagrafo = getPalavra()->getposparagrafo();
+                    getPalavra()->setposparagrafo(vecposparagrafo);
+                    vecaaaa.insert({getPalavra()->getpalavra(), getPalavra()});
+                }
             if(sentencasembarra==""){
                 sentencasembarra=subs;
             }
@@ -239,6 +275,8 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     }
     getPara()->setnumsentenca(sentenca-1);
     getPara()->setsentenca(vecsentencasembarra);
+    std::sort(sentencas_separadas.begin(),sentencas_separadas.end());
+    getPara()->setpalavras(sentencas_separadas);
     vetorParagrafos.push_back(getPara());
       
     this->linha++;
@@ -510,6 +548,7 @@ void Hash::AlphaOrder()
     //     file2 << " " <<this->vetorParagrafos[i]->getnuminicio()<<"/"<<this->vetorParagrafos[i]->getnumfim();
     //     file2<<endl;
     // }
+    //cout<<vetorParagrafos[3]->getvecpalavra()["uma"]->getlinhaocorrencia()[0]<<endl;
     file2 << "\n-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
     file2 << "\n                           NUMBER OF WORDS IN EACH SENTENCE WITH AND WITHOUT STOP WORDS                                                           \n";
     file2 << "\n-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
@@ -537,6 +576,21 @@ void Hash::AlphaOrder()
         }
     }
     file2 << "-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+    file2<<setw(90)<<"Palavra:";
+        file2<<setw(90)<<"Paragrafo";
+        file2<<setw(90)<<"sentenca";
+        file2<<setw(90)<<"Linha:";
+        file2<<setw(90)<<"Ocorrencia";
+        file2<<setw(90)<<"Posicoes:\n";
+    for(const auto& i: vetorParagrafos){
+        for(int j=0;j<i->getpalavras().size();j++){
+            file2<<setw(90)<<i->getpalavras()[j];
+            // for(int k=0;k<i->getvecpalavra()[i->getpalavras()[j]]->getparagrafo().size();k++)
+            //     file2<<""<<i->getvecpalavra()[i->getpalavras()[j]]->getparagrafo()[k];
+            //     cout<<i->getpalavras()[j]<<endl;
+            file2<<endl;
+        }
+    }
     file2.close();
 }
 

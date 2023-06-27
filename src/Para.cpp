@@ -36,6 +36,16 @@ vector<string> Para::getsentenca()
     return this->sentencas;
 }
 
+void Para::setpalavras(vector<string> palavras)
+{
+    this->palavras=palavras;
+}
+
+vector<string> Para::getpalavras()
+{
+    return this->palavras;
+}
+
 void Para::setvecpalavra(unordered_map<string,Palavra*> vecpalavra)
 {
     this->vecpalavra=vecpalavra;
