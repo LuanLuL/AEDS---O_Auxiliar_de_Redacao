@@ -490,7 +490,7 @@ void Hash::AlphaOrder()
     //     cout << vectorordenado[i] << "\n";
     // }
     //CriaArq(vectorordenado);
-    MedeDistancia(vectorordenado);
+    //MedeDistancia();
 
     fstream file2;
     string nome = "dataset/Resultados1.data";
@@ -577,10 +577,12 @@ void Hash::AlphaOrder()
         file2<<setw(30)<<"sentenca";
         file2<<setw(30)<<"Linha:";
         file2<<setw(30)<<"Ocorrencia";
-        file2<<"Posicoes:\n";
+        file2<<setw(30)<<"Posicoes:";
+        file2<<"Distancia\n";
     for(int i=0;i<vetorParagrafos.size();i++){
+        //MedeDistancia(vetorParagrafos[i]->getpalavras(),i,file2);
         for(int j=0;j<vetorParagrafos[i]->getpalavras().size();j++){
-            if(stopwords(vetorParagrafos[i]->getpalavras()[j])==false){
+            if(stopwords(vetorParagrafos[i]->getpalavras()[j])==false && vetorParagrafos[i]->getpalavras()[j]!=""){
                 file2<<setw(30)<<vetorParagrafos[i]->getpalavras()[j];
                 file2<<setw(30)<<i+1;
                 for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getnumsentenca().size());k++){
@@ -595,6 +597,26 @@ void Hash::AlphaOrder()
                 file2<<setw(30);
                 for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo().size());k++){
                     file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[k];
+                }
+                file2<<setw(30)<<"\t";
+                int inicio = 0;
+                int fim = 1;
+                int tamanho = 0;
+                int distancia = 0;
+                tamanho = int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getparagrafo().size());
+                inicio = 0;
+                fim = 1;
+                if(fim==tamanho){
+                    file2<<distancia<<" ";
+                }
+                else{
+                    while(fim<tamanho)
+                    {
+                        distancia = int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[fim])-int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[inicio]);
+                        // cout << "Distância:" << distancia << "\n\n";
+                        fim++;
+                        file2<<distancia<<" ";
+                    }
                 }
                 file2<<endl;
             }
@@ -720,35 +742,24 @@ void Hash::separastopwords(){
     }
 }
 
-void Hash :: MedeDistancia(vector <string> vectorordenado)
-{
-    int inicio = 0;
-    int fim = 1;
-    int tamanho = 0;
-    int distancia = 0;
-    for (const auto &i : vectorordenado)
-    {
-        tamanho = int(map[i]->getparagrafo().size());
-        inicio = 0;
-        fim = 1;
+// void Hash :: MedeDistancia(vector <string> ordenadohash,int numeroparagrafo, fstream &arq)
+// {
+//     int inicio = 0;
+//     int fim = 1;
+//     int tamanho = 0;
+//     int distancia = 0;
+//     for (const auto &i : ordenadohash)
+//     {
+//         tamanho = int(vetorParagrafos[numeroparagrafo]->getvecpalavra()[i]->getparagrafo().size());
+//         inicio = 0;
+//         fim = 1;
 
-        while(fim!=tamanho)
-        {
-            if(map[i]->getparagrafo()[inicio]==map[i]->getparagrafo()[fim])
-            {
-                // cout << "Palavra igual encontrada!\n";
-                // cout << "Palavra: "<< i << "\n";
-                // cout << "Parágrafo: " << map[i]->getparagrafo()[inicio] << "\n";
-                // cout << "Posições: " << int(map[i]->getposparagrafo()[fim]) << " " << int(map[i]->getposparagrafo()[inicio]) << "\n";
-                // distancia = int(map[i]->getposparagrafo()[fim])-int(map[i]->getposparagrafo()[inicio]);
-                // cout << "Distância:" << distancia << "\n\n";
-                fim++;
-            }
-            else
-            {
-                inicio=fim;
-                fim++;
-            }
-        }
-    }
-}
+//         while(fim!=tamanho)
+//         {
+//             distancia = int(vetorParagrafos[numeroparagrafo]->getvecpalavra()[i]->getparagrafo()[fim])-int(vetorParagrafos[numeroparagrafo]->getvecpalavra()[i]->getparagrafo()[inicio]);
+//             // cout << "Distância:" << distancia << "\n\n";
+//             fim++;
+//             arq<<distancia;
+//         }
+//     }
+// }

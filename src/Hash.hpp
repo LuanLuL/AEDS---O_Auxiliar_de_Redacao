@@ -43,7 +43,7 @@ class Hash
         bool stopwords (string palavra);
         void separastopwords();
 
-        void MedeDistancia(vector <string> vectorordenado);
+        //void MedeDistancia(vector <string> vectorordenado, int numparagrafo,fstream *arq);
 
 };
 
