@@ -182,6 +182,9 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
                     getPalavra()->setnumsentenca(vec);
                     getPalavra()->setpalavra(subs);
                     getPalavra()->setlinhaocorrencia(linhadeocorrencia);
+                    vector<Palavra*> vecaaaa=getPara()->getvecpalavra();
+                    vecaaaa.push_back(getPalavra());
+                    getPara()->setvecpalavra(vecaaaa);
                     vetorpassado.push_back(getPalavra());
                     sentencas_separadas.push_back(subs);
                     this->linha++;
@@ -220,6 +223,9 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
             getPalavra()->setnumsentenca(vec);
             getPalavra()->setlinhaocorrencia(linhadeocorrencia);
             getPalavra()->setpalavra(palavra2);
+            vector<Palavra*> vecaaaa=getPara()->getvecpalavra();
+                    vecaaaa.push_back(getPalavra());
+                    getPara()->setvecpalavra(vecaaaa);
             if(sentencasembarra==""){
                 sentencasembarra=subs;
             }

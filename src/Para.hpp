@@ -2,6 +2,7 @@
 #define PARA_HPP
 #include<string>
 #include<vector>
+#include"palavra.hpp"
 using namespace std;
 
 class Para
@@ -10,6 +11,7 @@ class Para
     private:
         short int numinicio,numfim;
         int numsentenca;
+        vector<Palavra*> vecpalavra;
         vector<string> sentencas;
     public:
         //Construtor:
@@ -24,6 +26,9 @@ class Para
         
         void setsentenca(vector<string> sentenca);
         vector<string> getsentenca();
+
+        void setvecpalavra(vector<Palavra*> vecpalavra);
+        vector<Palavra*> getvecpalavra();
 
         void setnumsentenca(int numsentenca);
         int getnumsentenca();
