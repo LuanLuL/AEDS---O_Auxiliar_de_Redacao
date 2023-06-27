@@ -249,7 +249,7 @@ void Hash::learquivo(ifstream &arq)
     vector<Palavra *> vet;
     vector<string> vectorordenado;
     Palavra *p;
-    arq.open("dataset/entrada.txt");
+    arq.open("dataset/DomCasmurro.txt");
     while (getline(arq, linha))
     {
         if (linha.empty() == false)
@@ -457,26 +457,37 @@ void Hash::AlphaOrder()
     string nome = "dataset/Resultados1.data";
     file2.open(nome, std::fstream::out);
     file2 << "Palavra "<<setw(30);
-    file2<< "Num vezes:"<<setw(30);
-    file2 << "Linhas:"<<setw(30);
-    file2<<"Sentencas:"<<setw(30);
-    file2<<"Paragrafos:\n";
+    file2<< "Num vezes:"<<setw(32);
+    file2 << "Linhas:"<<setw(96);
+    file2<<"Sentencas:"<<setw(95);
+    file2<<"Paragrafos:"<<setw(100);
+    file2<<"Posição paragrafo:\n";
     for(const auto& i:vectorordenado)
     {
         if(i.length()>=1 && stopwords(i)==false)
         {
             file2 << left <<setw(30)<< i<<"\t";
-            file2<<left<<setw(30)<<map[i]->getparagrafo().size();
+            file2<<left<<setw(30)<<map[i]->getparagrafo().size()<<"\t";
             // if(stopwords(i)==true){
-                for(unsigned long int j=0; j<map[i]->getlinhaocorrencia().size(); j++)
-                    file2 << " " << map[i]->getlinhaocorrencia()[j];
-                file2<<setw(30)<<"\t";
-                for(unsigned long int j=0;j<map[i]->getnumsentenca().size();j++){
-                    file2 << " " << map[i]->getnumsentenca()[j];
+                palavramaior="";
+                cont=0;
+                for(unsigned long int j=0; j<map[i]->getlinhaocorrencia().size(); j++){
+                    file2 <<left<< " " << map[i]->getlinhaocorrencia()[j];
+                    palavramaior=palavramaior+to_string(map[i]->getlinhaocorrencia()[j]);
+                    cont++;
                 }
-                file2<<setw(30)<<"\t";
+                file2<<setw(90-(int(palavramaior.length())+(cont+1)))<<"\t";
+                //cout<<palavramaior.length()<<endl;
+                for(unsigned long int j=0;j<map[i]->getnumsentenca().size();j++){
+                    file2 <<left<< " " << map[i]->getnumsentenca()[j];
+                }
+                file2<<setw(90)<<"\t";
                 for(unsigned long int j=0;j<map[i]->getnumsentenca().size();j++){
                     file2 << " " << map[i]->getparagrafo()[j];
+                }
+                file2<<setw(90);
+                for(unsigned long int j=0;j<map[i]->getposparagrafo().size();j++){
+                    file2 << " " << map[i]->getposparagrafo()[j];
                 }
                 file2<<"\t";
                 
@@ -484,14 +495,16 @@ void Hash::AlphaOrder()
             //}
         }
     }
-    file2<<"Numsentenca paragrafos:";
-            for(unsigned long int j=0;j<this->vetorParagrafos.size();j++){
-                file2 << " " <<this->vetorParagrafos[j]->getnumsentenca();
-            }
-    file2<<endl<<"Linha de inicio/linha de fim:";
-            for(unsigned long int j=0;j<this->vetorParagrafos.size();j++){
-                file2 << " " <<this->vetorParagrafos[j]->getnuminicio()<<"/"<<this->vetorParagrafos[j]->getnumfim();
-            }
+    // file2<<left<<setw(90)<<"Paragrafo:";
+    //     file2<<left<<setw(90)<<"Numsentenca paragrafos:";
+    //     file2<<"Linha de inicio/linha de fim:"<<setw(90)<<endl;
+    // for(int i=0;i<vetorParagrafos.size();i++){
+    //     file2<<left<<setw(90)<<i+1;
+    //     file2 << left<<setw(90) <<this->vetorParagrafos[i]->getnumsentenca();
+    //     // file2<<setw(90);
+    //     file2 << " " <<this->vetorParagrafos[i]->getnuminicio()<<"/"<<this->vetorParagrafos[i]->getnumfim();
+    //     file2<<endl;
+    // }
     file2 << "\n-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
     file2 << "\n                           NUMBER OF WORDS IN EACH SENTENCE WITH AND WITHOUT STOP WORDS                                                           \n";
     file2 << "\n-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
