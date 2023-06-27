@@ -249,7 +249,7 @@ void Hash::learquivo(ifstream &arq)
     vector<Palavra *> vet;
     vector<string> vectorordenado;
     Palavra *p;
-    arq.open("dataset/DomCasmurro.txt");
+    arq.open("dataset/entrada.txt");
     while (getline(arq, linha))
     {
         if (linha.empty() == false)
@@ -492,6 +492,33 @@ void Hash::AlphaOrder()
             for(unsigned long int j=0;j<this->vetorParagrafos.size();j++){
                 file2 << " " <<this->vetorParagrafos[j]->getnuminicio()<<"/"<<this->vetorParagrafos[j]->getnumfim();
             }
+    file2 << "\n-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+    file2 << "\n                           NUMBER OF WORDS IN EACH SENTENCE WITH AND WITHOUT STOP WORDS                                                           \n";
+    file2 << "\n-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+    file2 << "\n"<< left << setw(30) << "Parágrafo\t" << left << setw(30) << "sentenca\t" << left << setw(30) << "com stop words\t" << "sem stop words\n";
+    for(int a=0; a < int(vetorParagrafos.size()); a++){
+        for(int b=0; b < int(vetorParagrafos[a]->getsentenca().size()); b++){
+
+            string palavra_aux;
+            stringstream sentenca_aux;
+            sentenca_aux << vetorParagrafos[a]->getsentenca()[b];
+            
+            while(sentenca_aux >> palavra_aux){
+                if(stopwords(palavra_aux) == true){
+                    contstopwords++;
+                }
+                contpalavras++;
+            }
+            
+            file2 << left << setw(30) << a+1 << "\t";
+            file2 << left << setw(30) << b+1 << "\t";
+            file2 << left << setw(30) << contpalavras << "\t"; 
+            file2 << left << setw(30) << (contpalavras - contstopwords) << endl;
+            contpalavras = 0;
+            contstopwords = 0;
+        }
+    }
+    file2 << "-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
     file2.close();
 }
 
@@ -510,10 +537,6 @@ void Hash :: CriaArq(vector<string> vectorordenado)
         << "Aparições no textoa: "<<endl;
     for (const auto& j:vectorordenado)
     {
-        // cout<<j<<endl;
-        // bool a;
-        // a=stopwords(j);
-        // cout<<a<<endl;
         if(j.length()>1)
         {
             file<<j<<"       ";
@@ -614,32 +637,6 @@ void Hash::separastopwords(){
     }
 }
 
-void Hash::imprimirSaidaStop(){
-    for(int a=0; a < int(vetorParagrafos.size()); a++){
-        for(int b=0; b < int(vetorParagrafos[a]->getsentenca().size()); b++){
-            // cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
-            // cout << vetorParagrafos[a]->getsentenca()[b] << endl;
-
-            string palavra_aux;
-            stringstream sentenca_aux;
-            sentenca_aux << vetorParagrafos[a]->getsentenca()[b];
-            
-            while(sentenca_aux >> palavra_aux){
-                if(stopwords(palavra_aux) == true){
-                    contstopwords++;
-                }
-                contpalavras++;
-            }
-           
-            
-            // cout << "paragrafo: " << a+1 << " " << " sentenca: " << b+1 << " Com stop words: " << contpalavras << " Sem stop words: " << (contpalavras - contstopwords) << endl;
-            //  cout << "\n-----------------------------------------------------------------------------------------------------------------\n";
-            contpalavras = 0;
-            contstopwords = 0;
-        }
-
-    }
-}
 void Hash :: MedeDistancia(vector <string> vectorordenado)
 {
     int inicio = 0;
