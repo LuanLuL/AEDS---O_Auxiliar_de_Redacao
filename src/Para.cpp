@@ -36,12 +36,12 @@ vector<string> Para::getsentenca()
     return this->sentencas;
 }
 
-void Para::setvecpalavra(vector<Palavra*> vecpalavra)
+void Para::setvecpalavra(unordered_map<string,Palavra*> vecpalavra)
 {
     this->vecpalavra=vecpalavra;
 }
 
-vector<Palavra*> Para::getvecpalavra()
+unordered_map<string,Palavra*> Para::getvecpalavra()
 {
     return this->vecpalavra;
 }
