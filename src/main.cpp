@@ -1,21 +1,14 @@
+
+#include <locale>
 #include "palavra.hpp"
 #include "Hash.hpp"
-
+#define _ ios_base::sync_with_stdio(0);
 using namespace std;
 
-
-/*
-
-
-    Vamos pegar o vetor de parágrafos de cada palavras
-
-
-*/
-
 int main(){
+    setlocale(LC_ALL, "Portuguese");
     Hash h;
     ifstream arq;
     h.learquivo(arq);
-    h.AlphaOrder();
     return 0;
 }

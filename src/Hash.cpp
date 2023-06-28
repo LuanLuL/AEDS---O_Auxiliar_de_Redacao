@@ -2,10 +2,10 @@
 /*********************** CONSTRUTORES AND DESTRUTORES*/
 Hash::Hash()
 {
-    unordered_map<string, Palavra *> map;
+    unordered_map<string, Palavra *> mapa;
     this->p = new Palavra();
     this->para = new Para();
-    this->map = map;
+    this->mapa = mapa;
     this->linha=0;
     pacote.resize(5);
     separastopwords();
@@ -32,14 +32,14 @@ Para *Hash::getPara()
     return this->para;
 }
 
-void Hash::setMap(unordered_map<string, Palavra *> map)
+void Hash::setMapa(unordered_map<string, Palavra *> mapa)
 {
-    this->map = map;
+    this->mapa = mapa;
 }
 
-unordered_map<string, Palavra *> Hash::getMap()
+unordered_map<string, Palavra *> Hash::getMapa()
 {
-    return this->map;
+    return this->mapa;
 }
 /***************************** METODOS */
 
@@ -295,11 +295,57 @@ void Hash::learquivo(ifstream &arq)
     vector<Palavra *> vet;
     vector<string> vectorordenado;
     Palavra *p;
+
+// *******************************************************************
+    string linhaLUAN = "";
+    ifstream arqExpressao("dataset/expressoes.txt");
+    if(!arqExpressao){
+        throw "output3 ---> Não foi possível abrir o arquivo de entrada";
+    }
+    string expressao;
+    vector<string> expressoes;
+    while(getline(arqExpressao, expressao)){
+        if(expressao.empty()){
+            break;
+        }
+        expressoes.push_back(expressao);
+    }
+    arqExpressao.close();
+    //Transforma para minusculo e coloca ' ' no inicio e no final de todas as expressões
+    for (string& expressao : expressoes) {
+        string addeSpace = " ";
+        addeSpace += expressao + " ";
+        expressao = addeSpace;
+        transform(expressao.begin(), expressao.end(), expressao.begin(), ::tolower);
+    }
+    map<string, pair<int, vector<int>>> ocorrencias;
+    // Inicializa o mapa com as expressões e suas ocorrências
+    for (const string& expressao : expressoes) { // Loop (1)
+        ocorrencias[expressao].first = 0;
+    }
+// *******************************************************************
+
     arq.open("dataset/DomCasmurro.txt");
     while (getline(arq, linha))
     {
         if (linha.empty() == false)
         {
+// *******************************************************************
+            linhaLUAN = transforme(linha);
+            // Percorre cada expressão
+            for (size_t i = 0; i < expressoes.size(); i++) {
+                size_t pos = linhaLUAN.find(expressoes[i]);
+                // cout << expressoes[i] << "\n\n";
+
+                // Verifica se a expressão ocorre na linha
+                while (pos != string::npos) {
+                    ocorrencias[expressoes[i]].first++;                  // Incrementa o número de ocorrências
+                    ocorrencias[expressoes[i]].second.push_back(contadorlinhas+1); // Armazena o número da linha
+                    pos = linhaLUAN.find(expressoes[i], pos + 1);           // Procura por outras ocorrências na mesma linha
+                }
+            }
+
+// *******************************************************************
             if(paragrafo!="")
                 paragrafo = paragrafo + "|" + linha;
             else
@@ -333,24 +379,24 @@ void Hash::learquivo(ifstream &arq)
             {
                 // Se map já possui a palavra lida ele retorna a palavra, se não ele retorna ponteiro null:
                 //  Caso essa palavra for diferente de um ponteiro nulo entro no if
-                if (this->map.find(i->getpalavra()) != this->map.end())
+                if (this->mapa.find(i->getpalavra()) != this->mapa.end())
                 {
-                    vector<int> vecparagrafos = this->map[i->getpalavra()]->getparagrafo();
+                    vector<int> vecparagrafos = this->mapa[i->getpalavra()]->getparagrafo();
                     vecparagrafos.push_back(paragrafos);
                     //getPalavra()->setparagrafos(getPalavra()->getparagrafos()+" "+to_string(paragrafos));
-                    this->map[i->getpalavra()]->setparagrafo(vecparagrafos);
-                    vector<int> vecsentenca = this->map[i->getpalavra()]->getnumsentenca();
+                    this->mapa[i->getpalavra()]->setparagrafo(vecparagrafos);
+                    vector<int> vecsentenca = this->mapa[i->getpalavra()]->getnumsentenca();
                     vecsentenca.push_back(i->getnumsentenca()[0]);
-                    vector<int> veclinha = this->map[i->getpalavra()]->getlinhaocorrencia();
+                    vector<int> veclinha = this->mapa[i->getpalavra()]->getlinhaocorrencia();
                     veclinha.push_back(i->getlinhaocorrencia()[0]);
-                    vector<int> vecpossentenca = this->map[i->getpalavra()]->getpossentenca();
+                    vector<int> vecpossentenca = this->mapa[i->getpalavra()]->getpossentenca();
                     vecpossentenca.push_back(i->getpossentenca()[0]);
-                    vector<int> vecposparagrafo = this->map[i->getpalavra()]->getposparagrafo();
+                    vector<int> vecposparagrafo = this->mapa[i->getpalavra()]->getposparagrafo();
                     vecposparagrafo.push_back(i->getposparagrafo()[0]);
-                    this->map[i->getpalavra()]->setposparagrafo(vecposparagrafo);
-                    this->map[i->getpalavra()]->setpossentenca(vecpossentenca);
-                    this->map[i->getpalavra()]->setnumsentenca(vecsentenca);
-                    this->map[i->getpalavra()]->setlinhaocorrencia(veclinha);
+                    this->mapa[i->getpalavra()]->setposparagrafo(vecposparagrafo);
+                    this->mapa[i->getpalavra()]->setpossentenca(vecpossentenca);
+                    this->mapa[i->getpalavra()]->setnumsentenca(vecsentenca);
+                    this->mapa[i->getpalavra()]->setlinhaocorrencia(veclinha);
                 }
                 // Caso não ele só acrescenta a palavra na Hash:
                 else
@@ -369,7 +415,7 @@ void Hash::learquivo(ifstream &arq)
                     getPalavra()->setpossentenca(vecpossentenca);
                     vector<int> vecposparagrafo = i->getposparagrafo();
                     getPalavra()->setposparagrafo(vecposparagrafo);
-                    this->map.insert({i->getpalavra(), getPalavra()});
+                    this->mapa.insert({i->getpalavra(), getPalavra()});
                 }
             }
         }
@@ -401,24 +447,24 @@ void Hash::learquivo(ifstream &arq)
         paragrafo = "";
         for (const auto &i : vet)
         {
-            if (this->map.find(i->getpalavra()) != this->map.end())
+            if (this->mapa.find(i->getpalavra()) != this->mapa.end())
             {
-                vector<int> vecparagrafos = this->map[i->getpalavra()]->getparagrafo();
+                vector<int> vecparagrafos = this->mapa[i->getpalavra()]->getparagrafo();
                 vecparagrafos.push_back(paragrafos);
                 //getPalavra()->setparagrafos(getPalavra()->getparagrafos()+" "+to_string(paragrafos));
-                vector<int> vecsentenca = this->map[i->getpalavra()]->getnumsentenca();
+                vector<int> vecsentenca = this->mapa[i->getpalavra()]->getnumsentenca();
                 vecsentenca.push_back(i->getnumsentenca()[0]);
-                vector<int> veclinha = this->map[i->getpalavra()]->getlinhaocorrencia();
+                vector<int> veclinha = this->mapa[i->getpalavra()]->getlinhaocorrencia();
                 veclinha.push_back(i->getlinhaocorrencia()[0]);
-                vector<int> vecpossentenca = this->map[i->getpalavra()]->getpossentenca();
+                vector<int> vecpossentenca = this->mapa[i->getpalavra()]->getpossentenca();
                 vecpossentenca.push_back(i->getpossentenca()[0]);
-                vector<int> vecposparagrafo = this->map[i->getpalavra()]->getposparagrafo();
+                vector<int> vecposparagrafo = this->mapa[i->getpalavra()]->getposparagrafo();
                 vecposparagrafo.push_back(i->getposparagrafo()[0]);
-                this->map[i->getpalavra()]->setparagrafo(vecparagrafos);
-                this->map[i->getpalavra()]->setposparagrafo(vecposparagrafo);
-                this->map[i->getpalavra()]->setpossentenca(vecpossentenca);
-                this->map[i->getpalavra()]->setnumsentenca(vecsentenca);
-                this->map[i->getpalavra()]->setlinhaocorrencia(veclinha);
+                this->mapa[i->getpalavra()]->setparagrafo(vecparagrafos);
+                this->mapa[i->getpalavra()]->setposparagrafo(vecposparagrafo);
+                this->mapa[i->getpalavra()]->setpossentenca(vecpossentenca);
+                this->mapa[i->getpalavra()]->setnumsentenca(vecsentenca);
+                this->mapa[i->getpalavra()]->setlinhaocorrencia(veclinha);
             }
             else
             {
@@ -439,7 +485,7 @@ void Hash::learquivo(ifstream &arq)
                 getPalavra()->setpossentenca(vecpossentenca);
                 vector<int> vecposparagrafo = i->getposparagrafo();
                 getPalavra()->setposparagrafo(vecposparagrafo);
-                this->map.insert({i->getpalavra(), getPalavra()});
+                this->mapa.insert({i->getpalavra(), getPalavra()});
             }
         }
     }
@@ -457,14 +503,15 @@ void Hash::learquivo(ifstream &arq)
     //              << "Linha ocorrencia: " << par.second->getlinhaocorrencia()[i] << endl;
     //     }
     // }
+    AlphaOrder(&ocorrencias);
 }
 /// @brief Essa função cria um vector com todas as palavras de map estando ordenadas com todas as suas letras sem acento minúsculas
-void Hash::AlphaOrder()
+void Hash::AlphaOrder(map<string, pair<int, vector<int>>> *texto)
 {
     vector<string> vectorordenado;
 
     // Inserindo palavras no vetor:
-    for (const auto &par : this->map)
+    for (const auto &par : this->mapa)
     {
         vectorordenado.push_back(par.first);
     }
@@ -473,14 +520,14 @@ void Hash::AlphaOrder()
     int cont=0;
     string palavramaior;
     for(const auto& i:vectorordenado){
-        if(cont<map[i]->getparagrafo().size()){
-            cont=map[i]->getparagrafo().size();
-            palavramaior=map[i]->getpalavra();
+        if(cont<mapa[i]->getparagrafo().size()){
+            cont=mapa[i]->getparagrafo().size();
+            palavramaior=mapa[i]->getpalavra();
         }
     }
     string seter;
-    for(int i=0;i<map[palavramaior]->getparagrafo().size();i++){
-        seter=seter+" "+to_string(map[palavramaior]->getparagrafo()[i]);
+    for(int i=0;i<mapa[palavramaior]->getparagrafo().size();i++){
+        seter=seter+" "+to_string(mapa[palavramaior]->getparagrafo()[i]);
     }
     // imprimindo o vetor ordenado alfabeticamnete
     // for (long unsigned int i = 0; i < vectorordenado.size(); i++)
@@ -493,60 +540,55 @@ void Hash::AlphaOrder()
     fstream file2;
     string nome = "dataset/Resultados1.data";
     file2.open(nome, std::fstream::out);
-    file2 << "Palavra "<<setw(30);
-    file2<< "Num vezes:"<<setw(32);
-    file2 << "Linhas:"<<setw(96);
-    file2<<"Sentencas:"<<setw(95);
-    file2<<"Paragrafos:"<<setw(100);
-    file2<<"Posição paragrafo:\n";
+    file2 << "================\n=> FULL RESULTS\n================\n";
+    file2 << "_____________________________________________________________________\n";
+    file2 << "WORD \\ APPEARANCES \\ LINES \\ SENTENCES \\ PARAGRAPHS \\ POSITION\n";
+    file2 << "---------------------------------------------------------------------\n";
     for(const auto& i:vectorordenado)
     {
         if(i.length()>=1 && stopwords(i)==false)
         {
-            file2 << left <<setw(30)<< i<<"\t";
-            file2<<left<<setw(30)<<map[i]->getparagrafo().size()<<"\t";
+            file2 << i << " \\ ";
+            file2 << mapa[i]->getparagrafo().size() << " \\ ";
             // if(stopwords(i)==true){
                 palavramaior="";
                 cont=0;
-                for(unsigned long int j=0; j<map[i]->getlinhaocorrencia().size(); j++){
-                    file2 <<left<< " " << map[i]->getlinhaocorrencia()[j];
-                    palavramaior=palavramaior+to_string(map[i]->getlinhaocorrencia()[j]);
+                for(unsigned long int j=0; j<mapa[i]->getlinhaocorrencia().size(); j++){
+                    file2 << mapa[i]->getlinhaocorrencia()[j] << " ";
+                    palavramaior=palavramaior+to_string(mapa[i]->getlinhaocorrencia()[j]);
                     cont++;
                 }
-                file2<<setw(90-(int(palavramaior.length())+(cont+1)))<<"\t";
+                file2 << "\\ ";
                 //cout<<palavramaior.length()<<endl;
-                for(unsigned long int j=0;j<map[i]->getnumsentenca().size();j++){
-                    file2 <<left<< " " << map[i]->getnumsentenca()[j];
+                for(unsigned long int j=0;j<mapa[i]->getnumsentenca().size();j++){
+                    file2 << mapa[i]->getnumsentenca()[j] << " ";
                 }
-                file2<<setw(90)<<"\t";
-                for(unsigned long int j=0;j<map[i]->getnumsentenca().size();j++){
-                    file2 << " " << map[i]->getparagrafo()[j];
+                file2 << "\\ ";
+                for(unsigned long int j=0;j<mapa[i]->getnumsentenca().size();j++){
+                    file2 << mapa[i]->getparagrafo()[j] << " ";
                 }
-                file2<<setw(90);
-                for(unsigned long int j=0;j<map[i]->getposparagrafo().size();j++){
-                    file2 << " " << map[i]->getposparagrafo()[j];
+                file2 << "\\ ";
+                for(unsigned long int j=0;j<mapa[i]->getposparagrafo().size();j++){
+                    file2 << mapa[i]->getposparagrafo()[j] << " ";
                 }
-                file2<<"\t";
-                
                 file2 << "\n";
             //}
         }
     }
-    // file2<<left<<setw(90)<<"Paragrafo:";
-    //     file2<<left<<setw(90)<<"Numsentenca paragrafos:";
-    //     file2<<"Linha de inicio/linha de fim:"<<setw(90)<<endl;
-    // for(int i=0;i<vetorParagrafos.size();i++){
-    //     file2<<left<<setw(90)<<i+1;
-    //     file2 << left<<setw(90) <<this->vetorParagrafos[i]->getnumsentenca();
-    //     // file2<<setw(90);
-    //     file2 << " " <<this->vetorParagrafos[i]->getnuminicio()<<"/"<<this->vetorParagrafos[i]->getnumfim();
-    //     file2<<endl;
-    // }
+    file2 << "---------------------------------------------------------------------\n\n";
+    file2 << "====================================================\n=> LINE NUMBER THAT START AND FINISH EACH PARAGRAPH \n====================================================\n";
+    file2 << "_____________________________________________________________________\n";
+    file2 << "PARAGRAPH \\ START \\ FINISH \n";
+    file2 << "---------------------------------------------------------------------\n";
+    for(int i=0;i<vetorParagrafos.size();i++){
+        file2<< i+1 << " \\ " << this->vetorParagrafos[i]->getnuminicio() << " \\ " << this->vetorParagrafos[i]->getnumfim() <<endl;
+    }
     //cout<<vetorParagrafos[3]->getvecpalavra()["uma"]->getlinhaocorrencia()[0]<<endl;
-    file2 << "\n-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-    file2 << "\n                           NUMBER OF WORDS IN EACH SENTENCE WITH AND WITHOUT STOP WORDS                                                           \n";
-    file2 << "\n-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-    file2 << "\n"<< left << setw(30) << "Parágrafo\t" << left << setw(30) << "sentenca\t" << left << setw(30) << "com stop words\t" << "sem stop words\n";
+    file2 << "---------------------------------------------------------------------\n\n";
+    file2 << "================================================================\n=> NUMBER OF WORDS IN EACH SENTENCE WITH AND WITHOUT STOP WORDS\n================================================================\n";
+    file2 << "_____________________________________________________________________\n";
+    file2 << "PARAGRAPH \\ SENTENCE \\ WITH STOP WORDS \\ WITHOUT STOP WORDS\n";
+    file2 << "---------------------------------------------------------------------\n";
     for(int a=0; a < int(vetorParagrafos.size()); a++){
         for(int b=0; b < int(vetorParagrafos[a]->getsentenca().size()); b++){
 
@@ -561,42 +603,56 @@ void Hash::AlphaOrder()
                 contpalavras++;
             }
             
-            file2 << left << setw(30) << a+1 << "\t";
-            file2 << left << setw(30) << b+1 << "\t";
-            file2 << left << setw(30) << contpalavras << "\t"; 
-            file2 << left << setw(30) << (contpalavras - contstopwords) << endl;
+            file2 << a+1 << " \\ ";
+            file2 << b+1 << " \\ ";
+            file2 << contpalavras << " \\ "; 
+            file2 << (contpalavras - contstopwords) << endl;
             contpalavras = 0;
             contstopwords = 0;
         }
     }
-    file2 << "-------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-    file2<<setw(30)<<"Palavra:";
-        file2<<setw(30)<<"Paragrafo";
-        file2<<setw(30)<<"sentenca";
-        file2<<setw(30)<<"Linha:";
-        file2<<setw(30)<<"Ocorrencia";
-        file2<<setw(30)<<"Posicoes:";
-        file2<<"Distancia\n";
+    file2 << "---------------------------------------------------------------------\n\n";
+// **********************************************************************
+        file2 << "==========================\n=> SEARCH FOR EXPRESSIONS\n==========================\n";
+        file2 << "_____________________________________________________\n";
+        file2 << "EXPRESSION / APPEARANCES / LINE\n";
+        file2 << "-----------------------------------------------------\n";
+        for (const auto& ocorrencia : (*texto)) {
+            if(ocorrencia.second.first >= 1){
+                file2  << ocorrencia.first.substr(0, ocorrencia.first.length() - 1) << " / "<< ocorrencia.second.first << " / ";
+                for (size_t i = 0; i < ocorrencia.second.second.size(); ++i) {
+                    file2 << ocorrencia.second.second[i];
+                    if (i != ocorrencia.second.second.size() - 1) {
+                        file2 << " ";
+                    }
+                }
+                file2 << endl;
+            }
+        }
+        file2 << "-----------------------------------------------------\n\n";
+// **********************************************************************
+    file2 << "====================\n=> PARTIAL RESULTS\n====================";
     for(int i=0;i<vetorParagrafos.size();i++){
+        file2 << "\n________________________________________________________________________\n";
+        file2<<"WORD \\ PARAGRAPH \\ SENTENCE \\ LINE \\ APPEARANCES \\ POSITIONS \\ DISTANCE\n";
+        file2 << "------------------------------------------------------------------------\n";
         //MedeDistancia(vetorParagrafos[i]->getpalavras(),i,file2);
         for(int j=0;j<vetorParagrafos[i]->getpalavras().size();j++){
             if(stopwords(vetorParagrafos[i]->getpalavras()[j])==false && vetorParagrafos[i]->getpalavras()[j]!=""){
-                file2<<setw(30)<<vetorParagrafos[i]->getpalavras()[j];
-                file2<<setw(30)<<i+1;
+                file2 << vetorParagrafos[i]->getpalavras()[j] << " \\ " << i+1 << " \\ ";
                 for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getnumsentenca().size());k++){
-                    file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getnumsentenca()[k];
+                    file2 << vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getnumsentenca()[k] << " ";
                 }
-                file2<<setw(30);
+                file2 << "\\ ";
                 for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia().size());k++){
-                    file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia()[k];
+                    file2 << vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia()[k] << " ";
                 }
-                file2<<setw(30);
-                file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia().size();
-                file2<<setw(30);
+                file2 << "\\ ";
+                file2 << vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia().size() << " \\ ";
                 for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo().size());k++){
-                    file2<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[k];
+                    file2 << vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[k] << " ";
                 }
-                file2<<setw(30)<<"\t";
+                file2 << "\\ ";
                 int inicio = 0;
                 int fim = 1;
                 int tamanho = 0;
@@ -619,9 +675,10 @@ void Hash::AlphaOrder()
                 file2<<endl;
             }
         }
-        file2<<"------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
-            file2<<endl;
+        
+        file2 << "------------------------------------------------------------------------";
     }
+    file2 << "\n\n\n";
     file2.close();
 }
 
@@ -708,6 +765,24 @@ void Hash::separastopwords(){
     
     }
 }
+
+string Hash::transforme(string linha){
+    char space = ' ';
+    short int tam = linha.size();
+    linha = " " + linha + " ";
+    for(int i=0;i<=tam;i++){
+        linha[i] = tolower(linha[i]);
+        if(linha[i] == 44 || linha[i] == 63 || linha[i] == 33 || linha[i] == 59 || linha[i] == 248 || linha[i] == 92 || linha[i] == 40  || linha[i] == 41  || linha[i] == 34 || linha[i] == 58 || linha[i] == 46){
+            linha[i] = space;
+        }
+        else if(linha[i] == 45 && linha[i+1] == 45){
+            linha[i+1] = space;
+        }
+    }
+    return linha;
+}
+
+
 
 // void Hash :: MedeDistancia(vector <string> ordenadohash,int numeroparagrafo, fstream &arq)
 // {
