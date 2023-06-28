@@ -38,7 +38,7 @@ class Hash
         void FirstOcurrencyWord(string word);
 
         void AlphaOrder();
-        void CriaArq(vector<string> vectorordenado);
+        //void CriaArq(vector<string> vectorordenado);
 
         bool stopwords (string palavra);
         void separastopwords();

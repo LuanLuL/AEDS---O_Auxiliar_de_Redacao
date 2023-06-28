@@ -130,7 +130,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     int sentenca = 1, caracterelinha,posicaoparagrafo=1;
     this->linha++;
     unordered_map<string,Palavra*> vecaaaa;
-    vector<string> palavras, sentencas_separadas, vecsentencasembarra;
+    vector<string> palavras, vecsentencasembarra;
     vector<Palavra *> vetorpassado;
     string a;
     char *palavra, *palavra2;
@@ -186,7 +186,6 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
                     vecaaaa.insert({getPalavra()->getpalavra(), getPalavra()});
                     getPara()->setvecpalavra(vecaaaa);
                     vetorpassado.push_back(getPalavra());
-                    sentencas_separadas.push_back(subs);
                     this->linha++;
                     if(sentencasembarra==""){
                         sentencasembarra=subs;
@@ -268,7 +267,6 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
                 sentencasembarra=sentencasembarra+" "+palavra2;
             }
             vetorpassado.push_back(getPalavra());
-            sentencas_separadas.push_back(palavra2);
             palavra2 = strtok(nullptr, ",;\"°() :");
         }
         vecsentencasembarra.push_back(sentencasembarra);
@@ -625,37 +623,6 @@ void Hash::AlphaOrder()
             file2<<endl;
     }
     file2.close();
-}
-
-void Hash :: CriaArq(vector<string> vectorordenado)
-{
-
-    fstream file;
-    string nome = "dataset/Resultados.data";
-    file.open(nome, std::fstream::out);
-    file << "Chave:     "  
-        << "Sentença: "  << "    "
-        << "Paragrafo: " << "    "
-        << "Linha ocorrencia: " <<"    "
-        << "Posição na sentença: "<<"    "
-        << "Posição no paragrafo: "<<"    "
-        << "Aparições no textoa: "<<endl;
-    for (const auto& j:vectorordenado)
-    {
-        if(j.length()>1)
-        {
-            file<<j<<"       ";
-            for(int i=0;i<int(map[j]->getparagrafo().size());i++){
-                 file<< map[j]->getnumsentenca()[i] << "\t\t\t     "
-                 << map[j]->getparagrafo()[i] << "\t\t\t     "
-                 << map[j]->getlinhaocorrencia()[i] <<"\t\t\t     "
-                 << map[j]->getpossentenca()[i] <<"\t \t\t    "
-                 << map[j]->getposparagrafo()[i]<<"\t\t\t      ";
-            }
-            file << map[j]->getparagrafo().size()<<endl;
-        }
-    }
-    file.close();
 }
 
 // identificação stopwords
