@@ -1,5 +1,6 @@
 
 #include <locale>
+#include <fstream>
 #include "palavra.hpp"
 #include "Hash.hpp"
 #define _ ios_base::sync_with_stdio(0);
@@ -12,3 +13,4 @@ int main(){
     h.learquivo(arq);
     return 0;
 }
+
