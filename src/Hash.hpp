@@ -18,6 +18,7 @@ class Hash
         unordered_map<string, Palavra *> map;
         int linha=0;
         int contpalavras = 0, contstopwords = 0;
+        int paragrafosglobal=0;
         vector<vector<string>> pacote;
         vector<Para*> vetorParagrafos;
     public:

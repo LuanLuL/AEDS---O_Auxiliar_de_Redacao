@@ -17,11 +17,11 @@ using namespace std;
 class Palavra
 {
     private:
-
-        short int contador;
-        vector<int> paragrafo, numsentenca;
-        string palavra;
-        vector<int> linhaocorrencia,posparagrafo,possentenca;
+        int cont;
+        string paragrafo; 
+        string numsentenca;
+        string palavra,linhaocorrencia;
+        vector<int> posparagrafo,possentenca;
         bool alreadyReaded, stopword;
     public:
 
@@ -29,11 +29,11 @@ class Palavra
         Palavra();
 
         //Gets e Sets:
-        void setcontador(short int contador);
-        short int getcontador() const;
+        void setcont(int cont);
+        int getcont() const;
 
-        void setparagrafo(vector<int> paragrafo);
-        vector<int> getparagrafo() const;
+        void setparagrafo(string paragrafo);
+        string getparagrafo() const;
 
         void setposparagrafo(vector<int> posparagrafo);
         vector<int> getposparagrafo() const;
@@ -41,14 +41,14 @@ class Palavra
         void setpossentenca(vector<int> possentenca);
         vector<int> getpossentenca() const;
 
-        void setnumsentenca(vector<int> numsentenca);
-        vector<int> getnumsentenca() const;
+        void setnumsentenca(string numsentenca);
+        string getnumsentenca() const;
 
         void setpalavra(string palavra);
         string getpalavra() const;
         
-        void setlinhaocorrencia(vector<int> linhaocorrencia);
-        vector<int> getlinhaocorrencia() const;
+        void setlinhaocorrencia(string linhaocorrencia);
+        string getlinhaocorrencia() const;
 
         void setalreadyReaded(bool alreadyReaded);
         bool getalreadyReaded() const;

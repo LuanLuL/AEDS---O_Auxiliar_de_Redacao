@@ -2,26 +2,26 @@
 
 Palavra::Palavra()
 {
-    this->contador=0;
+    this->cont=0;
     this->alreadyReaded = false;
 }
 
-void Palavra::setcontador(short int contador)
+void Palavra::setcont(int cont)
 {
-    this->contador=contador;
+    this->cont=cont;
 }
 
-short int Palavra::getcontador() const
+int Palavra::getcont() const
 {
-    return this->contador;
+    return this->cont;
 }
 
-void Palavra::setparagrafo(vector<int> paragrafo)
+void Palavra::setparagrafo(string paragrafo)
 {
     this->paragrafo=paragrafo;
 }
 
-vector<int> Palavra::getparagrafo() const
+string Palavra::getparagrafo() const
 {
     return this->paragrafo;
 }
@@ -46,12 +46,12 @@ vector<int> Palavra::getpossentenca() const
     return this->possentenca;
 }
 
-void Palavra::setnumsentenca(vector<int> numsentenca)
+void Palavra::setnumsentenca(string numsentenca)
 {
     this->numsentenca=numsentenca;
 }
 
-vector<int> Palavra::getnumsentenca() const
+string Palavra::getnumsentenca() const
 {
     return this->numsentenca;
 }
@@ -66,12 +66,12 @@ string Palavra::getpalavra() const
     return this->palavra;
 }
 
-void Palavra::setlinhaocorrencia(vector<int> linhaocorrencia)
+void Palavra::setlinhaocorrencia(string linhaocorrencia)
 {
     this->linhaocorrencia=linhaocorrencia;
 }
 
-vector<int> Palavra::getlinhaocorrencia() const
+string Palavra::getlinhaocorrencia() const
 {
     return this->linhaocorrencia;
 }
