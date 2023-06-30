@@ -22,20 +22,31 @@
 ## Índice
  - [Introdução](#Introdução)
 
+ - [Objetivos](#Objetivos)
+   - [Premissas](#premissas)
+   - [Objetivo Geral](#objetivo-geral)
+   - [Objetivos Específicos](#objetivos-específicos)
+
+ - [Justificativa](#Justificativa)
+
  - [Fundamentação Teórica](#Fundamentação-Teórica)
     - [Estruturas de Dados](#Estruturas-de-Dados)
-    - [Algoritmos](#Algoritmos)
+    - [Algoritmos](#Algoritmos)  
 
  - [Metodologia](#Metodologia)
     - [Arquivos](#Arquivos)
         - [Funcionamento](#Funcionamento)
         - [Leitura do Arquivo](#Leitura-do-Arquivo)
  
- - [Objetivos](#Objetivos)
+ - [Referências](#referências)
+
 <br><br>
 
 ## Introdução
-Este repositório apresenta um programa que obtém métricas textuais à cerca de uma entradas em forma de texto, livro ou junção de várias sentenças. A implementação foi proposta na disciplina de Algoritmos e Estruturas de Dados. Para isso foi necessário armazenar combinações de caracteres, formando aglomerados de dados que abstraem: parágrafos, sentenças e palavras. Para isso considere as seguintes colocações:
+Este repositório apresenta um programa que obtém métricas textuais à cerca de uma entrada em forma de texto, livro ou junção de várias sentenças. A implementação foi proposta na disciplina de Algoritmos e Estruturas de Dados. Para isso foi necessário armazenar combinações de caracteres, formando aglomerados de dados que abstraem: parágrafos, sentenças e palavras.
+
+Além da reconstrução de um software auxiliar de redação a equipe desenvolve o projeto com o intuito de minimizar custos relacionados ao processamento de dados textuais, uma vez que as ferramentas propostas já foram criadas por outros desenvolvedores.
+ Para isso considere as seguintes colocações:
 
 - Nomes de diretórios, ou arquivos serão referênciados da seguinte forma: `Nome.data` ou `Diretório_2`.
 
@@ -98,14 +109,47 @@ Da análise dos parágrafos, são obtidos:
 - O Número de palavras de cada sentença incluindo e descartando "stop words".
 
 
-Da análise das palavras que não estão contidas no arquivo `stopwords.x`, é obtido:
+Quando analisadas as palavras que não estão contidas no arquivo `stopwords.txt`, é obtida:
 - Cada palavra listada em ordem alfabética com frequÊncia de sua ocorrência no texto, indicando as linhas do arquivo onde essas surgem.
 - A ocorrência das palavras que aparecem mais de uma vez em um mesmo parágrafo.
 
-Da análise das palavras que estão contidas ou não no arquivo `stopwords.x`, é analisado:
+Caso a entrada provenha palavras que estão contidas ou não no arquivo `stopwords.txt`, é inspecionada:
 - A distância entre as repetições de palavras que aparecem mais de uma vez em um mesmo parágrafo. 
 
-## Justificativa
-A análise de parágrafos assiste escritores de redações ao indicar parágrafos longos de mais, bem como parágrafos formados por uma única sentença.
+Da análise das expressões que estão contidas no arquivo `expressoes.txt`, é considerado:
+- O número das linhas onde essas palavras aparecem.
 
-A análise de palavras contribui durante a escrita acadêmica, uma vez que indica repetições excessivas de palavras em um mesmo parágrafo.
+
+## Justificativa
+
+O projeto foi realizado visando reescrever ferramentas para auxiliar usuários de editores de texto. Os dados gerados tem importância uma vez que os seguintes problemas são enfrentados durante a escrita.
+
+1. Parágrafos grandes de mais, com um pequeno número de sentenças dificultam a compreensão dos textos.
+
+2. Artigos científicos são penalizados e se tornam confusos ao apresentar palavras excessivamente  repetidas. Além de tudo, há outros gêneros textuais em que a repetição das palavras de qualquer tipo podem torná-los não legíveis. Define-se "legíveis" como "O plural de legível. Que se consegue ler com facilidade; cuja clareza e/ou nitidez facilita a leitura.(RISCO, 2023)"
+
+3. Quando uma palavra foi digitada várias vezes em um texto, pode ser necessário que esta seja corrigida. Um exemplo dessa situação é quando uma palavra é utilizada de maneira indevida ou quando ela não existe formalmente e é inserido em um texto.
+
+O auxiliar de redação desenvolvido auxilia escritores à lidar com as situações citadas acima, uma vez que:
+
+1. A análise de parágrafos indica parágrafos longos, bem como parágrafos formados por uma única sentença.
+
+2. A análise de palavras contribui durante a escrita de diversos gêneros textuais, uma vez que mostra repetições excessivas de palavras em um mesmo parágrafo.
+
+3. A análise de expressões, provém a localização destas no texto, para que diante de uma busca realizada pela máquina haja uma correção eficiênte por parte do escritor.
+
+ Durante o desenvolvimento minimizar custos de implmementação era um propósito
+
+
+
+
+## Referências
+
+[1] LEGÍVEIS. In: DICIO, Dicionário Online de Português. Porto: 7Graus, 2023. Disponível em: <https://www.dicio.com.br/risco/>. Acesso em: 30/06/2023.
+
+[2] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 15 de Maio de 2023.
+
+[3] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em XX de Maio de 2023.
+
+[4] GNU Make. Disponível em: <https://www.gnu.org/software/make/>. Acesso em: mai. 23DC.
+
