@@ -35,7 +35,7 @@
 <br><br>
 
 ## Introdução
-Este repositório apresenta um programa que obtem métricas textuais à cerca de uma entradas em forma de texto, livro ou junção de várias sentenças. A implementação foi proposta na disciplina de Algoritmos e Estruturas de Dados. Para isso foi necessário armazenar combinações de caracteres, formando aglomerados de dados que abstraem: parágrafos, sentenças e palavras. Para isso considere as seguintes colocações:
+Este repositório apresenta um programa que obtém métricas textuais à cerca de uma entradas em forma de texto, livro ou junção de várias sentenças. A implementação foi proposta na disciplina de Algoritmos e Estruturas de Dados. Para isso foi necessário armazenar combinações de caracteres, formando aglomerados de dados que abstraem: parágrafos, sentenças e palavras. Para isso considere as seguintes colocações:
 
 - Nomes de diretórios, ou arquivos serão referênciados da seguinte forma: `Nome.data` ou `Diretório_2`.
 
@@ -79,6 +79,33 @@ Este repositório apresenta um programa que obtem métricas textuais à cerca de
 
 
 ## Objetivos
-A problemática proposta pelo trabalho incita os alunos da disciplina a efetuar a análise de um texto contido em um arquivo sem formatação do tipo ASCII. Para realização deste procedimento é considerado que:
+### Objetivo Geral
+O objetivo do código elaborado é efetuar a análise de um texto contido em um arquivo sem formatação do tipo ASCII. Gerando uma análise de diversos dados textuais como saída, de forma à seguir os objetivos específicos.
+
+### Premissas
+Para realização deste procedimento foi considerado que:
 - As sentenças são definidas entre os delimitadores de pontuação à seguir: ".", "?" e "!".
-- Os parágrafos são definidos como um conjunto de sentenças entre duas linhas em branco no arquivo. Na leitura o programa considera que duas linhas em branco são representadas por `\n`.
+- Os parágrafos são definidos como um conjunto de sentenças entre pelo menos uma linha em branco. Linhas em branco são caracterizadas por `\n`.
+- Artigos(a, o, as, os), conjunções (mas, nem, como, se, mais) e palavras(depois, aquilo, seríamos) contidas em um arquivo denominado `stopwords.x` serão desconsideradas nas análises realizadas pelo programa. Este arquivo é criado pelo aluno e deverá ter seu formato especificado.
+- A análise envolve métricas com o número das linhas nos arquivo analisado, para isso considere a primeira linha do arquivo de entrada como "1", a segunda como "2" e assim por diante.
+- Uma única palavra $p$ é delimitada por espaço em branco, coluna da esquerda, coluna da direita e símbolos de pontuação.
+- Outras suposições e premissas podem ser criadas desde que não aleterem as premissas acima.
+
+### Objetivos Específicos
+Da análise dos parágrafos, são obtidos:
+- O Número das linhas de início e fim dos parágrafos.
+- A Quantidade de sentenças em cada parágrafo.
+- O Número de palavras de cada sentença incluindo e descartando "stop words".
+
+
+Da análise das palavras que não estão contidas no arquivo `stopwords.x`, é obtido:
+- Cada palavra listada em ordem alfabética com frequÊncia de sua ocorrência no texto, indicando as linhas do arquivo onde essas surgem.
+- A ocorrência das palavras que aparecem mais de uma vez em um mesmo parágrafo.
+
+Da análise das palavras que estão contidas ou não no arquivo `stopwords.x`, é analisado:
+- A distância entre as repetições de palavras que aparecem mais de uma vez em um mesmo parágrafo. 
+
+## Justificativa
+A análise de parágrafos assiste escritores de redações ao indicar parágrafos longos de mais, bem como parágrafos formados por uma única sentença.
+
+A análise de palavras contribui durante a escrita acadêmica, uma vez que indica repetições excessivas de palavras em um mesmo parágrafo.
