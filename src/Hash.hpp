@@ -34,7 +34,7 @@ class Hash
         //Métodos:
         void learquivo(ifstream &arq);
         string UpperToLowerAccent(string bigAccentString);
-        vector<Palavra*> retorna_vetor(char *separa_linha);
+        void retorna_vetor(char *separa_linha);
         string transforme(string linha);
         void AlphaOrder(unordered_map<string, pair<int, vector<int>>> *texto);
         bool stopwords (string palavra);
