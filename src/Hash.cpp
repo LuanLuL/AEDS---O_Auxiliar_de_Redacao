@@ -125,7 +125,7 @@ string Hash::UpperToLowerAccent(string bigAccentString)
     return bigAccentString;
 }
 
-vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
+void Hash::retorna_vetor(char *separa_linha)
 {
     int sentenca = 1, caracterelinha, posicaoparagrafo = 1;
     this->linha++;
@@ -139,7 +139,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     {
         a = palavra;
         // cout<<palavra<<endl;
-        if (a.length() != 1 && (a!="  " && a!="   " && a!= "    "))
+        if (a.length() >1 && (a!="  " && a!="   "))
         {
             sentenca++;
             palavras.push_back(palavra);
@@ -186,7 +186,23 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
                     getPalavra()->setpalavra(subs);
                     getPalavra()->setlinhaocorrencia(linhadeocorrencia);
                     vetorpassado.push_back(getPalavra());
-
+                    if(!stopwords(getPalavra()->getpalavra())){
+                        if(this->map.find(getPalavra()->getpalavra())!=map.end()){
+                            this->map[getPalavra()->getpalavra()]->setcont((this->map[getPalavra()->getpalavra()]->getcont()+1));
+                            this->map[getPalavra()->getpalavra()]->setnumsentenca((this->map[getPalavra()->getpalavra()]->getnumsentenca()+" "+vec));
+                            this->map[getPalavra()->getpalavra()]->setlinhaocorrencia(this->map[getPalavra()->getpalavra()]->getlinhaocorrencia()+" "+linhadeocorrencia);
+                            this->map[getPalavra()->getpalavra()]->setparagrafo((this->map[getPalavra()->getpalavra()]->getparagrafo()+" "+vecparagrafos));
+                            posicaonasentencavec=this->map[getPalavra()->getpalavra()]->getpossentenca();
+                            posicaonasentencavec.push_back(posicaonasentenca);
+                            posicaonoparagrafovec=this->map[getPalavra()->getpalavra()]->getposparagrafo();
+                            posicaonoparagrafovec.push_back(posicaoparagrafo);
+                            this->map[getPalavra()->getpalavra()]->setposparagrafo((posicaonoparagrafovec));
+                            this->map[getPalavra()->getpalavra()]->setpossentenca((posicaonasentencavec));
+                        }
+                        else{
+                            this->map.insert({getPalavra()->getpalavra(),getPalavra()});
+                        }
+                    }
                     if (vecaaaa.find(getPalavra()->getpalavra()) != vecaaaa.end())
                     {
                         Palavra *novo_p = new Palavra;
@@ -262,6 +278,24 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
             getPalavra()->setparagrafo(vecparagrafos);
             getPalavra()->setlinhaocorrencia(linhadeocorrencia);
             vetorpassado.push_back(getPalavra());
+            if(!stopwords(getPalavra()->getpalavra())){
+                if(this->map.find(getPalavra()->getpalavra())!=map.end()){
+                    this->map[getPalavra()->getpalavra()]->setcont(this->map[getPalavra()->getpalavra()]->getcont()+1);
+                    this->map[getPalavra()->getpalavra()]->setnumsentenca(this->map[getPalavra()->getpalavra()]->getnumsentenca()+" "+vec);
+                    this->map[getPalavra()->getpalavra()]->setparagrafo(this->map[getPalavra()->getpalavra()]->getparagrafo()+" "+vecparagrafos);
+                    this->map[getPalavra()->getpalavra()]->setlinhaocorrencia(this->map[getPalavra()->getpalavra()]->getlinhaocorrencia()+" "+linhadeocorrencia);
+                    posicaonasentencavec=this->map[getPalavra()->getpalavra()]->getpossentenca();
+                    posicaonasentencavec.push_back(posicaonasentenca);
+                    posicaonoparagrafovec=this->map[getPalavra()->getpalavra()]->getposparagrafo();
+                    posicaonoparagrafovec.push_back(posicaoparagrafo);
+                    this->map[getPalavra()->getpalavra()]->setposparagrafo((posicaonoparagrafovec));
+                    this->map[getPalavra()->getpalavra()]->setpossentenca((posicaonasentencavec));
+                }
+                else{
+                    this->map.insert({getPalavra()->getpalavra(),getPalavra()});
+                }
+            }
+            //this->map.insert(getPalavra()->getpalavra(),getPalavra());
             if (vecaaaa.find(getPalavra()->getpalavra()) != vecaaaa.end())
             {
                 Palavra *novo_p = new Palavra;
@@ -321,7 +355,7 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
                 << left << setw(30) << "WORD" << setw(30) << "PARAGRAPH" << setw(30) << "SENTENCE" << setw(30) << "LINE" << setw(30) << "APPEARANCES" << setw(30) << "POSITIONS"
                 << "DISTANCE\n"
                 << "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-    // MedeDistancia(vetorParagrafos[i]->getpalavras(),i,ssparagrafo);
+    //MedeDistancia(vetorParagrafos[i]->getpalavras(),i,ssparagrafo);
     for (int j = 0; j < ordenadohash.size(); j++)
     {
         if (stopwords(ordenadohash[j]) == false && ordenadohash[j] != "")
@@ -354,10 +388,11 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
         }
     }
     ssparagrafo << "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+    
     getPara()->setpalavras(ordenadohash);
     vetorParagrafos.push_back(getPara());
     this->linha++;
-    return vetorpassado;
+    //return vetorpassado;
 }
 
 /// @brief Função responsável por ler o arquivo e armazenar todas as palavras no vector map
@@ -369,6 +404,7 @@ void Hash::learquivo(ifstream &arq)
     vector<Palavra *> vet;
     ssparagrafo << "====================\n=> PARTIAL RESULTS\n====================";
     vector<string> vectorordenado;
+    stringstream aquo;
     Palavra *p;
     // *******************************************************************
     string linhaLUAN = "";
@@ -434,7 +470,7 @@ void Hash::learquivo(ifstream &arq)
             paragrafosglobal++;
             this->para = new Para();
             setPara(para);
-            paragrafos++;
+            //paragrafos++;
             transform(paragrafo.begin(), paragrafo.end(), paragrafo.begin(), ::tolower);
             // cout<<paragrafo<<endl;
             if (paragrafos == 1)
@@ -452,58 +488,8 @@ void Hash::learquivo(ifstream &arq)
             contadorcomeco = 0;
             strcpy(separa_linha, paragrafo.c_str());
             // cout<<separa_linha<<endl;
-            vet = retorna_vetor(separa_linha);
+            retorna_vetor(separa_linha);
             paragrafo = "";
-            for (const auto &i : vet)
-            {
-                // Se map já possui a palavra lida ele retorna a palavra, se não ele retorna ponteiro null:
-                //  Caso essa palavra for diferente de um ponteiro nulo entro no if
-                if (this->map.find(i->getpalavra()) != this->map.end())
-                {
-                    // cout<<i->getpalavra()<<endl;
-                    string vecparagrafos = this->map[i->getpalavra()]->getparagrafo();
-                    vecparagrafos += " " + i->getparagrafo();
-                    this->map[i->getpalavra()]->setparagrafo(vecparagrafos);
-                    this->map[i->getpalavra()]->setcont(this->map[i->getpalavra()]->getcont() + 1);
-                    string vecsentenca = this->map[i->getpalavra()]->getnumsentenca();
-                    vecsentenca += " " + i->getnumsentenca();
-                    string veclinha = this->map[i->getpalavra()]->getlinhaocorrencia();
-                    veclinha += " " + i->getlinhaocorrencia();
-                    vector<int> vecpossentenca = this->map[i->getpalavra()]->getpossentenca();
-                    vecpossentenca.push_back(i->getpossentenca()[0]);
-                    vector<int> vecposparagrafo = this->map[i->getpalavra()]->getposparagrafo();
-                    vecposparagrafo.push_back(i->getposparagrafo()[0]);
-                    this->map[i->getpalavra()]->setposparagrafo(vecposparagrafo);
-                    this->map[i->getpalavra()]->setpossentenca(vecpossentenca);
-                    this->map[i->getpalavra()]->setnumsentenca(vecsentenca);
-                    this->map[i->getpalavra()]->setlinhaocorrencia(veclinha);
-                }
-                // Caso não ele só acrescenta a palavra na Hash:
-                else
-                {
-                    // cout<<i->getpalavra()<<endl;
-                    Palavra *p = new Palavra();
-                    setPalavra(p);
-                    getPalavra()->setcont(getPalavra()->getcont() + 1);
-                    getPalavra()->setpalavra(i->getpalavra());
-                    string vecparagrafos = getPalavra()->getparagrafo();
-                    vecparagrafos = to_string(paragrafosglobal);
-                    getPalavra()->setparagrafo(vecparagrafos);
-                    string vecsentenca;
-                    vecsentenca = i->getnumsentenca();
-                    getPalavra()->setnumsentenca(vecsentenca);
-                    string veclinha;
-                    veclinha = i->getlinhaocorrencia();
-                    getPalavra()->setlinhaocorrencia(veclinha);
-                    vector<int> vecpossentenca;
-                    vecpossentenca.push_back(i->getpossentenca()[0]);
-                    getPalavra()->setpossentenca(vecpossentenca);
-                    vector<int> vecposparagrafo;
-                    vecposparagrafo.push_back(i->getposparagrafo()[0]);
-                    getPalavra()->setposparagrafo(vecposparagrafo);
-                    this->map.insert({i->getpalavra(), getPalavra()});
-                }
-            }
         }
         contadorcomeco++;
         contadorlinhas++;
@@ -513,7 +499,7 @@ void Hash::learquivo(ifstream &arq)
         this->para = new Para();
         transform(paragrafo.begin(), paragrafo.end(), paragrafo.begin(), ::tolower);
         setPara(para);
-        paragrafos++;
+        //paragrafos++;
         paragrafosglobal++;
         if (paragrafos == 1)
         {
@@ -529,53 +515,8 @@ void Hash::learquivo(ifstream &arq)
         char *separa_linha = new char[paragrafo.length() + 1];
         contadorcomeco = 0;
         strcpy(separa_linha, paragrafo.c_str());
-        vet = retorna_vetor(separa_linha);
+        retorna_vetor(separa_linha);
         paragrafo = "";
-        for (const auto &i : vet)
-        {
-            if (this->map.find(i->getpalavra()) != this->map.end())
-            {
-                string vecparagrafos = this->map[i->getpalavra()]->getparagrafo();
-                vecparagrafos += " " + i->getparagrafo();
-                this->map[i->getpalavra()]->setparagrafo(vecparagrafos);
-                this->map[i->getpalavra()]->setcont(this->map[i->getpalavra()]->getcont() + 1);
-                string vecsentenca = this->map[i->getpalavra()]->getnumsentenca();
-                vecsentenca += " " + i->getnumsentenca();
-                string veclinha = this->map[i->getpalavra()]->getlinhaocorrencia();
-                veclinha += " " + i->getlinhaocorrencia();
-                vector<int> vecpossentenca = this->map[i->getpalavra()]->getpossentenca();
-                vecpossentenca.push_back(i->getpossentenca()[0]);
-                vector<int> vecposparagrafo = this->map[i->getpalavra()]->getposparagrafo();
-                vecposparagrafo.push_back(i->getposparagrafo()[0]);
-                this->map[i->getpalavra()]->setposparagrafo(vecposparagrafo);
-                this->map[i->getpalavra()]->setpossentenca(vecpossentenca);
-                this->map[i->getpalavra()]->setnumsentenca(vecsentenca);
-                this->map[i->getpalavra()]->setlinhaocorrencia(veclinha);
-            }
-            else
-            {
-                Palavra *p = new Palavra();
-                setPalavra(p);
-                getPalavra()->setcont(getPalavra()->getcont() + 1);
-                getPalavra()->setpalavra(i->getpalavra());
-                string vecparagrafos = getPalavra()->getparagrafo();
-                vecparagrafos = to_string(paragrafos);
-                getPalavra()->setparagrafo(vecparagrafos);
-                string vecsentenca;
-                vecsentenca = i->getnumsentenca();
-                getPalavra()->setnumsentenca(vecsentenca);
-                string veclinha;
-                veclinha = i->getlinhaocorrencia();
-                getPalavra()->setlinhaocorrencia(veclinha);
-                vector<int> vecpossentenca;
-                vecpossentenca.push_back(i->getpossentenca()[0]);
-                getPalavra()->setpossentenca(vecpossentenca);
-                vector<int> vecposparagrafo;
-                vecposparagrafo.push_back(i->getposparagrafo()[0]);
-                getPalavra()->setposparagrafo(vecposparagrafo);
-                this->map.insert({i->getpalavra(), getPalavra()});
-            }
-        }
     }
     arq.close();
     AlphaOrder(&ocorrencias);
@@ -593,18 +534,8 @@ void Hash::AlphaOrder(unordered_map<string, pair<int, vector<int>>> *texto)
     std::sort(vectorordenado.begin(), vectorordenado.end());
     int cont = 0;
     string palavramaior;
-    // for(const auto& i:vectorordenado){
-    //     if(cont<map[i]->getparagrafo().size()){
-    //         cont=map[i]->getparagrafo().size();
-    //         palavramaior=map[i]->getpalavra();
-    //     }
-    // }
     ofstream file2("dataset/Resultados1.data", std::ios::out | std::ios::binary);
-    // string nome = "dataset/Resultados1.data";
-    // file2.open(nome);
     stringstream ss;
-    // char buffer[4096];
-    // file2.rdbuf()->pubsetbuf(buffer, sizeof(buffer));
     ss << "================\n=> FULL RESULTS\n================\n";
     ss << "______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________\n";
     ss << "WORD " << setw(30) << "APPEARANCES" << setw(32) << "LINES" << setw(96) << "SENTENCES" << setw(95) << "PARAGRAPHS" << setw(100) << "POSITION\n"
@@ -618,11 +549,11 @@ void Hash::AlphaOrder(unordered_map<string, pair<int, vector<int>>> *texto)
             cont = 0;
             ss << left << " " << map[i]->getlinhaocorrencia();
             // palavramaior=palavramaior+to_string(map[i]->getlinhaocorrencia());
-            ss << setw(90 - (int(palavramaior.length()) + (cont + 1))) << "\t";
-            ss << left << " " << map[i]->getnumsentenca();
-            ss << setw(90) << "\t";
-            ss << " " << map[i]->getparagrafo();
-            ss << setw(90);
+            ss << setw(90 - (int(palavramaior.length()) + (cont + 1))) << "\t"
+            << left << " " << map[i]->getnumsentenca()
+            << setw(90) << "\t"
+            << " " << map[i]->getparagrafo()
+            << setw(90);
             for (unsigned long int j = 0; j < map[i]->getposparagrafo().size(); j++)
             {
                 ss << " " << map[i]->getposparagrafo()[j];
@@ -693,45 +624,12 @@ void Hash::AlphaOrder(unordered_map<string, pair<int, vector<int>>> *texto)
         }
     }
     ss << "-----------------------------------------------------\n\n";
-    // **********************************************************************
-    // for(int i=0;i<vetorParagrafos.size();i++){
-    //     ss << "\n________________________________________________________________________________________________________________________________________________________________________________________________________________\n"<< left << setw(30) << "WORD" << setw(30) << "PARAGRAPH" << setw(30) << "SENTENCE" << setw(30) << "LINE" << setw(30) << "APPEARANCES" << setw(30) << "POSITIONS" << "DISTANCE\n"<< "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-    //     //MedeDistancia(vetorParagrafos[i]->getpalavras(),i,ss);
-    //     for(int j=0;j<vetorParagrafos[i]->getpalavras().size();j++){
-    //         if(stopwords(vetorParagrafos[i]->getpalavras()[j])==false && vetorParagrafos[i]->getpalavras()[j]!=""){
-    //             ss<<setw(30)<<vetorParagrafos[i]->getpalavras()[j]<<setw(30)<<i+1;
-    //             ss<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getnumsentenca();
-    //             ss<<setw(30);
-    //             ss<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getlinhaocorrencia();
-    //             ss<<setw(30)<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getcont()<<setw(30);
-    //             for(int k=0;k<int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo().size());k++){
-    //                 ss<<" "<<vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[k];
-    //             }
-    //             ss<<setw(30)<<"\t";
-    //             short int inicio = 0;
-    //             short int fim = 1;
-    //             short int tamanho = 0;
-    //             short int distancia = 0;
-    //             tamanho = int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo().size());
-    //             inicio = 0;
-    //             fim = 1;
-    //             while(fim<tamanho)
-    //             {
-    //                 distancia = int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[fim])-int(vetorParagrafos[i]->getvecpalavra()[vetorParagrafos[i]->getpalavras()[j]]->getposparagrafo()[inicio]);
-    //                 // cout << "Distância:" << distancia << "\n\n";
-    //                 ss<<distancia<<" ";
-    //                 fim=fim+1;
-    //             }
-    //             ss<<"\n";
-    //         }
-    //     }
-    //     ss<<"------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-    // }
-    ss << ssparagrafo.str();
     file2 << ss.str();
+    file2<< ssparagrafo.str();
     file2.close();
 }
 
+// identificação stopwords
 // identificação stopwords
 bool Hash::stopwords(string palavra)
 {
