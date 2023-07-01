@@ -8,7 +8,7 @@ Hash::Hash()
     this->para = new Para();
     this->map = map;
     this->linha = 0;
-    pacote.resize(5);
+    pacote.resize(15);
     separastopwords();
 }
 stringstream ssparagrafo;
@@ -785,11 +785,121 @@ bool Hash::stopwords(string palavra)
             }
             return false;
         }
-        else if (int(palavra.size()) == 14)
+        else if (int(palavra.size()) == 5)
         {
             for (int i = 0; i < int(pacote[4].size()); i++)
             {
                 if (palavra == pacote[4][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 6)
+        {
+            for (int i = 0; i < int(pacote[5].size()); i++)
+            {
+                if (palavra == pacote[5][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 7)
+        {
+            for (int i = 0; i < int(pacote[6].size()); i++)
+            {
+                if (palavra == pacote[6][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 8)
+        {
+            for (int i = 0; i < int(pacote[7].size()); i++)
+            {
+                if (palavra == pacote[7][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 9)
+        {
+            for (int i = 0; i < int(pacote[8].size()); i++)
+            {
+                if (palavra == pacote[8][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 10)
+        {
+            for (int i = 0; i < int(pacote[9].size()); i++)
+            {
+                if (palavra == pacote[9][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 11)
+        {
+            for (int i = 0; i < int(pacote[10].size()); i++)
+            {
+                if (palavra == pacote[10][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 12)
+        {
+            for (int i = 0; i < int(pacote[11].size()); i++)
+            {
+                if (palavra == pacote[11][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 13)
+        {
+            for (int i = 0; i < int(pacote[12].size()); i++)
+            {
+                if (palavra == pacote[12][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 14)
+        {
+            for (int i = 0; i < int(pacote[13].size()); i++)
+            {
+                if (palavra == pacote[13][i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else if (int(palavra.size()) == 15)
+        {
+            for (int i = 0; i < int(pacote[14].size()); i++)
+            {
+                if (palavra == pacote[14][i])
                 {
                     return true;
                 }
@@ -837,9 +947,49 @@ void Hash::separastopwords()
             {
                 pacote[3].push_back(stopword);
             }
-            else if (stopword.size() == 14)
+             else if (stopword.size() == 5)
             {
                 pacote[4].push_back(stopword);
+            }
+             else if (stopword.size() == 6)
+            {
+                pacote[5].push_back(stopword);
+            }
+             else if (stopword.size() == 7)
+            {
+                pacote[6].push_back(stopword);
+            }
+             else if (stopword.size() == 8)
+            {
+                pacote[7].push_back(stopword);
+            }
+             else if (stopword.size() == 9)
+            {
+                pacote[8].push_back(stopword);
+            }
+             else if (stopword.size() == 10)
+            {
+                pacote[9].push_back(stopword);
+            }
+             else if (stopword.size() == 11)
+            {
+                pacote[10].push_back(stopword);
+            }
+             else if (stopword.size() == 12)
+            {
+                pacote[11].push_back(stopword);
+            }
+            else if (stopword.size() == 13)
+            {
+            pacote[12].push_back(stopword);
+            }
+             else if (stopword.size() == 14)
+            {
+                pacote[13].push_back(stopword);
+            }
+             else if (stopword.size() == 15)
+            {
+                pacote[14].push_back(stopword);
             }
         }
         arq.close();
