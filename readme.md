@@ -30,11 +30,15 @@
  - [Justificativa](#Justificativa)
 
  - [Fundamentação Teórica](#Fundamentação-Teórica)
-    - [Estruturas de Dados](#Estruturas-de-Dados)
-    - [Algoritmos](#Algoritmos)  
+    - [Paradigma de Programação Orientado à Objetos](#paradigma-de-programação-orientado-à-objetos)
+    - [Tabela de Espalhamento](#tabela-de-espalhamento) 
 
  - [Metodologia](#Metodologia)
     - [Arquivos](#Arquivos)
+        - [App](#App)
+        - [Palavra](#Palavra)
+        - [Parágrafo](#Parágrafo)
+        
         - [Funcionamento](#Funcionamento)
         - [Leitura do Arquivo](#Leitura-do-Arquivo)
  
@@ -106,7 +110,7 @@ Para realização deste procedimento foi considerado que:
 Da análise dos parágrafos, são obtidos:
 - O Número das linhas de início e fim dos parágrafos.
 - A Quantidade de sentenças em cada parágrafo.
-- O Número de palavras de cada sentença incluindo e descartando "stop words".
+- O Número de palavras de cada sentença incluindo e descartando _stop words_.
 
 
 Quando analisadas as palavras que não estão contidas no arquivo `stopwords.txt`, é obtida:
@@ -140,12 +144,36 @@ O auxiliar de redação desenvolvido auxilia escritores à lidar com as situaç�
 
  Durante o desenvolvimento minimizar custos de implmementação era um propósito
 
+## Fundamentação Teórica
 
+### Paradigma de Programação Orientado à Objetos
+A leitura do texto de entrada tem os dados segmentados em parágrafos, sentenças e palavras, afinal era necessário que estes pudessem ter somente características essênciais ao cumprimento dos objetivos sendo processadas.Dito isto é essêncial trabalhar paralelamente com a proposta de tipos de dados abstratos e construções de encapsulamento.
+
+Para (SEBESTA, 2018, p.446) uma abstração pode ser definida da seguinte forma: "Visão ou representação de uma entidade que inclui apenas os atributos mais significativos. De um modo geral, a abstração permite que alguém colete exemplares de entidades em grupos nos quais seus atributos comuns não precisam
+ser considerados". Além de tudo o autor 
+
+Diante disso a programação Orientada à Objetos(Que também dispõe de herança e vinculação dinâmica como recursos para desenvolvimento) é o paradígma de programação pelo qual o Auxiliar de Redação foi estruturado afim de usufruir da abstração de dados e encapsulamento de atributos.
+
+### Tabela de Espalhamento
+Para gerar dados diante da anaĺise de palavras, sentenças e parágrafos é imprescindível armazená-los em estruturas de dados. Dito isto os parágrafos são armazenados em um vector, que se define como um vetor dinâmico que reajusta seu tamanho a cada inserção.
+
+O armazenamento de palavras foi elaborado com maior cautela, afinal a forma com que o algoritmo foi escrito demanda que a pesquisa por palavras fosse realizada várias vezes. Diante de uma situação onde há mais pesquisa que inserção e não existe remoção das estruturas de dados que armazenariam palavras, uma estrutura com baixo custo de pesquisa foi escolhida para integrar o Auxiliar de Redação.
+
+"Embora a busca por um elemento em uma tabela de espalhamento possa demorar tanto quanto procurar um elemento em uma lista ligada - o tempo $Θ(n)$ no pior caso - , na prática o hashing funciona extremamente bem. Sob premissas razoáveis, o tempo médio para pesquisar um elemento em uma tabela de espalhamento é $O(1)$"(CORMEN, 2012, p.184).
+
+Portanto as circunstâncias indicam que uma tabela de espalhamento se torna a decisão de estrutura de dados mais adequada para armazenar as palavras e realizar pesquisa sobre estes elementos.
+
+<!--Apesar do texto ter várias palavras iguais, o algoritmo escrito usa a colisão para atualizar atributos da palavra armazenada em alguma posição na Hash ao invés de armazená-la em outro índice. -->
 
 
 ## Referências
 
 [1] LEGÍVEIS. In: DICIO, Dicionário Online de Português. Porto: 7Graus, 2023. Disponível em: <https://www.dicio.com.br/risco/>. Acesso em: 30/06/2023.
+
+[2] SEBESTA, R. W. Concepts of Programming Languages. Tradução: João Eduardo Nóbrega Tortello. 11. ed. [s.l.] Pearson Education, Inc., 2018. p. 446, 488 e 489
+
+[3] CORMEN
+
 
 [2] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 15 de Maio de 2023.
 
