@@ -139,11 +139,11 @@ vector<Palavra *> Hash::retorna_vetor(char *separa_linha)
     {
         a = palavra;
         // cout<<palavra<<endl;
-        if (a.length() != 1)
+        if (a.length() != 1 && (a!="  " && a!="   " && a!= "    "))
         {
             sentenca++;
+            palavras.push_back(palavra);
         }
-        palavras.push_back(palavra);
         palavra = strtok(nullptr, ".!?");
     }
     for (int i = 0; i < int(palavras.size()); i++)
