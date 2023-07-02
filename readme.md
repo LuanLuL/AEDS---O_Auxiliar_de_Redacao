@@ -34,14 +34,14 @@
     - [Tabela de Espalhamento](#tabela-de-espalhamento) 
 
  - [Metodologia](#Metodologia)
-    - [Arquivos](#Arquivos)
-        - [App](#App)
-        - [Palavra](#Palavra)
-        - [Parágrafo](#Parágrafo)
-        
-        - [Funcionamento](#Funcionamento)
-        - [Leitura do Arquivo](#Leitura-do-Arquivo)
- 
+    - [Definição da Amostragem](#definição-da-amostragem)
+    - [Arquitetura do Projeto](#arquitetura-do-projeto)
+    - [Funcionamento](#Funcionamento)
+      - [Leitura do Arquivo](#Leitura-do-Arquivo)
+
+ - [Instruções de Instalação](#instruções-de-instalação)
+ - [Instruções de Uso](#instruções-de-uso)
+
  - [Referências](#referências)
 
 <br><br>
@@ -66,7 +66,7 @@ Além da reconstrução de um software auxiliar de redação a equipe desenvolve
 
 - $p$ - Abstrai a ideia de palavra, ou seja, uma relação entre caracteres.
 
-- $s$ - Abstrai a ideia de sentença, ou seja, uma relação entre palavras.
+<!-- - $s$ - Abstrai a ideia de sentença, ou seja, uma relação entre palavras.
 
 - $P$ - Abstrai a ideia de um parágrafo, ou seja, uma relação entre sentenças.
 
@@ -89,7 +89,7 @@ Além da reconstrução de um software auxiliar de redação a equipe desenvolve
 - $v$ - Um Grafo $v$ qualquer.
 
 - $n_{v}$ - Número de vértices em um percurso.
-
+ -->
 
 
 
@@ -163,6 +163,114 @@ O armazenamento de palavras foi elaborado com maior cautela, afinal a forma com 
 
 Portanto as circunstâncias indicam que uma tabela de espalhamento se torna a decisão de estrutura de dados mais adequada para armazenar as palavras e realizar pesquisa sobre estes elementos.
 
+## Metodologia
+
+### Definição da Amostragem
+Os dados utilizados como entrada para desenvolvimento do Auxiliar de Redação são os textos nos arquivos `dataset/DomCasmurro.txt`, `dataset/entrada.txt`e `dataset/entrada2.txt`. 
+
+A escolha da amostra de dados se justifica por diversos motivos. Os textos de entrada escolhidos agregam pela variedade de vocábulos, expressões e caracteres e pela diferença entre a quantidade de linhas, diante disso os arquivos escolhidos são: `Bíblia.txt`, `DomCasmurro.txt`,  `entrada.txt` e `entrada2.txt`. Ter uma diversificação no número de linhas ajudou os desenvolvedores à observar coerencia relacionada às mensurações de saídas dependentes do número de linhas. Ademais,
+a variedade de caracteres nos textos dos arquivos `Bíblia.txt` e `DomCasmurro.txt`, foram importantes para validar a persistividade dos resultados relacionados à identificação de _stop words_, expressões e tratamento de palavras com letras maiúsculas. Por fim a diversidade de palavras no conjunto de entradas foi essêncial para testar o programa em situações onde as mais diversas palavras possíveis teriam de ser classificadas como _stop words_ ou não, armazenadas na estrutura de espalhamento e ter seus atributos necessários associados.
+
+As entradas fornecidas em `expressoes.txt` e `stopwords.txt` foram selecionadas em função de delimitar situações onde as palavras contidas nestes arquivos tivessem de ser ignorados. Portanto foram consideradas como palavras pertencentes à casos de exceção.
+
+### Arquitetura do Projeto
+Para realização dos objetivos específicos o programa segue a seguinte árvore de diretórios.
+```
+.AEDS---O_Auxiliar_de_Redacao
+│
+│
+...
+│
+├── dataset
+│   ├── DomCasmurro.txt
+│   └── entrada.txt
+│   └── entrada2.txt
+│   └── expressoes.txt
+│   └── Resultados1.data
+│   └── stopwords.txt
+│
+...
+│
+├── src
+│   ├── Hash.cpp
+│   ├── Hash.hpp
+│   ├── main.cpp
+│   ├── palavra.cpp
+│   ├── palavra.hpp
+│   ├── Para.cpp
+│   ├── Para.hpp
+│   └── file23.ext
+│
+├── Makefile
+└── readme.md
+```
+
+- `Hash.cpp`: Arquivo com _gets_ _sets_ e construtores da classe principal _Hash_.
+- `Hash.hpp`: Arquivo com assinaturas da classe principal _Hash_.
+
+- `palavra.cpp`: Arquivo com _gets_ _sets_ e construtores da classe palavra.
+- `palavra.hpp`: Arquivo com assinaturas da classe  palavra.
+
+- `Para.cpp`: Arquivo com _gets_ _sets_ e construtores da classe Para, uma classe para abstração de parágrafos.
+- `Para.hpp`: Arquivo com assinaturas da classe Para.
+
+- `main.cpp`: Arquivo onde é criado um objeto da classe _Hash_ inicializando o objeto principal do programa.
+
+- `Makefile`: Controla a geração dos executáveis e compilação dos mesmos(FREE SOFTWARE FOUNDATION, GNU make, 2023).
+- `readme.md`: contém a documentação do projeto.
+
+### Funcionamento
+#### Leitura do Arquivo
+O código do arquivo main inicaliza uma estrutura denominada `_Hash_` que na verdade representa uma abstração para todos os processos e variáveis do programa.
+
+Após a inicialização o método `lerarquivo` recebe um ponteiro `arq` realiza a leitura de uma linha de cada vez da entrada que for passada como parâmetro para a chamada do seu método open.
+
+Durante a leitura do arquivo objetos que representam palavras são criados e tem seus atributos atualizados conforme a leitura ocorre. Vale ressaltar que o mesmo ocorre para os Parágrafos.
+
+#### Extraindo informações
+Durante a leitura do arquivo vários processos são realizados. De maneira simultânea, portanto será descrito como cada funcionalidade do Auxiliar de Redação foi implementada separadamente.
+
+1. O programa concebe que a leitura das últimas linhas é delimitada em um único parágrafo quando uma linha vazia é lida. Dito isto, um objeto do tipo `Para` tem dois atributos, denominados `numfim` e `numinicio`, estes recebem respectivamente o valor da linha inicial o valor da linha atual como equivalente ao valor da linha que está após uma linha vazia e o valor da linha final como o valor da linha aterior à ela.
+
+
+## Instruções de Instalação
+1. Copie a URL **`https://github.com/LuanLuL/AEDS---O_Auxiliar_de_Redacao.git`**.
+
+2. Abra o terminal e escolha um diretório para a instalação.
+
+3. Para clonar o repositório na máquina digite `git clone`, e cole a URL que foi copiada previamente.
+
+4. Por fim o seguinte conteúdo será o resultado dos últimos passos, então é só pressionar a tecla `Enter`.
+
+```
+git clone https://github.com/LuanLuL/AEDS---O_Auxiliar_de_Redacao.git
+```
+
+
+## Instruções de Uso
+Para compilação e execução do código é necessário que seja criado um arquivo Makefile. Para uso deste arquivo de forma correta, siga as diretrizes de execução abaixo:
+<table>
+
+<tr>
+<td colspan = '1'><strong>Comandos</strong></td>
+<td align = "center" colspan = '1'><strong>Funções</strong></td>
+</tr>
+
+<tr>
+<td align="center"><strong><i>make clean</i></strong>
+</td>
+<td align="center">Deleta o arquivo executável e todos os arquivos objetos do diretório. (FREE SOFTWARE FOUNDATION, GNU make, 2023)</td>
+</tr>
+<tr>
+<td align="center"><strong><i>make</i></strong></td>
+<td align="center">Compila diferentes partes do programa através do g++ e cria um arquivo executável na pasta build. </td>
+</tr>
+<tr>
+<td align="center"><strong><i>make run</i></strong></td>
+<td align="center">Executa o programa da pasta build após a realização da compilação. (PIRES, MICHEL, 2023)</td>
+</tr>
+</table>
+
 <!--Apesar do texto ter várias palavras iguais, o algoritmo escrito usa a colisão para atualizar atributos da palavra armazenada em alguma posição na Hash ao invés de armazená-la em outro índice. -->
 
 
@@ -172,12 +280,12 @@ Portanto as circunstâncias indicam que uma tabela de espalhamento se torna a de
 
 [2] SEBESTA, R. W. Concepts of Programming Languages. Tradução: João Eduardo Nóbrega Tortello. 11. ed. [s.l.] Pearson Education, Inc., 2018. p. 446, 488 e 489
 
-[3] CORMEN
+[3] CORMEN, T. H. et al. Introduction to Algorithms, third edition. [s.l.] MIT Press, 2012. Acessado em 01 de Julho de 2023.
+
+[4] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em 01 de Julho de 2023.
+
+[5] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 01 de Julho de 2023.
 
 
-[2] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 15 de Maio de 2023.
 
-[3] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em XX de Maio de 2023.
-
-[4] GNU Make. Disponível em: <https://www.gnu.org/software/make/>. Acesso em: mai. 23DC.
 
