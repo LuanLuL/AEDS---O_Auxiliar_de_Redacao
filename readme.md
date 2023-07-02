@@ -107,21 +107,21 @@ Para realização deste procedimento foi considerado que:
 - Outras suposições e premissas podem ser criadas desde que não aleterem as premissas acima.
 
 ### Objetivos Específicos
-Da análise dos parágrafos, são obtidos:
-- O Número das linhas de início e fim dos parágrafos.
-- A Quantidade de sentenças em cada parágrafo.
-- O Número de palavras de cada sentença incluindo e descartando _stop words_.
+- Objetivo 1. Da análise dos parágrafos, são obtidos:
+  - O Número das linhas de início e fim dos parágrafos.
+  - A Quantidade de sentenças em cada parágrafo.
+  - O Número de palavras de cada sentença incluindo e descartando _stop words_.
 
 
-Quando analisadas as palavras que não estão contidas no arquivo `stopwords.txt`, é obtida:
-- Cada palavra listada em ordem alfabética com frequÊncia de sua ocorrência no texto, indicando as linhas do arquivo onde essas surgem.
-- A ocorrência das palavras que aparecem mais de uma vez em um mesmo parágrafo.
+- Objetivo 2. Quando analisadas as palavras que não estão contidas no arquivo `stopwords.txt`, é obtida:
+  - Cada palavra listada em ordem alfabética com frequÊncia de sua ocorrência no texto, indicando as linhas do arquivo onde essas surgem.
+  - A ocorrência das palavras que aparecem mais de uma vez em um mesmo parágrafo.
 
-Caso a entrada provenha palavras que estão contidas ou não no arquivo `stopwords.txt`, é inspecionada:
-- A distância entre as repetições de palavras que aparecem mais de uma vez em um mesmo parágrafo. 
+- Objetivo 3. Caso a entrada provenha palavras que estão contidas ou não no arquivo `stopwords.txt`, é inspecionada:
+  - A distância entre as repetições de palavras que aparecem mais de uma vez em um mesmo parágrafo. 
 
-Da análise das expressões que estão contidas no arquivo `expressoes.txt`, é considerado:
-- O número das linhas onde essas palavras aparecem.
+- Objetivo 4. Da análise das expressões que estão contidas no arquivo `expressoes.txt`, é considerado:
+  - O número das linhas onde essas palavras aparecem.
 
 
 ## Justificativa
@@ -230,8 +230,18 @@ Durante a leitura do arquivo objetos que representam palavras são criados e tem
 #### Extraindo informações
 Durante a leitura do arquivo vários processos são realizados. De maneira simultânea, portanto será descrito como cada funcionalidade do Auxiliar de Redação foi implementada separadamente.
 
-1. O programa concebe que a leitura das últimas linhas é delimitada em um único parágrafo quando uma linha vazia é lida. Dito isto, um objeto do tipo `Para` tem dois atributos, denominados `numfim` e `numinicio`, estes recebem respectivamente o valor da linha inicial o valor da linha atual como equivalente ao valor da linha que está após uma linha vazia e o valor da linha final como o valor da linha aterior à ela.
+Para implementar o que foi proposto pelo Objetivo 1:
+1. Um objeto do tipo `Para` tem dois atributos, denominados `numfim` e `numinicio`. Após passar  por uma linha vazia a próxima linha tem seu número passado como valor do atributo numinicio. Dito isso ao ler uma  linha vazia como a atual, o valor da linha anterior é passado para numfim.
 
+2. 
+
+3. 
+
+Para implementar o que foi proposto pelo Objetivo 2:
+1. Em função de ordenar cada palavra que aparece no texto alfabéticamente com a frequência de sua ocorrência em todo o arquivo, indicando as linhas onde elas surgem, foi importante previamente assumir um padrão de formatação em todas elas. Para formatar todas as palavras do texto de maneira comum, `UpperToLowerAccent` troca vogais maiúsculas por minúsculas recebendo como argumento uma string, esta representa uma linha que foi filtrada por duas chamadas de `strtok` fazendo com que ela tenha apenas letras em sua composição. Por seguinte a função `AlphaOrder` cria um vector com todas  as palavras da hash `map` e ordena-o com o método `sort` da biblioteca stl(o método por sua vez se baseia na em um template que categoriza valores maiores ou menores e ordena-os ainda que sejam caracteres). Por fim a função `AlphaOrder` cria uma string formatada como uma tabela, essa string contém todas as saídas requisitadas em objetivos associadas às palavras, _stop words_ e expressoes. Vale ressaltar que a função `AlphaOrder` é chamada no final da função ler arquivo pelo fato de que ela precisa que todos os dados requisitados tenham sido previamente analisados durante a leitura do texto.
+
+
+2. asg
 
 ## Instruções de Instalação
 1. Copie a URL **`https://github.com/LuanLuL/AEDS---O_Auxiliar_de_Redacao.git`**.
