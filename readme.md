@@ -227,21 +227,27 @@ Após a inicialização o método `lerarquivo` recebe um ponteiro `arq` realiza 
 
 Durante a leitura do arquivo objetos que representam palavras são criados e tem seus atributos atualizados conforme a leitura ocorre. Vale ressaltar que o mesmo ocorre para os Parágrafos.
 
-#### Extraindo informações
+#### Análise e Processamento do Texto
 Durante a leitura do arquivo vários processos são realizados. De maneira simultânea, portanto será descrito como cada funcionalidade do Auxiliar de Redação foi implementada separadamente.
 
 Para implementar o que foi proposto pelo Objetivo 1:
-1. Um objeto do tipo `Para` tem dois atributos, denominados `numfim` e `numinicio`. Após passar  por uma linha vazia a próxima linha tem seu número passado como valor do atributo numinicio. Dito isso ao ler uma  linha vazia como a atual, o valor da linha anterior é passado para numfim.
+- Um objeto do tipo `Para` tem dois atributos, denominados `numfim` e `numinicio`. Após passar  por uma linha vazia a próxima linha tem seu número passado como valor do atributo numinicio. Dito isso ao ler uma  linha vazia como a atual, o valor da linha anterior é passado para numfim.
 
-2. 
+- O número de sentenças é pego quando o `strtok` recebe as linhas como parâmetro e às divide em pedaços delimitados por "!", "?" ou ".". Essas divisões são contabilizadas e as parcelas da linha serão armazenadas em um vetor de sentenças.
 
-3. 
+- Dentro da função `AlphaOrder` existem três laços de repetição, para que seja percorrida cada sentença dentro do `vetorParagrafos` e assim sejam contadas as palavras que são e que não são _stop words_ dentro deste vetor.
+
 
 Para implementar o que foi proposto pelo Objetivo 2:
-1. Em função de ordenar cada palavra que aparece no texto alfabéticamente com a frequência de sua ocorrência em todo o arquivo, indicando as linhas onde elas surgem, foi importante previamente assumir um padrão de formatação em todas elas. Para formatar todas as palavras do texto de maneira comum, `UpperToLowerAccent` troca vogais maiúsculas por minúsculas recebendo como argumento uma string, esta representa uma linha que foi filtrada por duas chamadas de `strtok` fazendo com que ela tenha apenas letras em sua composição. Por seguinte a função `AlphaOrder` cria um vector com todas  as palavras da hash `map` e ordena-o com o método `sort` da biblioteca stl(o método por sua vez se baseia na em um template que categoriza valores maiores ou menores e ordena-os ainda que sejam caracteres). Por fim a função `AlphaOrder` cria uma string formatada como uma tabela, essa string contém todas as saídas requisitadas em objetivos associadas às palavras, _stop words_ e expressoes. Vale ressaltar que a função `AlphaOrder` é chamada no final da função ler arquivo pelo fato de que ela precisa que todos os dados requisitados tenham sido previamente analisados durante a leitura do texto.
+- Em função de ordenar cada palavra que aparece no texto alfabéticamente com a frequência de sua ocorrência em todo o arquivo, indicando as linhas onde elas surgem, foi importante previamente assumir um padrão de formatação em todas elas. Para formatar todas as palavras do texto de maneira comum, `UpperToLowerAccent` troca vogais maiúsculas por minúsculas recebendo como argumento uma string, esta representa uma linha que foi filtrada por duas chamadas de `strtok` fazendo com que ela tenha apenas letras em sua composição. Por seguinte a função `AlphaOrder` cria um vector com todas  as palavras da hash `map` e ordena-o com o método `sort` da biblioteca stl(o método por sua vez se baseia na em um template que categoriza valores maiores ou menores e ordena-os ainda que sejam caracteres). Por fim a função `AlphaOrder` cria uma string formatada como uma tabela, essa string contém todas as saídas requisitadas em objetivos associadas às palavras, _stop words_ e expressoes. Vale ressaltar que a função `AlphaOrder` é chamada no final da função ler arquivo pelo fato de que ela precisa que todos os dados requisitados tenham sido previamente analisados durante a leitura do texto.
 
+- Existe uma _hash_ denominada `vecaaaa`(as chaves são strings com os caracteres de uma palavra e os valores armazenados são objetos do tipo palavra) no código que atualiza atributos de palavras delimitadas à leitura de um parágrafo. O que acontece é que a primeira ocorrência de uma palavras é adicionada à _hash_ `vecaaaa`, todas as vezes que a palavra surge novamente uma colisão não ocorre na _hash_(isso faz com que sua implementação siga a ideia de uma tabela de endereço direto sem colisões (CORMEN, 2012, p.184)), ao invés de colidir os atributos da palavra já armazenada são atualizados. Os valores das posições das palavras nos parágrafos são adicionadas ao atributo de cada palavra denominado `posparagrafo`. Caso o parágrafo acabe, `vecaaaa` tem seus valores atualizados para que primeiras ocorrências em um novo parágrafo sejam referênciadas. 
 
-2. asg
+Para implementar o que foi proposto pelo Objetivo 3:
+- Primeiramente é criado um vetor com todas as chaves contidas em `vecaaaa` denominado `ordenadohash`, ou seja um vetor de strings. Em segundo lugar a distância entre, a primeira variável do vetor atributo de palavra denominado`posparagrafo` e cada das outras posições armazenadas ali, é calculada. E terceiramente o valor do cálculo é atribuído à uma variável denominada distância dentro do método `retorna_vetor`.
+
+Para implementar o que foi proposto pelo Objetivo 4:
+- Em primeiro lugar uma nova tabela de endereço direto é criada, seu nome `ocorrencias`, para cada chave representada por uma string de valor categórico igual à de uma expressão, a tabela criada armazena um par com um número inteiro(representa o número de ocorrências de uma expressão) e um vetor de números inteiros(armazena o número das linhas de ocorrência de uma expressão).Caso a linha lida pelo programa não seja vazia a função `transforme` recebe a linha lida atualmente como parâmetro. Caso essa linha tenha caracteres da tabela ASCII atrapalhando a identificação de expressões contidas na linha, os mesmos serão transformados em `' '` ou `''`, posteriormente linha é retornada para uma variável de forma que seja possível identificar as expressões contidas nela. Em seguida utilza-se o método `find` para buscar expressões do arquivo `dataset/expressoes.data` que foram armazenados no vector de string expressoes. Quando as expressoes são encontradas nas linhas lidas, o valor da linha é armazenada e o número de ocorrências de uma expressão aumenta em 1 unidade.
 
 ## Instruções de Instalação
 1. Copie a URL **`https://github.com/LuanLuL/AEDS---O_Auxiliar_de_Redacao.git`**.
