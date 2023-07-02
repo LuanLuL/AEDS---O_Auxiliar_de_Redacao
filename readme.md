@@ -43,6 +43,7 @@
     - [Arquitetura do Projeto](#arquitetura-do-projeto)
     - [Funcionamento](#Funcionamento)
       - [Leitura do Arquivo](#Leitura-do-Arquivo)
+      - [Análise e Processamento do Texto](#análise-e-processamento-do-texto)
 
  - [Instruções de Instalação](#instruções-de-instalação)
  - [Instruções de Uso](#instruções-de-uso)
