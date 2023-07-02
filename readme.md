@@ -262,6 +262,91 @@ Para implementar o que foi proposto pelo Objetivo 4:
 
   Essas regras foram estabelecidas após uma análise do problema, que confirmou a necessidade de realizar alterações tanto na lista de expressões quanto no texto a ser utilizado na busca. Diante disso, é importante ressaltar que o programa de computador apresentado neste projeto pode apresentar erros caso alguma dessas regras não seja cumprida.
 
+### Ambiente de Desenvolvimento:
+Várias máquinas foram utilizadas no desenvolvimento do código, mas principalmente a máquina 1.
+
+**Máquina 1**
+
+<table>
+<tr>
+<td colspan = '1' align="center"><strong>Peças</strong></td>
+<td align = "center" colspan = '1'><strong>Especificações</strong></td>
+</tr>
+
+<tr>
+<td align="center"><strong><i>Processador</i></strong>
+</td>
+<td align="center">11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz</td>
+</tr>
+<tr>
+<td align="center"><strong><i>Memória RAM</i></strong></td>
+<td align="center">8 GB </td>
+</tr>
+<tr>
+<td align="center"><strong><i>Sistema Operacional</i></strong></td>
+<td>Linux Ubuntu 22.04.2 LTS x86_64 </td>
+</tr>
+</table>
+
+
+**Máquina 2**
+<table>
+<tr>
+<td colspan = '1' align="center"><strong>Peças</strong></td>
+<td align = "center" colspan = '1'><strong>Especificações</strong></td>
+</tr>
+
+<tr>
+<td align="center"><strong><i>Processador</i></strong>
+</td>
+<td align="center">Intel(R) Core(TM) i5-3340M CPU @ 2.70GHz</td>
+</tr>
+<tr>
+<td align="center"><strong><i>Memória RAM</i></strong></td>
+<td align="center">8 GB </td>
+</tr>
+<tr>
+<td align="center"><strong><i>Sistema Operacional</i></strong></td>
+<td>Linux Debian 11(Bullseye)x86_64 </td>
+</tr>
+</table>
+
+
+### Tempo de Execução:
+A **Máquina 2** apresenta como amostra de tempo de execução os seguintes resultados:
+
+<table>
+
+<tr>
+<td colspan = '1'><strong> Nome da Entrada</strong></td>
+<td align = "center" colspan = '1'><strong>Número de Linhas da Entrada</strong></td>
+<!-- </tr> -->
+<td align = "center" colspan = '1'><strong>Média do Tempo de Execução</strong></td>
+</tr>
+
+<tr>
+<td align="center"><strong><i>Dom Casmurro.txt</i></strong>
+</td>
+<td align="center">27765</td>
+<td align="center">7206,275 ms</td>
+</tr>
+
+<tr>
+<td align="center"><strong><i>entrada.txt</i></strong>
+</td>
+<td align="center">22</td>
+<td align="center">19,7963 ms</td>
+</tr>
+
+<tr>
+<td align="center"><strong><i>entrada2.txt</i></strong>
+</td>
+<td align="center">33</td>
+<td align="center">20,94 ms</td>
+</tr>
+
+</table>
+
 ## Instruções de Instalação
 1. Copie a URL **`https://github.com/LuanLuL/AEDS---O_Auxiliar_de_Redacao.git`**.
 
