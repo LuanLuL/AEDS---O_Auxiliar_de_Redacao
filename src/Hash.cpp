@@ -439,7 +439,7 @@ void Hash::learquivo(ifstream &arq)
         ocorrencias[expressao].first = 0;
     }
     // *******************************************************************
-    arq.open("dataset/DomCasmurro.txt");
+    arq.open("dataset/input.data");
     while (getline(arq, linha))
     {
         if (linha.empty() == false)
@@ -534,7 +534,7 @@ void Hash::AlphaOrder(unordered_map<string, pair<int, vector<int>>> *texto)
     std::sort(vectorordenado.begin(), vectorordenado.end());
     int cont = 0;
     string palavramaior;
-    ofstream file2("dataset/Resultados1.data", std::ios::out | std::ios::binary);
+    ofstream file2("dataset/output.data", std::ios::out | std::ios::binary);
     stringstream ss;
     ss << "================\n=> FULL RESULTS\n================\n";
     ss << "______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________\n";
