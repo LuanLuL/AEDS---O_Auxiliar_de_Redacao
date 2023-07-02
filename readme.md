@@ -19,6 +19,11 @@
 
 </div>
 
+<div>
+    <p>Criado em Maio de 2023, o projeto <strong>Auxilia de Redação</strong> foi desenvolvido em virtude de atender as demandas do curso de Algoritimo e Estrutura de Dados, ministrado pelo professor <a href="https://github.com/mpiress" target="_blank">Michel Pires Da Silva</a> no Centro Federal de Educação Tecnológica de Minas Gerais (<a href="https://www.divinopolis.cefetmg.br/" target="_blank">CEFET-MG</a>). Segundo as diretrizes, o projeto foi redigido por uma equipe composta de seis mebros: <a href="https://github.com/IagoVinicius12" target="_blank">Iago Vinicius Braga Franca</a>, <a href="https://github.com/jAzz-hub" target="_blank">João Gustavo Silva Guimarães</a>, <a href="https://github.com/LuanLuL" target="_blank">Luan Gonçalves Santos</a>, <a href="https://github.com/teuswx" target="_blank">Mateus Herique Pereira</a> e <a href="https://github.com/MatheuAlves" target="_blank">Matheus Henrique Alves</a>, <a href="https://github.com/Guiliard" target="_blank">Rafael Augusto Campos Moreira</a>
+    </p>
+</div>
+
 ## Índice
  - [Introdução](#Introdução)
 
@@ -248,6 +253,14 @@ Para implementar o que foi proposto pelo Objetivo 3:
 
 Para implementar o que foi proposto pelo Objetivo 4:
 - Em primeiro lugar uma nova tabela de endereço direto é criada, seu nome `ocorrencias`, para cada chave representada por uma string de valor categórico igual à de uma expressão, a tabela criada armazena um par com um número inteiro(representa o número de ocorrências de uma expressão) e um vetor de números inteiros(armazena o número das linhas de ocorrência de uma expressão).Caso a linha lida pelo programa não seja vazia a função `transforme` recebe a linha lida atualmente como parâmetro. Caso essa linha tenha caracteres da tabela ASCII atrapalhando a identificação de expressões contidas na linha, os mesmos serão transformados em `' '` ou `''`, posteriormente linha é retornada para uma variável de forma que seja possível identificar as expressões contidas nela. Em seguida utilza-se o método `find` para buscar expressões do arquivo `dataset/expressoes.data` que foram armazenados no vector de string expressoes. Quando as expressoes são encontradas nas linhas lidas, o valor da linha é armazenada e o número de ocorrências de uma expressão aumenta em 1 unidade.
+- Ao baixar o projeto, o usuário tem a opção de escolher quais quer que sejam as palavras/expressões que deseja buscar no texto. Isso se deve ao fato do algoritmo selecionar a lista de expressões através de um arquivo texto. Portanto, basta modificar esse arquivo com o conteúdo almejado. No entanto, para realizar alterações na lista de expressões, é necessário seguir um conjunto reduzido de regras relacionadas ao padrão de organização:
+
+  • Cada expressão deve ser escrita em uma única linha no arquivo;
+  • Não é permitida a inserção de palavras ou expressões que contenham letras maiúsculas acentuadas;
+  • As palavras ou expressões não devem conter caracteres de pontuação, como ”.”, ”?”, ”;”, ”(”, entre outros;
+  • A inclusão de uma linha em branco no arquivo simboliza o término da lista de expressões.
+
+  Essas regras foram estabelecidas após uma análise do problema, que confirmou a necessidade de realizar alterações tanto na lista de expressões quanto no texto a ser utilizado na busca. Diante disso, é importante ressaltar que o programa de computador apresentado neste projeto pode apresentar erros caso alguma dessas regras não seja cumprida.
 
 ## Instruções de Instalação
 1. Copie a URL **`https://github.com/LuanLuL/AEDS---O_Auxiliar_de_Redacao.git`**.
