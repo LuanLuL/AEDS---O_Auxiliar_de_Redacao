@@ -1,7 +1,7 @@
 
 #include <locale>
 #include <fstream>
-#include <ctime>
+#include <time.h>
 #include "palavra.hpp"
 #include "Hash.hpp"
 #define _ios_base_sync_with_stdio _ios_base::sync_with_stdio(0)
