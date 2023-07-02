@@ -818,6 +818,7 @@ bool Hash::stopwords(string palavra)
     return false;
 }
 
+// função para separar as stopwords 
 void Hash::separastopwords()
 {
 

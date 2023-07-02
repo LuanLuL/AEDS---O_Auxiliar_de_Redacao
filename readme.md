@@ -400,7 +400,7 @@ Para compilação e execução do código é necessário que seja criado um arqu
 
 [4] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em 01 de Julho de 2023.
 
-[5] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 01 de Julho de 2023.
+[5] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 01 de Julho de 2023. 
 
 
 
